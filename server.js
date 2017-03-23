@@ -4,6 +4,8 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const settings = require("./settings"); // settings.json
+
 const knex = require('knex')({
   client: 'pg',
   connection: {
