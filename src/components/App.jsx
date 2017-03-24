@@ -1,5 +1,6 @@
 import '../assets/stylesheets/base.scss';
 import React, { Component } from 'react';
+import NavBar from './NavBar.jsx';
 
 let socket = io.connect();
 
@@ -30,6 +31,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <NavBar />
         <h1>Hello, {this.props.name} {this.state.test}!</h1>
         <input onKeyPress={this.submit} placeholder={this.state.test} />
       </div>
