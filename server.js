@@ -40,11 +40,12 @@ io.on('connection', function(client) {
   console.log('client connected!');
 
   client.on('join', function(data) {
-    client.emit("message", "leave me alone")
+    client.emit("message", "leave me alone");
   });
 
   client.on('user', function(data) {
     console.log(data);
+    console.log(data.firstName, 'YOOOOOOOOO');
   });
 });
 

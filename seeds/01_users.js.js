@@ -6,6 +6,7 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         knex.raw('ALTER SEQUENCE users_id_seq RESTART'),
         knex('users').insert({
+          linkedin_id: 'david123',
           first_name: 'David',
           last_name: 'Ng',
           email_address: 'david@test.com',
@@ -37,6 +38,7 @@ exports.seed = function(knex, Promise) {
           honors_awards: JSON.stringify([])
         }),
         knex('users').insert({
+          linkedin_id: 'hans123',
           first_name: 'Hans',
           last_name: 'Kurniadi',
           email_address: 'hans@test.com',
@@ -68,6 +70,7 @@ exports.seed = function(knex, Promise) {
           honors_awards: JSON.stringify(['Honour roll'])
         }),
         knex('users').insert({
+          linkedin_id: 'richard123',
           first_name: 'Richard',
           last_name: 'Hsieh',
           email_address: 'richard@test.com',
@@ -99,6 +102,7 @@ exports.seed = function(knex, Promise) {
           honors_awards: JSON.stringify(['Honour roll'])
         }),
         knex('users').insert({
+          linkedin_id: 'kirat123',
           first_name: 'Kirat',
           last_name: 'Virk',
           email_address: 'kirat@test.com',

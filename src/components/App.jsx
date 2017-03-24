@@ -21,6 +21,7 @@ class App extends Component {
       });
     });
   }
+
   callbackFunction() {
     function onSuccess(data) {
       socket.emit('user', data)
