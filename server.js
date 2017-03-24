@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8080;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const settings = require("./settings"); // settings.json
-
+const pg = require("pg");
 const knex = require('knex')({
   client: 'pg',
   connection: {
@@ -40,6 +40,10 @@ io.on('connection', function(client) {
   console.log('client connected!');
 
   client.on('join', function(data) {
+    client.emit("message", "leave me alone")
+  });
+
+  client.on('user', function(data) {
     console.log(data);
   });
 });
