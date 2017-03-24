@@ -43,7 +43,7 @@ io.on('connection', function(client) {
     client.emit("message", "leave me alone")
   });
 
-  client.on('linkedin', function(data) {
+  client.on('user', function(data) {
     console.log(data);
   });
 });

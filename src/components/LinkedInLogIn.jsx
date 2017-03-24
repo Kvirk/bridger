@@ -1,8 +1,11 @@
-var React = require('react');
+import React, { Component } from 'react';
 
-var LinkedinLogin = React.createClass({
-
-    componentDidMount: function() {
+class LinkedinLogin extends Component {
+    constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+    componentDidMount() {
         var liRoot = document.createElement('div');
         liRoot.id = 'linkedin-root';
 
@@ -20,45 +23,19 @@ var LinkedinLogin = React.createClass({
             js.text = 'api_key: 86ihm2bra9vjg3';
             ljs.parentNode.insertBefore(js, ljs);
         }(document, 'script', 'linkedin-sdk'));
-    },
+    }
 
-    callbackFunction: function() {
-        // IN.API.Profile("me")
-        // .fields([
-        //     "firstName","lastName","headline","positions:(company,title,summary,startDate,endDate,isCurrent)","industry",
-        //     "location:(name,country:(code))","pictureUrl","publicProfileUrl","emailAddress",
-        //     "educations","dateOfBirth"])
-        // .result(function(results) {
-        //     console.log(results);
-        //     console.log("test")
-        // });
-        function onSuccess(data) {
-            console.log(data);
-            console.log(data.location);
-            console.log(data.positions);
-        }
-
-        // Handle an error response from the API call
-        function onError(error) {
-            console.log(error);
-        }
-
-        // Use the API call wrapper to request the member's basic profile data
-
-        IN.API.Raw("/people/~:(id,first-name,last-name,location,positions,industry,specialties,summary)?format=json").result(onSuccess).error(onError);
-    },
-
-    handleClick: function(e) {
+    handleClick(e) {
         e.preventDefault();
-        IN.User.authorize(this.callbackFunction, '');
-    },
+        IN.User.authorize(this.props.callbackFunction, '');
+    }
 
-    render: function() {
+    render() {
         return (
             <div>
             <button onClick={this.handleClick}> Test Me</button>
             </div>
         );
     }
-});
-module.exports = LinkedinLogin;
+}
+export default LinkedinLogin;

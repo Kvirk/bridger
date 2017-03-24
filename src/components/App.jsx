@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.submit = this.submit.bind(this);
+    this.callbackFunction = this.callbackFunction.bind(this);
     this.state = {test: "hello"}
   }
 
@@ -19,6 +20,17 @@ class App extends Component {
         app.setState({test: data })
       });
     });
+  }
+  callbackFunction() {
+    function onSuccess(data) {
+      socket.emit('user', data)
+    }
+
+    function onError(error) {
+        console.log(error);
+    }
+
+    IN.API.Raw("/people/~:(id,first-name,last-name,location,positions,industry,specialties,summary)?format=json").result(onSuccess).error(onError);
   }
 
   submit(key) {
@@ -36,7 +48,7 @@ class App extends Component {
     return (
       <div>
         <h1>Hello, {this.props.name} {this.state.test}!</h1>
-        <LinkedinLogin/>
+        <LinkedinLogin callbackFunction={this.callbackFunction}/>
         <input onKeyPress={this.submit} placeholder={this.state.test} />
       </div>
     )
