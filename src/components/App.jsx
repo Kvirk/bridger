@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello, {this.props.name} {this.state.test}!</h1>
+        <h1>Hello this is Richard, {this.props.name} {this.state.test}!</h1>
         <input onKeyPress={this.submit} placeholder={this.state.test} />
       </div>
     )
