@@ -15,7 +15,8 @@ class NavBar extends Component {
                     <span className="icon-bar"></span>
                 </button>
                 <a className="navbar-brand" href="#">
-                    <img alt="Brand" src="http://www.free-icons-download.net/images/abstract-tree-icon-69924.png" />Bridge
+                    <img alt="Brand" src="http://www.free-icons-download.net/images/abstract-tree-icon-69924.png" />
+                    Bridge
                 </a>
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
-import SectionOne from './SectionOne.jsx';
+import MainSection from './MainSection.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
 import cookie from 'react-cookie';
 
@@ -66,7 +66,7 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        <SectionOne />
+        <MainSection />
       </div>
       // <div>
       //   <h1>Hello, {this.props.name} {this.state.test}!</h1>
