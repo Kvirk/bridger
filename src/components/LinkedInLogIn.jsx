@@ -33,7 +33,7 @@ class LinkedinLogin extends Component {
     render() {
         return (
             <div>
-            <button onClick={this.handleClick}> Test Me</button>
+            <button onClick={this.handleClick}> Log In</button>
             </div>
         );
     }
