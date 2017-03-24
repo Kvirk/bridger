@@ -1,11 +1,9 @@
 import '../assets/stylesheets/base.scss';
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import NavBar from './NavBar.jsx';
-=======
 import LinkedinLogin from './LinkedInLogin.jsx';
 import cookie from 'react-cookie';
->>>>>>> 7dffde6e2f32e946a131b758d32f250d67563e7c
+
 
 let socket = io.connect();
 
@@ -67,14 +65,11 @@ class App extends Component {
     }
     return (
       <div>
-<<<<<<< HEAD
         <NavBar />
         <h1>Hello, {this.props.name} {this.state.test}!</h1>
         <input onKeyPress={this.submit} placeholder={this.state.test} />
-=======
         <h1>Hello, {this.state.name}!</h1>
         <button onClick={this.onLogout}> Log Out</button>
->>>>>>> 7dffde6e2f32e946a131b758d32f250d67563e7c
       </div>
     )
   }
