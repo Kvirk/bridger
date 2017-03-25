@@ -109,8 +109,6 @@ class App extends Component {
     });
   }
 
-  data: ||
-
   backToEP(){
     this.setState({
       type: 'event',
