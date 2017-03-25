@@ -30,10 +30,15 @@ class App extends Component {
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
+    
+    this.goToTestEvent = this.goToTestEvent.bind(this);
+    this.goHome= this.goHome.bind(this);
+
     this.state = {type: type,
         data: data,
         userId: cookie.load('userId'),
-        name: cookie.load('name')}
+        name: cookie.load('name')
+      }
   }
 
   componentDidMount() {
@@ -133,24 +138,41 @@ class App extends Component {
         name: null});
   }
 
+
+  goToTestEvent() {
+    console.log("State is about to change to testEvent");
+    this.setState({
+      type: 'testEvent',
+      data: ["some data in 'testEvent' state"]
+    })
+  }
+
+  goHome() {
+    console.log("State is about to change to home");
+    this.setState({
+      type: 'home',
+      data: ["some data in 'home' state"]
+    })
+  }
+
   render() {
 
     if (!this.state.userId) {
       return (
       <div>
-        <NavBar />
+        <NavBar pageType={this.state.type} goToEventHandler={this.goToTestEvent} goHomeHandler={this.goHome} />
         <MainSection callbackFunction={this.callbackFunction}/>
       </div>
     )}
-    if (this.state.type === "events"){
-       return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
-    }
-    if (this.state.type === "event"){
-       return <EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
-    }
-    if (this.state.type === "userProfile"){
-       return <UserProfile name={this.state.name} backToEP={this.backToEP} data={this.state.data} onLogout={this.onLogout}/>
-    }
+    // if (this.state.type === "events"){
+    //    return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
+    // }
+    // if (this.state.type === "event"){
+    //    return <EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
+    // }
+    // if (this.state.type === "userProfile"){
+    //    return <UserProfile name={this.state.name} backToEP={this.backToEP} data={this.state.data} onLogout={this.onLogout}/>
+    // }
     return (
       <h1>ERROR</h1>
     )
