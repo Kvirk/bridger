@@ -111,8 +111,6 @@ class App extends Component {
     });
   }
 
-  // data: ||
-
   backToEP(){
     this.setState({
       type: 'event',
@@ -136,23 +134,14 @@ class App extends Component {
   }
 
   render() {
-    // if (!this.state.userId) {
-    //   return <LinkedinLogin callbackFunction={this.callbackFunction}/>;
-    // }
-    /*return (
+
+    if (!this.state.userId) {
+      return (
       <div>
         <NavBar />
-        <MainSection />
-      </div>*/
-      // <div>
-      //   <h1>Hello, {this.props.name} {this.state.test}!</h1>
-      //   <input onKeyPress={this.submit} placeholder={this.state.test} />
-      //   <h1>Hello, {this.state.name}!</h1>
-      //   <button onClick={this.onLogout}> Log Out</button>
-      // </div>
-    if (!this.state.userId) {
-      return <LinkedinLogin callbackFunction={this.callbackFunction}/>;
-    }
+        <MainSection callbackFunction={this.callbackFunction}/>
+      </div>
+    )}
     if (this.state.type === "events"){
        return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
     }
