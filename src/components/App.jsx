@@ -1,10 +1,12 @@
-import '../assets/stylesheets/base.scss';
 import React, { Component } from 'react';
+import NavBar from './NavBar.jsx';
+import MainSection from './MainSection.jsx';
 import UserProfile from './UserProfile.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
 import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
 import cookie from 'react-cookie';
+
 
 let socket = io.connect();
 
@@ -109,7 +111,6 @@ class App extends Component {
     });
   }
 
-  data: ||
 
   backToEP(){
     this.setState({
@@ -134,9 +135,14 @@ class App extends Component {
   }
 
   render() {
+
     if (!this.state.userId) {
-      return <LinkedinLogin callbackFunction={this.callbackFunction}/>;
-    }
+      return (
+      <div>
+        <NavBar />
+        <MainSection callbackFunction={this.callbackFunction}/>
+      </div>
+    )}
     if (this.state.type === "events"){
        return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
     }
