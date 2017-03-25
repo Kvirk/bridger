@@ -45,7 +45,6 @@ io.on('connection', function(client) {
   });
 
   client.on('user', function(data) {
-    console.log(data.id, 'YOOOOOOOOOOOOOOOO');
     let position_company_name = [];
     let position_company_industry = [];
     let position_company_type = [];
@@ -96,7 +95,6 @@ io.on('connection', function(client) {
     knex.raw(query).catch((err) => {
       console.error(err);
     });
-    console.log('ENTERING');
   });
 
 });
