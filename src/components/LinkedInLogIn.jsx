@@ -33,9 +33,12 @@ class LinkedinLogin extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.handleClick}> Log In</button>
+                <button className="btn btn-info" onClick={this.handleClick}> Log In</button>
             </div>
         );
     }
 }
 export default LinkedinLogin;
+
+
+
