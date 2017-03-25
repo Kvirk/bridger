@@ -15,7 +15,7 @@ class NavBar extends Component {
         console.log("Rendering <Navbar />");
 
         // Changing content of partial depending on the state type (i.e. current URL path)
-        let partial;
+        let navItemsPartial;
         switch (this.props.pageType) {
             /*case 'testEvent':
                 console.log("This is testEvent state");
@@ -33,8 +33,8 @@ class NavBar extends Component {
                     </div>
                 break;*/
             case 'event':
-                console.log("In event state");
-                partial =
+                console.log("Navbar, event state");
+                navItemsPartial =
                     <span>
                         <li>
                             <a href="#home" onClick={this.goHome.bind(this)}>Home</a>
@@ -46,20 +46,21 @@ class NavBar extends Component {
                             <a href="#events">Upcoming Events</a>
                         </li>
                     </span>
+                break;
             default:
                 console.log("This is default (home page)");
-                partial = 
-                    <div>
-                        {/*<li>
-                            <a href="#test" onClick={this.goToEvent.bind(this)}>TEST GO TO EVENT</a>
-                        </li>*/}
+                navItemsPartial = 
+                    <span>
+                        <li>
+                            <a href="#eventTest" onClick={this.goToEvent.bind(this)}>Event 1</a>
+                        </li>
                         <li>
                             <a href="#events">Events</a>
                         </li>
                         <li>
                             <a href="#services">Login</a>
                         </li>
-                    </div>
+                    </span>
         }
 
         return (
@@ -79,16 +80,7 @@ class NavBar extends Component {
                 </div>
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav center">
-                        {/*<li>
-                            <a href="#test" onClick={this.goToEvent.bind(this)}>TEST GO TO EVENT</a>
-                        </li>
-                        <li>
-                            <a href="#events">Events</a>
-                        </li>
-                        <li>
-                            <a href="#services">Login</a>
-                        </li>*/}
-                        {partial}
+                        {navItemsPartial}
                     </ul>
                 </div>
             </div>

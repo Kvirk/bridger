@@ -31,7 +31,7 @@ class App extends Component {
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
     
-    this.goToTestEvent = this.goToTestEvent.bind(this);
+    this.goToEvent = this.goToEvent.bind(this);
     this.goHome= this.goHome.bind(this);
 
     this.state = {type: type,
@@ -139,19 +139,17 @@ class App extends Component {
   }
 
 
-  goToTestEvent() {
+  goToEvent() {
     console.log("State is about to change to testEvent");
     this.setState({
-      type: 'testEvent',
-      data: ["some data in 'testEvent' state"]
+      type: 'event'
     })
   }
 
   goHome() {
     console.log("State is about to change to home");
     this.setState({
-      type: 'home',
-      data: ["some data in 'home' state"]
+      type: 'home'
     })
   }
 
@@ -160,7 +158,7 @@ class App extends Component {
     if (!this.state.userId) {
       return (
       <div>
-        <NavBar pageType={this.state.type} goToEventHandler={this.goToTestEvent} goHomeHandler={this.goHome} />
+        <NavBar pageType={this.state.type} goToEventHandler={this.goToEvent} goHomeHandler={this.goHome} />
         <MainSection pageType={this.state.type} callbackFunction={this.callbackFunction} />
       </div>
     )}
