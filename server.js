@@ -63,11 +63,11 @@ io.on('connection', function(client) {
     }
 
     let headline = !data.headline ? '' : data.headline;
-    let industry = !data.industry ? '' : data.industry;
     let location = !data.location ? '' : data.location.name;
+    let industry = !data.industry ? '' : data.industry;
+    let current_share = !data.currentShare ? '' : data.currentShare.content.description;
     let summary = !data.summary ? '' : data.summary;
     let picture_url = !data.pictureUrls.values ? '' : data.pictureUrls.values[0];
-    let current_share = !data.currentShare ? '' : data.currentShare.content.description;
 
     let insertData = {
         linkedin_id: data.id,
