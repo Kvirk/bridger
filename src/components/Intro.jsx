@@ -19,7 +19,7 @@ class Intro extends Component {
                 </div>
 
                 <hr className="featurette-divider" />
-      
+
             </section>
         )
     }
