@@ -39,7 +39,6 @@ app.get('/', function(request, response) {
 
 io.on('connection', function(client) {
   console.log('client connected!');
-
   client.on('join', function(data) {
     client.emit("message", "leave me alone");
   });
@@ -96,7 +95,14 @@ io.on('connection', function(client) {
       console.error(err);
     });
   });
+<<<<<<< HEAD
 
+=======
+  client.on('disconnect', function() {
+    console.log("disconnect")
+    console.log(client.id)
+  });
+>>>>>>> c2d3a21c8dabe913504af4452e4d89dc2302728c
 });
 
 server.listen(PORT, function(error) {
