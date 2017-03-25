@@ -22,7 +22,7 @@ class NavBar extends Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul className="nav navbar-nav center">
                 <li>
-                        <a href="#about">Events</a>
+                        <a href="#events" onClick={this.goToEventsHandler.bind(this)}>Events</a>
                     </li>
                     <li>
                         <a href="#services">Login</a>
