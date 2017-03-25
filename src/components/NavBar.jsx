@@ -41,7 +41,7 @@ class NavBar extends Component {
                             <a href="#events">Upcoming Events</a>
                         </li>
                         <li>
-                            <a href="logout">Logout</a>
+                            <a href="#logout" onClick={this.logout.bind(this)}>Logout</a>
                         </li>
                     </ul>
                 break;

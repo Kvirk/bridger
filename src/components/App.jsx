@@ -154,7 +154,7 @@ class App extends Component {
     cookie.remove('userId', { path: '/' });
     cookie.remove('name', { path: '/' });
     this.setState({
-        type: 'login',
+        type: 'home',
         data: {},
         userId: null,
         name: null});
