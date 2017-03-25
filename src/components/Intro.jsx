@@ -16,6 +16,7 @@ class Intro extends Component {
                         <p><a href="#" className="btn btn-info">Register</a></p>
                     </div>
                 </div>
+                <hr class="featurette-divider"/>
             </header>
         )
     }
