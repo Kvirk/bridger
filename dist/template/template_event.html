@@ -11,19 +11,25 @@
 
     <title>One Page Wonder - Start Bootstrap Template</title>
 
+    <!-- Carousel -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"  type="text/css">
     <!-- Bootstrap Core CSS -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"  type="text/css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"  type="text/css">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+    crossorigin="anonymous"></script>
+
 
 
     <!-- Custom CSS -->
     <link href="../../src/assets/stylesheets/one-page-wonder.scss" rel="stylesheet">
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -81,38 +87,152 @@
         </div>
     </header>
 
-    <!-- Page Content -->
-    <div class="container">
-
-        <hr class="featurette-divider">
-
-        <div class ="container marketing">
-            <div class="row">
-                <div class="col-lg-4">
-                    <img class="img-circle" src='...' width="140" height="140">
-                    <h2> Heading</h2>
-                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                    <p><a class='btn btn-default' href='#' role='button'>
-                    View details</a>
-                    </p>
-                </div>
-                <div class="col-lg-4">
-                    <img class="img-circle" src='...' width="140" height="140">
-                    <h2> Heading</h2>
-                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                    <p><a class='btn btn-default' href='#' role='button'>
-                    View details</a>
-                    </p>
-                </div>
-                <div class="col-lg-4">
-                    <img class="img-circle" src='...' width="140" height="140">
-                    <h2> Heading</h2>
-                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                    <p><a class='btn btn-default' href='#' role='button'>
-                    View details</a>
-                    </p>
+    <!-- Profile Layout -->
+     <div class="container">
+        <div class="row">
+            <h1>
+            Dynamically blurring avatar images using Canvas.
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card">
+                    <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                    <div class="avatar">
+                        <img src="http://www.fillmurray.com/200/300" alt="" />
+                    </div>
+                    <div class="content">
+                        <p>Web Developer <br>
+                           More description here</p>
+                        <p><button type="button" class="btn btn-default">Contact</button></p>
+                    </div>
                 </div>
             </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                    <div class="avatar">
+                        <img src="" alt="" />
+                    </div>
+                    <div class="content">
+                        <p>Web Developer <br>
+                           More description here</p>
+                        <p><button type="button" class="btn btn-default">Contact</button></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                    <div class="avatar">
+                        <img src="" alt="" />
+                    </div>
+                    <div class="content">
+                        <p>Web Developer <br>
+                           More description here</p>
+                        <p><button type="button" class="btn btn-default">Contact</button></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                    <div class="avatar">
+                        <img src="" alt="" />
+                    </div>
+                    <div class="content">
+                        <p>Web Developer <br>
+                           More description here</p>
+                        <p><button type="button" class="btn btn-default">Contact</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="featurette-divider">
+
+        <!-- Schedule -->
+    <div class="container">
+
+        <h2>Schedule</h2>
+        <p class="lead">
+            This is your schedule!
+        </p>
+
+        <hr />
+
+        <div class="agenda">
+            <div class="table-responsive">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Single event in a single day -->
+                        <tr>
+                            <td class="agenda-date" class="active" rowspan="1">
+                                <div class="dayofmonth">26</div>
+                                <div class="dayofweek">Saturday</div>
+                                <div class="shortdate text-muted">July, 2014</div>
+                            </td>
+                            <td class="agenda-time">
+                                5:30 AM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event">
+                                    <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i> 
+                                    Fishing
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Multiple events in a single day (note the rowspan) -->
+                        <tr>
+                            <td class="agenda-date" class="active" rowspan="3">
+                                <div class="dayofmonth">24</div>
+                                <div class="dayofweek">Thursday</div>
+                                <div class="shortdate text-muted">July, 2014</div>
+                            </td>
+                            <td class="agenda-time">
+                                8:00 - 9:00 AM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event">
+                                    Doctor's Appointment
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="agenda-time">
+                                10:15 AM - 12:00 PM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event">
+                                    Meeting with executives
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="agenda-time">
+                                7:00 - 9:00 PM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event">
+                                    Aria's dance recital
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
 
 
         <!-- Footer -->
@@ -128,10 +248,8 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
 </body>
 
