@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import LinkedinLogin from './LinkedInLogin.jsx';
 
-class Intro extends Component {
+class Welcome extends Component {
 
     render () {
-        console.log('Rendering <Intro />');
+        console.log('Rendering <Welcome />');
         return (
             <header className="header-image">
                 <div className="container">
@@ -19,10 +19,10 @@ class Intro extends Component {
 
                     </div>
                 </div>
-                <hr class="featurette-divider"/>
+                <hr className="featurette-divider"/>
             </header>
         )
     }
 }
 
-export default Intro;
+export default Welcome;
