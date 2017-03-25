@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import Intro from './Intro.jsx';
+import Welcome from './Welcome.jsx';
 import AllEvents from './AllEvents.jsx';
+import MyEvents from './MyEvents.jsx';
 import EventProfile from './EventProfile.jsx';
+import AllPeople from './AllPeople.jsx';
+import PersonProfile from './PersonProfile.jsx';
 
 class MainSection extends Component {
 
@@ -13,21 +16,21 @@ class MainSection extends Component {
         switch (this.props.urlPath) {
             case 'loggedin':
                 console.log("Section, logged in state");
-                // topSectionPartial = <MyEvents />;
+                topSectionPartial = <MyEvents />;
                 bottomSectionPartial = <AllEvents />;
                 break;
             case 'event':
                 console.log("Section, event state");
-                topSectionPartial = <EventProfile />;
+                topSectionPartial = <MyEvents />;
                 // additionalPartial = <Schedule />;
-                additionalPartial = <h1>Mid section</h1>;
-                bottomSectionPartial = <h1>Bottom section</h1>;
+                // additionalPartial = <h1>Mid section</h1>;
+                bottomSectionPartial = <AllEvents />;
                 break;
 
             // Default case is 'home'
             default:
                 console.log("Section, home state");
-                topSectionPartial = <Intro callbackFunction={this.props.callbackFunction} />;
+                topSectionPartial = <Welcome callbackFunction={this.props.callbackFunction} />;
                 bottomSectionPartial = <AllEvents />;
         }
 

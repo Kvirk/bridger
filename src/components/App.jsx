@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
 import MainSection from './MainSection.jsx';
-import UserProfile from './UserProfile.jsx';
+// import UserProfile from './UserProfile.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
-import EventProfile from './EventProfile.jsx';
-import Event from './Event.jsx';
+// import EventProfile from './EventProfile.jsx';
+// import Event from './Event.jsx';
 import cookie from 'react-cookie';
 
 
@@ -158,7 +158,7 @@ class App extends Component {
     if (!this.state.userId) {
       return (
       <div>
-        <NavBar urlPath={this.state.type} goToEventHandler={this.goToEvent} goHomeHandler={this.goHome} />
+        <NavBar urlPath={this.state.type} goToEventHandler={this.goToEvent} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} />
         <MainSection urlPath={this.state.type} callbackFunction={this.callbackFunction} />
       </div>
     )}
