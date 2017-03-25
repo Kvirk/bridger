@@ -1,6 +1,8 @@
 import '../assets/stylesheets/base.scss';
 import React, { Component } from 'react';
+import UserProfile from './UserProfile.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
+import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
 import cookie from 'react-cookie';
 
@@ -19,6 +21,7 @@ class App extends Component {
           allEvent: ['d', 'e' ]
         };
     }
+    this.backToMain = this.backToMain.bind(this);
     this.addEvent = this.addEvent.bind(this);
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
@@ -73,7 +76,24 @@ class App extends Component {
   }
 
   eventPage(event){
-    console.log(event)
+    this.setState({
+      type: 'event',
+      data: {
+          name: event,
+          timeStart: 'April 6th 2016, 6:30 PM',
+          timeEnd: 'April 6th 2016, 7:30 PM',
+          people:['John', 'Jack', 'Joe', 'Jill', 'J.J.']
+        }
+    });
+  }
+
+  backToMain(e){
+    this.setState({
+        type: 'events',
+        data: {
+          myEvent:['a','b', 'c'],
+          allEvent: ['d', 'e' ]
+        }});
   }
 
   onLogout() {
@@ -92,6 +112,12 @@ class App extends Component {
     }
     if (this.state.type === "events"){
        return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
+    }
+    if (this.state.type === "event"){
+       return <EventProfile name={this.state.name} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
+    }
+    if (this.state.type === "userProfile"){
+       return <UserProfile name={this.state.name} backToEP={this.backToEP} data={this.state.data} onLogout={this.onLogout}/>
     }
     return (
       <h1>ERROR</h1>

@@ -6,7 +6,6 @@ class Event extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data)
   }
 
   render() {
