@@ -9,7 +9,7 @@ class MainSection extends Component {
         return (
             <div className="container">
                 <section className="section-one row">
-                    <Intro />
+                    <Intro callbackFunction={this.props.callbackFunction}/>
                 </section>
                 <section className="section-two row">
                     <MyEvents />
@@ -20,3 +20,4 @@ class MainSection extends Component {
 }
 
 export default MainSection;
+

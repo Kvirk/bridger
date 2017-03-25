@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LinkedinLogin from './LinkedInLogin.jsx';
 
 class Intro extends Component {
 
@@ -14,6 +15,8 @@ class Intro extends Component {
                         </h2>
                         <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
                         <p><a href="#" className="btn btn-info">Register</a></p>
+                        <p><LinkedinLogin callbackFunction={this.props.callbackFunction}/></p>
+
                     </div>
                 </div>
                 <hr class="featurette-divider"/>
