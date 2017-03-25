@@ -17,7 +17,7 @@ class NavBar extends Component {
         // Changing content of partial depending on the state type (i.e. current URL path)
         let partial;
         switch (this.props.pageType) {
-            case 'testEvent':
+            /*case 'testEvent':
                 console.log("This is testEvent state");
                 partial = 
                     <div>
@@ -31,14 +31,28 @@ class NavBar extends Component {
                             <a href="#home" onClick={this.goHome.bind(this)}>Home</a>
                         </li>
                     </div>
-                break;
+                break;*/
+            case 'event':
+                console.log("In event state");
+                partial =
+                    <span>
+                        <li>
+                            <a href="#home" onClick={this.goHome.bind(this)}>Home</a>
+                        </li>
+                        <li>
+                            <a href="#attendees">Suggested People</a>
+                        </li>
+                        <li>
+                            <a href="#events">Upcoming Events</a>
+                        </li>
+                    </span>
             default:
                 console.log("This is default (home page)");
                 partial = 
                     <div>
-                        <li>
+                        {/*<li>
                             <a href="#test" onClick={this.goToEvent.bind(this)}>TEST GO TO EVENT</a>
-                        </li>
+                        </li>*/}
                         <li>
                             <a href="#events">Events</a>
                         </li>

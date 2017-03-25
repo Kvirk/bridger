@@ -161,7 +161,7 @@ class App extends Component {
       return (
       <div>
         <NavBar pageType={this.state.type} goToEventHandler={this.goToTestEvent} goHomeHandler={this.goHome} />
-        <MainSection callbackFunction={this.callbackFunction}/>
+        <MainSection pageType={this.state.type} callbackFunction={this.callbackFunction} />
       </div>
     )}
     // if (this.state.type === "events"){
