@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import NavBar from './NavBar.jsx';
 import MainSection from './MainSection.jsx';
-=======
 import UserProfile from './UserProfile.jsx';
->>>>>>> 9d0484b3c9cb010befc5d12f541f445697b46fc8
 import LinkedinLogin from './LinkedInLogin.jsx';
 import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
@@ -114,7 +111,7 @@ class App extends Component {
     });
   }
 
-  data: ||
+  // data: ||
 
   backToEP(){
     this.setState({
