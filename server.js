@@ -38,13 +38,16 @@ app.get('/', function(request, response) {
 
 io.on('connection', function(client) {
   console.log('client connected!');
-
   client.on('join', function(data) {
     client.emit("message", "leave me alone")
   });
 
   client.on('user', function(data) {
     console.log(data);
+  });
+  client.on('disconnect', function() {
+    console.log("disconnect")
+    console.log(client.id)
   });
 });
 
