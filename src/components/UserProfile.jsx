@@ -15,10 +15,9 @@ class UserProfile extends Component {
         <h1>Hello, {this.props.name}!</h1>
         <button onClick={this.props.onLogout}> Log Out</button>
         <h3>{this.props.data.name}</h3>
-        <h3>{this.props.data.timeStart}</h3>
-        <h3>{this.props.data.timeEnd}</h3>
-        <h3>{this.props.data.people[1]}</h3>
-        <button onClick={this.props.backToMain}> Back</button>
+        <h3>{this.props.data.company}</h3>
+        <h3>{this.props.data.summary}</h3>
+        <button onClick={this.props.backToEP}> Back</button>
       </div>
     )
   }

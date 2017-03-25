@@ -17,7 +17,7 @@ class EventProfile extends Component {
         <h3>{this.props.data.name}</h3>
         <h3>{this.props.data.timeStart}</h3>
         <h3>{this.props.data.timeEnd}</h3>
-        <h3>{this.props.data.people[1]}</h3>
+        <h3 onClick={this.props.seeProfile}>{this.props.data.people[1]}</h3>
         <button onClick={this.props.backToMain}> Back</button>
       </div>
     )

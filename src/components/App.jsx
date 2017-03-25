@@ -21,6 +21,8 @@ class App extends Component {
           allEvent: ['d', 'e' ]
         };
     }
+    this.seeProfile = this.seeProfile.bind(this);
+    this.backToEP = this.backToEP.bind(this);
     this.backToMain = this.backToMain.bind(this);
     this.addEvent = this.addEvent.bind(this);
     this.eventPage = this.eventPage.bind(this);
@@ -87,13 +89,38 @@ class App extends Component {
     });
   }
 
-  backToMain(e){
+  backToMain(){
     this.setState({
         type: 'events',
         data: {
           myEvent:['a','b', 'c'],
           allEvent: ['d', 'e' ]
         }});
+  }
+
+  seeProfile() {
+    this.setState({
+      type: 'userProfile',
+      data: {
+          name: 'Davie',
+          company: 'Lighthouse',
+          summary: 'I code stuff',
+        }
+    });
+  }
+
+  data: ||
+
+  backToEP(){
+    this.setState({
+      type: 'event',
+      data: {
+          name: "sdsadas",
+          timeStart: 'April 6th 2016, 6:30 PM',
+          timeEnd: 'April 6th 2016, 7:30 PM',
+          people:['John', 'Jack', 'Joe', 'Jill', 'J.J.']
+        }
+    });
   }
 
   onLogout() {
@@ -114,7 +141,7 @@ class App extends Component {
        return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
     }
     if (this.state.type === "event"){
-       return <EventProfile name={this.state.name} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
+       return <EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
     }
     if (this.state.type === "userProfile"){
        return <UserProfile name={this.state.name} backToEP={this.backToEP} data={this.state.data} onLogout={this.onLogout}/>
