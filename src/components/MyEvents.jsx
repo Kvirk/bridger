@@ -12,24 +12,22 @@ class MyEvents extends Component {
               <article className="event">
                 <h2> Event 1</h2>
                 <div className="content-section-a">
-                    <div className="container">
-                         <div className="row">
-                            <div className="col-sm-6 pull-right wow fadeInRightBig">
-                                <img className="img-responsive " src="http://www.clipartkid.com/images/466/simple-bridge-clipart-Qqzma8-clipart.png" alt="" />
-                            </div>
+                     <div className="row">
+                        <div className="col-sm-6 pull-right wow fadeInRightBig">
+                            <img className="img-responsive " src="http://www.clipartkid.com/images/466/simple-bridge-clipart-Qqzma8-clipart.png" alt="" />
+                        </div>
 
-                            <div className="col-sm-6 wow fadeInLeftBig"  data-animation-delay="200">
-                                <h3 className="section-heading">Font Awesome & Glyphicon</h3>
-                                <p className="lead">A special thanks to Death to the Stock Photo for
-                                providing the photographs that you see in this template.
-                                </p>
+                        <div className="col-sm-6 wow fadeInLeftBig"  data-animation-delay="200">
+                            <h3 className="section-heading">Font Awesome & Glyphicon</h3>
+                            <p className="lead">A special thanks to Death to the Stock Photo for
+                            providing the photographs that you see in this template.
+                            </p>
 
-                                <ul className="descp lead2">
-                                    <li><i className="glyphicon glyphicon-signal"></i> Reliable and Secure Platform</li>
-                                    <li><i className="glyphicon glyphicon-refresh"></i> Everything is perfectly orgainized for future</li>
-                                    <li><i className="glyphicon glyphicon-headphones"></i> Attach large file easily</li>
-                                </ul>
-                            </div>
+                            <ul className="descp lead2">
+                                <li><i className="glyphicon glyphicon-signal"></i> Reliable and Secure Platform</li>
+                                <li><i className="glyphicon glyphicon-refresh"></i> Everything is perfectly orgainized for future</li>
+                                <li><i className="glyphicon glyphicon-headphones"></i> Attach large file easily</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -39,23 +37,21 @@ class MyEvents extends Component {
               <article className="event">
                 <h2> Event 2</h2>
                 <div className="content-section-a">
-                    <div className="container">
-                         <div className="row">
-                            <div className="col-sm-6 pull-right wow fadeInRightBig">
-                                <img className="img-responsive " src="http://www.clipartkid.com/images/466/simple-bridge-clipart-Qqzma8-clipart.png" alt="" />
-                            </div>c
-                            <div className="col-sm-6 wow fadeInLeftBig"  data-animation-delay="200">
-                                <h3 className="section-heading">Font Awesome & Glyphicon</h3>
-                                <p className="lead">A special thanks to Death to the Stock Photo for
-                                providing the photographs that you see in this template.
-                                </p>
+                     <div className="row">
+                        <div className="col-sm-6 pull-right wow fadeInRightBig">
+                            <img className="img-responsive " src="http://www.clipartkid.com/images/466/simple-bridge-clipart-Qqzma8-clipart.png" alt="" />
+                        </div>
+                        <div className="col-sm-6 wow fadeInLeftBig"  data-animation-delay="200">
+                            <h3 className="section-heading">Font Awesome & Glyphicon</h3>
+                            <p className="lead">A special thanks to Death to the Stock Photo for
+                            providing the photographs that you see in this template.
+                            </p>
 
-                                <ul className="descp lead2">
-                                    <li><i className="glyphicon glyphicon-signal"></i> Reliable and Secure Platform</li>
-                                    <li><i className="glyphicon glyphicon-refresh"></i> Everything is perfectly orgainized for future</li>
-                                    <li><i className="glyphicon glyphicon-headphones"></i> Attach large file easily</li>
-                                </ul>
-                            </div>
+                            <ul className="descp lead2">
+                                <li><i className="glyphicon glyphicon-signal"></i> Reliable and Secure Platform</li>
+                                <li><i className="glyphicon glyphicon-refresh"></i> Everything is perfectly orgainized for future</li>
+                                <li><i className="glyphicon glyphicon-headphones"></i> Attach large file easily</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
