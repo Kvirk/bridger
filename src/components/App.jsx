@@ -33,6 +33,7 @@ class App extends Component {
     
     this.goToEvent = this.goToEvent.bind(this);
     this.goHome= this.goHome.bind(this);
+    this.onLogin = this.onLogin.bind(this);
 
     this.state = {type: type,
         data: data,
@@ -44,6 +45,26 @@ class App extends Component {
   componentDidMount() {
     const app = this;
     socket.on('connect', function(data) {});
+    
+    // // LinkedIn Login
+    // let liRoot = document.createElement('div');
+    //     liRoot.id = 'linkedin-root';
+
+    //     document.body.appendChild(liRoot);
+
+    //     (function(d, s, id) {
+    //         const element = d.getElementsByTagName(s)[0];
+    //         const ljs = element;
+    //         var js = element;
+    //         if (d.getElementById(id)) {
+    //             return; }
+    //         js = d.createElement(s);
+    //         js.id = id;
+    //         js.src = '//platform.linkedin.com/in.js';
+    //         js.text = 'api_key: 86ihm2bra9vjg3';
+    //         ljs.parentNode.insertBefore(js, ljs);
+    //     }(document, 'script', 'linkedin-sdk'));
+    // //End of LinkedIn Login
   }
 
   callbackFunction() {
@@ -151,6 +172,13 @@ class App extends Component {
     console.log("State is about to change to home");
     this.setState({
       type: 'home'
+    })
+  }
+
+  onLogin() {
+    console.log("State is about to change to logged in");
+    this.setState({
+      type: 'loggedin'
     })
   }
 

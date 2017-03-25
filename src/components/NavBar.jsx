@@ -10,6 +10,16 @@ class NavBar extends Component {
         console.log("Going back home");
         this.props.goHomeHandler();
     }
+
+    login(event) {
+        console.log("Logging in");
+        this.props.loginHandler();
+    }
+
+    logout(event) {
+        console.log("Logging out");
+        this.props.logoutHandler();
+    }
     
     render () {
         console.log("Rendering <Navbar />");
@@ -49,7 +59,7 @@ class NavBar extends Component {
                             <a href="#schedule">Schedule</a>
                         </li>
                         <li>
-                            <a href="#logout">Logout</a>
+                            <a href="#logout" onClick={this.logout.bind(this)}>Logout</a>
                         </li>
                     </ul>
                 break;
@@ -58,13 +68,10 @@ class NavBar extends Component {
                 navItemsPartial = 
                     <ul className="nav navbar-nav center">
                         <li>
-                            <a href="#event" onClick={this.goToEvent.bind(this)}>Event 1</a>
-                        </li>
-                        <li>
                             <a href="#events">Events</a>
                         </li>
                         <li>
-                            <a href="#login">Login</a>
+                            <a href="#login" onClick={this.login.bind(this)}>Login</a>
                         </li>
                     </ul>
         }
