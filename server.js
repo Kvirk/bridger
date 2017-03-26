@@ -130,7 +130,6 @@ io.on('connection', function(client) {
     });
   });
 
-
   client.on('createEvent', function(data) {
     let insertData = {
       name: data.formInput.name,
