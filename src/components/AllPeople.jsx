@@ -4,6 +4,7 @@ class AllPeople extends Component {
   
   goToPersonProfile(event) {
     console.log("Entering goToPersonProfile function");
+    this.props.goToPersonProfileHandler();
   }
 
   render () {

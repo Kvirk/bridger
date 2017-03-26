@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
-import MainSection from './MainSection.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
 import cookie from 'react-cookie';
 
@@ -205,7 +204,7 @@ class App extends Component {
       // When clicking a specific event in MyEvent section
       case 'event':
         console.log("Section, event state");
-        topSectionPartial = <AllPeople />;
+        topSectionPartial = <AllPeople goToPersonProfileHandler={this.seeProfile} />;
         bottomSectionPartial = <Schedule />;
         break;
       // Home page partials
@@ -220,7 +219,6 @@ class App extends Component {
       // TODO refactor props (i.e. store handler functions into one 'handlers' object)
       <div className="container">
         <NavBar urlPath={this.state.type} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} />
-        {/*<MainSection urlPath={this.state.type} goToEventHandler={this.goToEvent} callbackFunction={this.callbackFunction} />*/}
         <section className="top-section row">
           {topSectionPartial}
         </section>
