@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
 import cookie from 'react-cookie';
+import EventsCreation from './EventsCreation.jsx';
 
 import Welcome from './Welcome.jsx';
 import AllEvents from './AllEvents.jsx';
@@ -25,11 +26,10 @@ class App extends Component {
     let type = 'login';
     let data = {};
     if (cookie.load('userId')){
-      type = 'events';
-      data = {
-          myEvent:['a','b', 'c'],
-          allEvent: ['d', 'e' ]
-        };
+      let data2 = {
+        userId: cookie.load('userId'),
+      }
+      socket.emit('userLogin', data2)
     }
     this.seeProfile = this.seeProfile.bind(this);
     this.backToEP = this.backToEP.bind(this);
@@ -41,9 +41,9 @@ class App extends Component {
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.goHome= this.goHome.bind(this);
     this.onLogin = this.onLogin.bind(this);
-
+    this.eventsCreation = this.eventsCreation.bind(this);
+    this.handleForm = this.handleForm.bind(this);
     this.state = {type: type,
-        data: data,
         userId: cookie.load('userId'),
         name: cookie.load('name')
       }
@@ -52,7 +52,20 @@ class App extends Component {
   componentDidMount() {
     const app = this;
     socket.on('connect', function(data) {});
-
+    socket.on('responseUserLogin', function(data) {
+      app.setState({
+        type: 'events',
+        data: {
+          myEvent: data.userEvent,
+          allEvent: data.allEvents
+        }});
+    });
+    socket.on('eventAdded', function(data) {
+      let data2 = {
+        userId: cookie.load('userId'),
+      }
+      socket.emit('userLogin', data2)
+    });
     // LinkedIn Login
     let liRoot = document.createElement('div');
       liRoot.id = 'linkedin-root';
@@ -77,15 +90,13 @@ class App extends Component {
   callbackFunction() {
     let app = this;
     function onSuccess(data) {
-      socket.emit('user', data)
+      let data2 = {
+        userId: data.id,
+      }
+      socket.emit('userLogin', data2)
       cookie.save('userId', data.id, { path: '/' });
       cookie.save('name', data.firstName, { path: '/' });
       app.setState({
-        type: 'events',
-        data: {
-          myEvent:['a','b', 'c'],
-          allEvent: ['d', 'e' ]
-        },
         userId: data.id,
         name: data.firstName});
     }
@@ -97,21 +108,21 @@ class App extends Component {
   }
 
   addEvent(event){
-    let myEvent = this.state.data.myEvent;
-    let allEvent = this.state.data.allEvent;
-    myEvent.push(event);
-
-    let index = allEvent.indexOf(event);
-
-    if (index > -1) {
-      allEvent.splice(index, 1);
+    let data = {
+      userId: cookie.load('userId'),
+      eventId: event
     }
-
-    this.setState({data: {
-          myEvent,
-          allEvent
-        }});
+    socket.emit("addEvent", data)
   }
+
+  handleForm(formInput) {
+    let contentToServer = {
+      formInput:formInput
+    }
+    socket.emit('createEvent', contentToServer)
+    console.log("This is the content", formInput)
+  }
+
 
   eventPage(event){
     this.setState({
@@ -125,13 +136,17 @@ class App extends Component {
     });
   }
 
-  backToMain(){
+  eventsCreation(){
     this.setState({
-        type: 'events',
-        data: {
-          myEvent:['a','b', 'c'],
-          allEvent: ['d', 'e' ]
-        }});
+      type: 'creation'
+    });
+  }
+
+  backToMain(){
+    let data2 = {
+        userId: cookie.load('userId'),
+    }
+    socket.emit('userLogin', data2)
   }
 
   seeProfile() {
@@ -233,12 +248,15 @@ class App extends Component {
         topSectionPartial = <Welcome callbackFunction={this.callbackFunction} />;
         bottomSectionPartial = <AllEvents />;
     }
+    if (this.state.type === "creation") {
+       return <EventsCreation  handleForm={this.handleForm}/>
+     }
 
     if (!this.state.userId) {
       return (
       // TODO refactor props (i.e. store handler functions into one 'handlers' object)
       <div className="container">
-        <NavBar urlPath={this.state.type} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} />
+        <NavBar urlPath={this.state.type} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} eventsCreationFunction={this.eventsCreation} />
         <section className="top-section row">
           {topSectionPartial}
         </section>
