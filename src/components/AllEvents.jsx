@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 
-class MyEvents extends Component {
+class AllEvents extends Component {
 
 	render () {
 		console.log('Rendering <MyEvent />');
@@ -95,4 +95,4 @@ class MyEvents extends Component {
 	}
 }
 
-export default MyEvents;
+export default AllEvents;
