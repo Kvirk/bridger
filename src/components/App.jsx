@@ -39,7 +39,7 @@ class App extends Component {
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
     
-    this.goToEvent = this.goToEvent.bind(this);
+    this.goToEventProfile = this.goToEventProfile.bind(this);
     this.goHome= this.goHome.bind(this);
     this.onLogin = this.onLogin.bind(this);
 
@@ -197,16 +197,14 @@ class App extends Component {
     switch (this.state.type) {
       case 'loggedin':
         console.log("Section, logged in state");
-        topSectionPartial = <MyEvents goToEventHandler={this.goToEvent} />;
+        topSectionPartial = <MyEvents goToEventProfileHandler={this.goToEventProfile} />;
         bottomSectionPartial = <AllEvents />;
         break;
-      // case 'event':
-      //     console.log("Section, event state");
-      //     topSectionPartial = <MyEvents />;
-      //     // additionalPartial = <Schedule />;
-      //     // additionalPartial = <h1>Mid section</h1>;
-      //     bottomSectionPartial = <AllEvents />;
-      //     break;
+      case 'event':
+        console.log("Section, event state");
+        topSectionPartial = <AllPeople />;
+        bottomSectionPartial = <AllEvents />;
+        break;
       // Default case is 'home'
       default:
         console.log("Section, home state");

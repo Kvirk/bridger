@@ -8,6 +8,11 @@ class MyEvents extends Component {
   componentDidMount() {
   }
 
+  goToEventProfile(event) {
+    console.log("Entering goToEventProfile handler");
+    this.props.goToEventProfileHandler();
+  }
+
   render() {
     return (
       <div>
@@ -15,9 +20,9 @@ class MyEvents extends Component {
         <br />
         <br />
         <h1>This is MyEvents Component</h1>
-        <h1><a href="#eventprofile" onClick={this.goToEventProfile}>My Event 1</a></h1>
-        <h1><a href="#eventprofile" onClick={this.goToEventProfile}>My Event 2</a></h1>
-        <h1><a href="#eventprofile" onClick={this.goToEventProfile}>My Event 3</a></h1>
+        <h1><a href="#eventprofile" onClick={this.goToEventProfile.bind(this)}>My Event 1</a></h1>
+        <h1><a href="#eventprofile" onClick={this.goToEventProfile.bind(this)}>My Event 2</a></h1>
+        <h1><a href="#eventprofile" onClick={this.goToEventProfile.bind(this)}>My Event 3</a></h1>
         <hr />
         {/*<h1>Hello, {this.props.name}!</h1>
           {this.props.data.myEvent.map((dat, i) => {
