@@ -39,12 +39,12 @@ class EventsCreation extends Component {
               <input type="text" ref='venue' name="venue" />
             </label>
             <label>Start Time:
-              <input type="text" ref='start' name="start-time" />
+              <input type="text" ref='start' name="start-time" type="Datetime-local"/>
             </label>
             <label>End Time:
-              <input type="text" ref='end' name="end-time" />
+              <input type="text" ref='end' name="end-time" type="Datetime-local"/>
             </label>
-              <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit"/>
           </form>
       </div>
     )
