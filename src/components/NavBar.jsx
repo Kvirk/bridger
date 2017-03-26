@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 
 class NavBar extends Component {
-    goToEvent(event) {
-        console.log("Entering goToEvent function");
-        this.props.goToEventHandler();
-    }
+   constructor(props) {
+    super(props);
+    this.goHome = this.goHome.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+   }
+   
+    // goToEvent(event) {
+    //     console.log("Entering goToEvent function");
+    //     this.props.goToEventHandler();
+    // }
 
     goHome(event) {
         console.log("Going back home");
@@ -32,7 +39,7 @@ class NavBar extends Component {
                 navItemsPartial = 
                     <ul className="nav navbar-nav center">
                         <li>
-                            <a href="#home" onClick={this.goHome.bind(this)}>Home</a>
+                            <a href="#home" onClick={this.goHome}>Home</a>
                         </li>
                         <li>
                             <a href="#myevents">MyEvents</a>
@@ -41,7 +48,7 @@ class NavBar extends Component {
                             <a href="#events">Upcoming Events</a>
                         </li>
                         <li>
-                            <a href="#logout" onClick={this.logout.bind(this)}>Logout</a>
+                            <a href="#logout" onClick={this.logout}>Logout</a>
                         </li>
                     </ul>
                 break;
@@ -50,7 +57,7 @@ class NavBar extends Component {
                 navItemsPartial =
                     <ul className="nav navbar-nav center">
                         <li>
-                            <a href="#home" onClick={this.goHome.bind(this)}>Home</a>
+                            <a href="#home" onClick={this.goHome}>Home</a>
                         </li>
                         <li>
                             <a href="#attendees">Suggested People</a>
@@ -59,7 +66,7 @@ class NavBar extends Component {
                             <a href="#schedule">Schedule</a>
                         </li>
                         <li>
-                            <a href="#logout" onClick={this.logout.bind(this)}>Logout</a>
+                            <a href="#logout" onClick={this.logout}>Logout</a>
                         </li>
                     </ul>
                 break;
@@ -72,7 +79,7 @@ class NavBar extends Component {
                             <a href="#events">Events</a>
                         </li>
                         <li>
-                            <a href="#login" onClick={this.login.bind(this)}>Login</a>
+                            <a href="#login" onClick={this.login}>Login</a>
                         </li>
                     </ul>
         }

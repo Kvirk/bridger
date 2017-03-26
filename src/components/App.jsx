@@ -37,7 +37,7 @@ class App extends Component {
     this.addEvent = this.addEvent.bind(this);
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
-    this.callbackFunction = this.callbackFunction.bind(this);
+    // this.callbackFunction = this.callbackFunction.bind(this);
     
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.goHome= this.goHome.bind(this);
@@ -54,48 +54,48 @@ class App extends Component {
     const app = this;
     socket.on('connect', function(data) {});
     
-    // // LinkedIn Login
-    // let liRoot = document.createElement('div');
-    //     liRoot.id = 'linkedin-root';
+    // LinkedIn Login
+    let liRoot = document.createElement('div');
+      liRoot.id = 'linkedin-root';
 
-    //     document.body.appendChild(liRoot);
+      document.body.appendChild(liRoot);
 
-    //     (function(d, s, id) {
-    //         const element = d.getElementsByTagName(s)[0];
-    //         const ljs = element;
-    //         var js = element;
-    //         if (d.getElementById(id)) {
-    //             return; }
-    //         js = d.createElement(s);
-    //         js.id = id;
-    //         js.src = '//platform.linkedin.com/in.js';
-    //         js.text = 'api_key: 86ihm2bra9vjg3';
-    //         ljs.parentNode.insertBefore(js, ljs);
-    //     }(document, 'script', 'linkedin-sdk'));
-    // //End of LinkedIn Login
+      (function(d, s, id) {
+        const element = d.getElementsByTagName(s)[0];
+        const ljs = element;
+        var js = element;
+        if (d.getElementById(id)) {
+            return; }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = '//platform.linkedin.com/in.js';
+        js.text = 'api_key: 86ihm2bra9vjg3';
+        ljs.parentNode.insertBefore(js, ljs);
+      }(document, 'script', 'linkedin-sdk'));
+    //End of LinkedIn Login
   }
 
-  callbackFunction() {
-    let app = this;
-    function onSuccess(data) {
-      socket.emit('user', data)
-      cookie.save('userId', data.id, { path: '/' });
-      cookie.save('name', data.firstName, { path: '/' });
-      app.setState({
-        type: 'events',
-        data: {
-          myEvent:['a','b', 'c'],
-          allEvent: ['d', 'e' ]
-        },
-        userId: data.id,
-        name: data.firstName});
-    }
+  // callbackFunction() {
+  //   let app = this;
+  //   function onSuccess(data) {
+  //     socket.emit('user', data)
+  //     cookie.save('userId', data.id, { path: '/' });
+  //     cookie.save('name', data.firstName, { path: '/' });
+  //     app.setState({
+  //       type: 'events',
+  //       data: {
+  //         myEvent:['a','b', 'c'],
+  //         allEvent: ['d', 'e' ]
+  //       },
+  //       userId: data.id,
+  //       name: data.firstName});
+  //   }
 
-    function onError(error) {
-    }
+  //   function onError(error) {
+  //   }
 
-    IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
-  }
+  //   IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
+  // }
 
   addEvent(event){
     let myEvent = this.state.data.myEvent;
@@ -157,6 +157,31 @@ class App extends Component {
         }
     });
   }
+  // TODO still cant login using LinkedIn
+  onLogin() {
+    console.log("State is about to change to logged in");
+    this.setState({
+      type: 'loggedin'
+    })
+    // function onSuccess(data) {
+    //   socket.emit('user', data)
+    //   cookie.save('userId', data.id, { path: '/' });
+    //   cookie.save('name', data.firstName, { path: '/' });
+    //   this.setState({
+    //     type: 'loggedin',
+    //     data: {
+    //       myEvent:['a','b', 'c'],
+    //       allEvent: ['d', 'e' ]
+    //     },
+    //     userId: data.id,
+    //     name: data.firstName});
+    // }
+
+    // function onError(error) {
+    // }
+
+    // IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
+  }
 
   onLogout() {
     cookie.remove('userId', { path: '/' });
@@ -183,13 +208,6 @@ class App extends Component {
     })
   }
 
-  onLogin() {
-    console.log("State is about to change to logged in");
-    this.setState({
-      type: 'loggedin'
-    })
-  }
-
   render() {
 
     let topSectionPartial;
@@ -207,6 +225,9 @@ class App extends Component {
         topSectionPartial = <AllPeople goToPersonProfileHandler={this.seeProfile} />;
         bottomSectionPartial = <Schedule />;
         break;
+      case 'userProfile':
+        console.log("Section, userProfile state");
+        
       // Home page partials
       default:
         console.log("Section, home state");
