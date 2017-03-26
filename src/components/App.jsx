@@ -30,7 +30,7 @@ class App extends Component {
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
-    
+
     this.goToEvent = this.goToEvent.bind(this);
     this.goHome= this.goHome.bind(this);
 

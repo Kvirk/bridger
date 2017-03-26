@@ -3,26 +3,22 @@ import LinkedinLogin from './LinkedInLogin.jsx';
 
 class Welcome extends Component {
 
-    render () {
-        console.log('Rendering <Welcome />');
-        return (
-            <header className="header-image">
-                <div className="container">
-                    <div className="featurette" classID="about">
-                        <img className="featurette-image img-circle img-responsive pull-right" src="http://www.nowdigitalnetwork.com/wp-content/uploads/2014/05/Demo-Day.jpg"/>
-                        <h2 className="featurette-heading">This First Heading
-                            <span className="text-muted">Will Catch Your Eye</span>
-                        </h2>
-                        <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                        <p><a href="#" className="btn btn-info">Register</a></p>
-                        <p><LinkedinLogin callbackFunction={this.props.callbackFunction}/></p>
-
-                    </div>
-                </div>
-                <hr className="featurette-divider"/>
-            </header>
-        )
-    }
+	render () {
+		console.log('Rendering <Welcome />');
+		return (
+			<header className="header-image">
+				<div className="container">
+					<div className="featurette" classID="about">
+						<h2 className="featurette-heading">The Secret Is
+							<span> Teamwork.</span>
+						</h2>
+						<p className="lead">Bridged connects you with the right people.</p>
+					</div>
+				</div>
+				<hr className="featurette-divider"/>
+			</header>
+		)
+	}
 }
 
 export default Welcome;

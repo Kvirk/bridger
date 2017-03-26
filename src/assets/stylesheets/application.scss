@@ -1,9 +1,14 @@
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css');
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css');
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css);
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css);
 @import 'one-page-wonder';
+@import url(https://fonts.googleapis.com/css?family=Nunito);
 
-h1 {
+html, body {
+  font-family: 'Nunito', sans-serif;
+}
+
+/*h1 {
   font-family: helvetica;
   font-weight: 200;
 }
@@ -16,4 +21,4 @@ h1 {
 .row {
   border-color: red;
   border-style: dashed;
-}
+}*/
