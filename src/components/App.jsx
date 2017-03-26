@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
-import MainSection from './MainSection.jsx';
-import UserProfile from './UserProfile.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
-import EventProfile from './EventProfile.jsx';
-import Event from './Event.jsx';
 import cookie from 'react-cookie';
 import EventsCreation from './EventsCreation.jsx';
+
+import Welcome from './Welcome.jsx';
+import AllEvents from './AllEvents.jsx';
+import MyEvents from './MyEvents.jsx';
+import AllPeople from './AllPeople.jsx';
+import PersonProfile from './PersonProfile.jsx';
+import Schedule from './Schedule.jsx';
+
+import UserProfile from './UserProfile.jsx';
+import EventProfile from './EventProfile.jsx';
+import Event from './Event.jsx';
 
 
 let socket = io.connect();
@@ -30,18 +37,19 @@ class App extends Component {
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
+    this.goToEventProfile = this.goToEventProfile.bind(this);
+    this.goHome= this.goHome.bind(this);
     this.eventsCreation = this.eventsCreation.bind(this);
     this.handleForm = this.handleForm.bind(this);
     this.state = {type: type,
         userId: cookie.load('userId'),
-        name: cookie.load('name')}
+        name: cookie.load('name')
+      }
   }
 
   componentDidMount() {
     const app = this;
-    socket.on('connect', function(data) {
-
-    });
+    socket.on('connect', function(data) {});
     socket.on('responseUserLogin', function(data) {
       app.setState({
         type: 'events',
@@ -135,7 +143,6 @@ class App extends Component {
     });
   }
 
-
   backToEP(){
     this.setState({
       type: 'event',
@@ -158,13 +165,32 @@ class App extends Component {
         name: null});
   }
 
-  render() {
 
+  goToEventProfile() {
+    console.log("State is about to change to testEvent");
+    this.setState({
+      type: 'event'
+    })
+  }
+
+  goHome() {
+    console.log("State is about to change to home");
+    this.setState({
+      type: 'home'
+    })
+  }
+
+  render() {
     if (!this.state.userId) {
       return (
-      <div>
-        <NavBar eventsCreationFunction={this.eventsCreation}/>
-        <MainSection callbackFunction={this.callbackFunction}/>
+      <div className="container">
+        <NavBar urlPath={this.state.type} goHomeHandler={this.goHome} callbackFunction={this.callbackFunction} logoutHandler={this.onLogout} eventsCreationFunction={this.eventsCreation} />
+        <section className="top-section row">
+          <Welcome callbackFunction={this.callbackFunction} />
+        </section>
+        <section className="bottom-section row">
+          <AllEvents />
+        </section>
       </div>
     )}
 

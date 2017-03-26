@@ -9,7 +9,7 @@ class EventProfile extends Component {
   }
 
 
-  render() {
+   render() {
     return (
       <div>
         <h1>Hello, {this.props.name}!</h1>
