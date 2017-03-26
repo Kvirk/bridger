@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class NavBar extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   render () {
     console.log("Rendering <Navbar />");
@@ -26,6 +29,9 @@ class NavBar extends Component {
                     </li>
                     <li>
                         <a href="#services">Login</a>
+                    </li>
+                    <li>
+                        <a onClick={this.props.eventsCreationFunction}>Creation</a>
                     </li>
                 </ul>
             </div>
