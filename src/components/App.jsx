@@ -10,6 +10,7 @@ import MyEvents from './MyEvents.jsx';
 import EventProfile from './EventProfile.jsx';
 import AllPeople from './AllPeople.jsx';
 import PersonProfile from './PersonProfile.jsx';
+import Schedule from './Schedule.jsx';
 
 // import UserProfile from './UserProfile.jsx';
 // import EventProfile from './EventProfile.jsx';
@@ -195,17 +196,19 @@ class App extends Component {
     let topSectionPartial;
     let bottomSectionPartial;
     switch (this.state.type) {
+      // When logging in
       case 'loggedin':
         console.log("Section, logged in state");
         topSectionPartial = <MyEvents goToEventProfileHandler={this.goToEventProfile} />;
         bottomSectionPartial = <AllEvents />;
         break;
+      // When clicking a specific event in MyEvent section
       case 'event':
         console.log("Section, event state");
         topSectionPartial = <AllPeople />;
-        bottomSectionPartial = <AllEvents />;
+        bottomSectionPartial = <Schedule />;
         break;
-      // Default case is 'home'
+      // Home page partials
       default:
         console.log("Section, home state");
         topSectionPartial = <Welcome callbackFunction={this.callbackFunction} />;
