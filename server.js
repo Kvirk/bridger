@@ -42,6 +42,14 @@ io.on('connection', function(client) {
   client.on('join', function(data) {
     client.emit("message", "leave me alone");
   });
+
+  client.on('getEvent', function(event_id){
+    knex.table('events').where('id', event_id)
+    .then(function(event){
+      console.log(event)
+    })
+  });
+
   client.on('userLogin', function(data) {
     let sendData;
     knex.select().table('events')

@@ -108,6 +108,7 @@ class App extends Component {
 
 
   eventPage(event){
+    socket.emit('getEvent', event)
     this.setState({
       type: 'event',
       data: {
