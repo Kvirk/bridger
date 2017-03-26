@@ -6,6 +6,7 @@ import LinkedinLogin from './LinkedInLogin.jsx';
 import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
 import cookie from 'react-cookie';
+import EventsCreation from './EventsCreation.jsx';
 
 
 let socket = io.connect();
@@ -29,6 +30,8 @@ class App extends Component {
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
+    this.eventsCreation = this.eventsCreation.bind(this);
+    this.handleForm = this.handleForm.bind(this);
     this.state = {type: type,
         userId: cookie.load('userId'),
         name: cookie.load('name')}
@@ -83,6 +86,15 @@ class App extends Component {
     socket.emit("addEvent", data)
   }
 
+  handleForm(formInput) {
+    let contentToServer = {
+      formInput:formInput
+    }
+    socket.emit('createEvent', contentToServer)
+    console.log("This is the content", formInput)
+  }
+
+
   eventPage(event){
     this.setState({
       type: 'event',
@@ -92,6 +104,12 @@ class App extends Component {
           timeEnd: 'April 6th 2016, 7:30 PM',
           people:['John', 'Jack', 'Joe', 'Jill', 'J.J.']
         }
+    });
+  }
+
+  eventsCreation(){
+    this.setState({
+      type: 'creation'
     });
   }
 
@@ -138,13 +156,18 @@ class App extends Component {
 
   render() {
 
+    if (this.state.type === "creation") {
+       return <EventsCreation  handleForm={this.handleForm}/>
+    }
+
     if (!this.state.userId) {
       return (
       <div>
-        <NavBar />
+        <NavBar eventsCreationFunction={this.eventsCreation}/>
         <MainSection callbackFunction={this.callbackFunction}/>
       </div>
     )}
+
     if (this.state.type === "events"){
        return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
     }
