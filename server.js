@@ -42,6 +42,40 @@ io.on('connection', function(client) {
   client.on('join', function(data) {
     client.emit("message", "leave me alone");
   });
+  client.on('userLogin', function(data) {
+    let sendData;
+    knex.select().table('events')
+    .then(function(dat){
+      knex.column('id').table('users').where('linkedin_id', data.userId)
+      .then(function(id){
+        knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
+        .then(function(userEvent){
+          sendData = {allEvents: dat, userEvent: userEvent}
+          client.emit("responseUserLogin", sendData);
+        })
+      });
+
+    });
+    // client.emit()
+  });
+
+  client.on('addEvent', function(data) {
+    knex.column('id').table('users').where('linkedin_id', data.userId)
+    .then(function(dat){
+      knex.select().table('event_users').where('event_id', data.eventId).andWhere('user_id', dat[0].id)
+      .then(function(events){
+        if (events.length === 0){
+          knex('event_users').insert({event_id: data.eventId, user_id: dat[0].id})
+          .then(function(){
+            client.emit('eventAdded');
+            // knex.select().table('event_users').where('user_id', dat[0].id).then(function(last){
+            //   client.emit("eventAdded", last)
+            // })
+          })
+        }
+      })
+    })
+  });
 
   client.on('user', function(data) {
     let position_company_name = [];
@@ -95,14 +129,10 @@ io.on('connection', function(client) {
       console.error(err);
     });
   });
-<<<<<<< HEAD
-
-=======
   client.on('disconnect', function() {
     console.log("disconnect")
     console.log(client.id)
   });
->>>>>>> c2d3a21c8dabe913504af4452e4d89dc2302728c
 });
 
 server.listen(PORT, function(error) {

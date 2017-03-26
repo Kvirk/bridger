@@ -17,11 +17,10 @@ class App extends Component {
     let type = 'login';
     let data = {};
     if (cookie.load('userId')){
-      type = 'events';
-      data = {
-          myEvent:['a','b', 'c'],
-          allEvent: ['d', 'e' ]
-        };
+      let data2 = {
+        userId: cookie.load('userId'),
+      }
+      socket.emit('userLogin', data2)
     }
     this.seeProfile = this.seeProfile.bind(this);
     this.backToEP = this.backToEP.bind(this);
@@ -31,28 +30,41 @@ class App extends Component {
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
     this.state = {type: type,
-        data: data,
         userId: cookie.load('userId'),
         name: cookie.load('name')}
   }
 
   componentDidMount() {
     const app = this;
-    socket.on('connect', function(data) {});
+    socket.on('connect', function(data) {
+
+    });
+    socket.on('responseUserLogin', function(data) {
+      app.setState({
+        type: 'events',
+        data: {
+          myEvent: data.userEvent,
+          allEvent: data.allEvents
+        }});
+    });
+    socket.on('eventAdded', function(data) {
+      let data2 = {
+        userId: cookie.load('userId'),
+      }
+      socket.emit('userLogin', data2)
+    });
   }
 
   callbackFunction() {
     let app = this;
     function onSuccess(data) {
-      socket.emit('user', data)
+      let data2 = {
+        userId: data.id,
+      }
+      socket.emit('userLogin', data2)
       cookie.save('userId', data.id, { path: '/' });
       cookie.save('name', data.firstName, { path: '/' });
       app.setState({
-        type: 'events',
-        data: {
-          myEvent:['a','b', 'c'],
-          allEvent: ['d', 'e' ]
-        },
         userId: data.id,
         name: data.firstName});
     }
@@ -64,20 +76,11 @@ class App extends Component {
   }
 
   addEvent(event){
-    let myEvent = this.state.data.myEvent;
-    let allEvent = this.state.data.allEvent;
-    myEvent.push(event);
-
-    let index = allEvent.indexOf(event);
-
-    if (index > -1) {
-      allEvent.splice(index, 1);
+    let data = {
+      userId: cookie.load('userId'),
+      eventId: event
     }
-
-    this.setState({data: {
-          myEvent,
-          allEvent
-        }});
+    socket.emit("addEvent", data)
   }
 
   eventPage(event){
@@ -93,12 +96,10 @@ class App extends Component {
   }
 
   backToMain(){
-    this.setState({
-        type: 'events',
-        data: {
-          myEvent:['a','b', 'c'],
-          allEvent: ['d', 'e' ]
-        }});
+    let data2 = {
+        userId: cookie.load('userId'),
+    }
+    socket.emit('userLogin', data2)
   }
 
   seeProfile() {
