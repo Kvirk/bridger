@@ -83,12 +83,12 @@ class App extends Component {
         }});
   }
 
-  handleForm(content) {
+  handleForm(formInput) {
     let contentToServer = {
-      content:content
+      formInput:formInput
     }
     socket.emit('createEvent', contentToServer)
-    console.log("This is the content", content)
+    console.log("This is the content", formInput)
   }
 
 

@@ -96,6 +96,23 @@ io.on('connection', function(client) {
     });
   });
 
+  client.on('createEvent', function(data) {
+    let insertData = {
+      name: data.formInput.name,
+      description: data.formInput.description,
+      venue: data.formInput.venue,
+      start_time: data.formInput.start,
+      end_time: data.formInput.end
+    }
+    let insert = knex('events').insert(insertData).toString();
+    knex.raw(insert).catch((err) => {
+      console.error(err);
+    });
+    console.log('Create event comes here')
+    console.log('This is data', data.formInput)
+
+  })
+
   client.on('disconnect', function() {
     console.log("disconnect")
     console.log(client.id)
