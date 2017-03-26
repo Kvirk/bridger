@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
 import MainSection from './MainSection.jsx';
-// import UserProfile from './UserProfile.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
+import cookie from 'react-cookie';
+
+import Welcome from './Welcome.jsx';
+import AllEvents from './AllEvents.jsx';
+import MyEvents from './MyEvents.jsx';
+import EventProfile from './EventProfile.jsx';
+import AllPeople from './AllPeople.jsx';
+import PersonProfile from './PersonProfile.jsx';
+
+// import UserProfile from './UserProfile.jsx';
 // import EventProfile from './EventProfile.jsx';
 // import Event from './Event.jsx';
-import cookie from 'react-cookie';
 
 
 let socket = io.connect();
@@ -161,7 +169,7 @@ class App extends Component {
   }
 
 
-  goToEvent() {
+  goToEventProfile() {
     console.log("State is about to change to testEvent");
     this.setState({
       type: 'event'
@@ -184,11 +192,40 @@ class App extends Component {
 
   render() {
 
+    let topSectionPartial;
+    let bottomSectionPartial;
+    switch (this.state.type) {
+      case 'loggedin':
+        console.log("Section, logged in state");
+        topSectionPartial = <MyEvents goToEventHandler={this.goToEvent} />;
+        bottomSectionPartial = <AllEvents />;
+        break;
+      // case 'event':
+      //     console.log("Section, event state");
+      //     topSectionPartial = <MyEvents />;
+      //     // additionalPartial = <Schedule />;
+      //     // additionalPartial = <h1>Mid section</h1>;
+      //     bottomSectionPartial = <AllEvents />;
+      //     break;
+      // Default case is 'home'
+      default:
+        console.log("Section, home state");
+        topSectionPartial = <Welcome callbackFunction={this.callbackFunction} />;
+        bottomSectionPartial = <AllEvents />;
+    }
+
     if (!this.state.userId) {
       return (
-      <div>
-        <NavBar urlPath={this.state.type} goToEventHandler={this.goToEvent} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} />
-        <MainSection urlPath={this.state.type} callbackFunction={this.callbackFunction} />
+      // TODO refactor props (i.e. store handler functions into one 'handlers' object)
+      <div className="container">
+        <NavBar urlPath={this.state.type} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} />
+        {/*<MainSection urlPath={this.state.type} goToEventHandler={this.goToEvent} callbackFunction={this.callbackFunction} />*/}
+        <section className="top-section row">
+          {topSectionPartial}
+        </section>
+        <section className="bottom-section row">
+          {bottomSectionPartial}
+        </section>
       </div>
     )}
     // if (this.state.type === "events"){

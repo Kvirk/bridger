@@ -8,6 +8,11 @@ import PersonProfile from './PersonProfile.jsx';
 
 class MainSection extends Component {
 
+    goToEvent(event) {
+        console.log("Entering goToEvent function");
+        this.props.goToEventHandler();
+    }
+
     render () {
         
         let topSectionPartial;
@@ -16,17 +21,16 @@ class MainSection extends Component {
         switch (this.props.urlPath) {
             case 'loggedin':
                 console.log("Section, logged in state");
-                topSectionPartial = <MyEvents />;
+                topSectionPartial = <MyEvents goToEventHandler={this.props.goToEventHandler} />;
                 bottomSectionPartial = <AllEvents />;
                 break;
-            case 'event':
-                console.log("Section, event state");
-                topSectionPartial = <MyEvents />;
-                // additionalPartial = <Schedule />;
-                // additionalPartial = <h1>Mid section</h1>;
-                bottomSectionPartial = <AllEvents />;
-                break;
-
+            // case 'event':
+            //     console.log("Section, event state");
+            //     topSectionPartial = <MyEvents />;
+            //     // additionalPartial = <Schedule />;
+            //     // additionalPartial = <h1>Mid section</h1>;
+            //     bottomSectionPartial = <AllEvents />;
+            //     break;
             // Default case is 'home'
             default:
                 console.log("Section, home state");
@@ -40,9 +44,6 @@ class MainSection extends Component {
                 <section className="top-section row">
                     {topSectionPartial}
                 </section>
-                <section className="mid-section row">
-                    {additionalPartial}
-                </section>   
                 <section className="bottom-section row">
                     {bottomSectionPartial}
                 </section>

@@ -63,6 +63,7 @@ class NavBar extends Component {
                         </li>
                     </ul>
                 break;
+            // Default case is home
             default:
                 console.log("This is default (home page)");
                 navItemsPartial = 

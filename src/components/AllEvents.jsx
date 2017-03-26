@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class MyEvents extends Component {
+class AllEvents extends Component {
 
     render () {
         console.log('Rendering <MyEvent />');
@@ -74,4 +74,4 @@ class MyEvents extends Component {
     }
 }
 
-export default MyEvents;
+export default AllEvents;
