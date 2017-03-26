@@ -37,7 +37,7 @@ class App extends Component {
     this.addEvent = this.addEvent.bind(this);
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
-    this.callbackFunction = this.callbackFunction.bind(this);
+    this.linkedinLogin = this.linkedinLogin.bind(this);
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.goHome= this.goHome.bind(this);
     this.onLogin = this.onLogin.bind(this);
@@ -66,28 +66,9 @@ class App extends Component {
       }
       socket.emit('userLogin', data2)
     });
-    // LinkedIn Login
-    let liRoot = document.createElement('div');
-      liRoot.id = 'linkedin-root';
-
-      document.body.appendChild(liRoot);
-
-      (function(d, s, id) {
-        const element = d.getElementsByTagName(s)[0];
-        const ljs = element;
-        var js = element;
-        if (d.getElementById(id)) {
-            return; }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = '//platform.linkedin.com/in.js';
-        js.text = 'api_key: 86ihm2bra9vjg3';
-        ljs.parentNode.insertBefore(js, ljs);
-      }(document, 'script', 'linkedin-sdk'));
-    //End of LinkedIn Login
   }
 
-  callbackFunction() {
+  linkedinLogin() {
     let app = this;
     function onSuccess(data) {
       let data2 = {
@@ -97,6 +78,7 @@ class App extends Component {
       cookie.save('userId', data.id, { path: '/' });
       cookie.save('name', data.firstName, { path: '/' });
       app.setState({
+        type: 'loggedin',
         userId: data.id,
         name: data.firstName});
     }
@@ -177,24 +159,7 @@ class App extends Component {
     this.setState({
       type: 'loggedin'
     })
-    // function onSuccess(data) {
-    //   socket.emit('user', data)
-    //   cookie.save('userId', data.id, { path: '/' });
-    //   cookie.save('name', data.firstName, { path: '/' });
-    //   this.setState({
-    //     type: 'loggedin',
-    //     data: {
-    //       myEvent:['a','b', 'c'],
-    //       allEvent: ['d', 'e' ]
-    //     },
-    //     userId: data.id,
-    //     name: data.firstName});
-    // }
-
-    // function onError(error) {
-    // }
-
-    // IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
+    
   }
 
   onLogout() {
@@ -256,7 +221,7 @@ class App extends Component {
       return (
       // TODO refactor props (i.e. store handler functions into one 'handlers' object)
       <div className="container">
-        <NavBar urlPath={this.state.type} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} eventsCreationFunction={this.eventsCreation} />
+        <NavBar urlPath={this.state.type} linkedinLoginHandler={this.callbackFunction} goHomeHandler={this.goHome} loginHandler={this.onLogin} logoutHandler={this.onLogout} eventsCreationFunction={this.eventsCreation} />
         <section className="top-section row">
           {topSectionPartial}
         </section>
