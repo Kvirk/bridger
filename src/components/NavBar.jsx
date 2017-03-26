@@ -95,7 +95,7 @@ class NavBar extends Component {
 						<span className="icon-bar"></span>
 					</button>
 					<a className="navbar-brand" href="#">
-						<img alt="Brand" src="https://image.freepik.com/free-icon/connected-circular-chains_318-39781.jpg" />
+						<img alt="Brand" src="http://i.imgur.com/X9cGCcR.png" />
 					</a>
 				</div>
 				<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
