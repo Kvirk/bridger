@@ -89,8 +89,12 @@ class App extends Component {
   handleForm(formInput) {
     let contentToServer = {
       formInput:formInput
-    }
+        }
+    let data2 = {
+        userId: cookie.load('userId'),
+        }
     socket.emit('createEvent', contentToServer)
+    socket.emit('userLogin', data2)
     console.log("This is the content", formInput)
   }
 
@@ -156,10 +160,6 @@ class App extends Component {
 
   render() {
 
-    if (this.state.type === "creation") {
-       return <EventsCreation  handleForm={this.handleForm}/>
-    }
-
     if (!this.state.userId) {
       return (
       <div>
@@ -169,7 +169,10 @@ class App extends Component {
     )}
 
     if (this.state.type === "events"){
-       return <Event name={this.state.name} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
+       return <Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
+    }
+    if (this.state.type === "creation") {
+       return <EventsCreation  handleForm={this.handleForm}/>
     }
     if (this.state.type === "event"){
        return <EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>

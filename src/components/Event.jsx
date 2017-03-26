@@ -16,6 +16,7 @@ class Event extends Component {
             return <button key={i} onClick={this.props.eventPage.bind(null, dat.event_id)}>{dat.name}</button>
           })}
           <button onClick={this.props.onLogout}> Log Out</button>
+          <button onClick={this.props.eventsCreation}> Create Event</button>
           <div>
             {this.props.data.allEvent.map((dat, i) => {
             return <button key={i*3} onClick={this.props.addEvent.bind(null, dat.id)}>{dat.name}</button>
