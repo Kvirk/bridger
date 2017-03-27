@@ -13,7 +13,7 @@ class UserProfile extends Component {
     if (key.charCode === 13) {
       const newMessage = key.target.value;
       key.target.value = '';
-      return this.props.sendMessage(newMessage);
+      return this.props.sendMessage(newMessage, this.props.data.linkedin_id);
     }
   }
 
@@ -29,7 +29,9 @@ class UserProfile extends Component {
         <h3>{this.props.data.industry}</h3>
         <h3>{this.props.data.location}</h3>
         <button onClick={this.props.backToEP.bind(null, this.props.data.event_id)}> Back</button>
-
+        {this.props.data.message.map((dat, i) => {
+            return <h3 key={i} >{dat}</h3>
+        })}
          <input onKeyPress={this.submit} className="chatbar-message" placeholder="Type a message and hit ENTER" />
       </div>
     )

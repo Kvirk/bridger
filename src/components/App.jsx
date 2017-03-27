@@ -30,6 +30,8 @@ class App extends Component {
       }
       socket.emit('userLogin', data2)
     }
+
+    this.sendMessage = this.sendMessage.bind(this)
     this.seeProfile = this.seeProfile.bind(this);
     this.backToMain = this.backToMain.bind(this);
     this.addEvent = this.addEvent.bind(this);
@@ -69,6 +71,17 @@ class App extends Component {
       data: data
       })
     })
+    socket.on('responseMessage', function(data){
+      app.setState({
+        data
+      })
+    })
+    socket.on('OMGmessage', function(data){
+      app.setState({
+        type: 'userProfile',
+        data: data
+      });
+    })
   }
 
   callbackFunction() {
@@ -93,11 +106,11 @@ class App extends Component {
   }
 
   sendMessage(message, userID){
-    let data = {
-      userId: cookie.load('userId'),
-      eventId: event
-    }
-    socket.emit("addEvent", data)
+    let currentMessage = this.state.data.message;
+    currentMessage.push(message);
+    let data = this.state.data;
+    data['message'] = currentMessage;
+    socket.emit("message", data)
   }
 
   addEvent(event){
@@ -143,9 +156,12 @@ class App extends Component {
   }
 
   seeProfile(data) {
+    let data2 = data;
+    console.log(data)
+    data2['message'] = [];
     this.setState({
       type: 'userProfile',
-      data: data
+      data: data2
     });
   }
 
@@ -198,7 +214,7 @@ class App extends Component {
        return <EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
     }
     if (this.state.type === "userProfile"){
-       return <UserProfile name={this.state.name} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
+       return <UserProfile name={this.state.name} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
     }
     return (
       <h1>ERROR</h1>
