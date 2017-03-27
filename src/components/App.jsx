@@ -210,7 +210,7 @@ class App extends Component {
 						<Welcome />
 					</section>
 					<section className="bottom-section row">
-						<AllEvents />
+						<AllEvents data={this.state.data}/>
 					</section>
 				</div>
 		)}
@@ -220,7 +220,7 @@ class App extends Component {
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
 					<section className="top-section row">
-						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout}/>
+						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
 					<section className="bottom-section row">
 						<AllEvents />
@@ -243,7 +243,7 @@ class App extends Component {
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 				 	<section className="top-section row">
-			 			<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
+			 			<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
 					</section>
 				</div>
 			)
