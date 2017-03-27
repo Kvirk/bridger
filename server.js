@@ -56,7 +56,6 @@ io.on('connection', function(client) {
       });
 
     });
-    // client.emit()
   });
 
   client.on('addEvent', function(data) {
@@ -68,9 +67,6 @@ io.on('connection', function(client) {
           knex('event_users').insert({event_id: data.eventId, user_id: dat[0].id})
           .then(function(){
             client.emit('eventAdded');
-            // knex.select().table('event_users').where('user_id', dat[0].id).then(function(last){
-            //   client.emit("eventAdded", last)
-            // })
           })
         }
       })

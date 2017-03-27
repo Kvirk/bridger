@@ -9,11 +9,6 @@ class NavBar extends Component {
 		this.logout = this.logout.bind(this);
 	}
 
-	// goToEvent(event) {
-	//     console.log("Entering goToEvent function");
-	//     this.props.goToEventHandler();
-	// }
-
 	goHome(event) {
 		console.log("Going back home");
 		this.props.goHomeHandler();
@@ -76,9 +71,6 @@ class NavBar extends Component {
 				console.log("This is default (home page)");
 				navItemsPartial =
 					<ul className="nav navbar-nav center">
-						{/*<li>
-							<a href="#event" onClick={this.goToEvent.bind(this)}>Event 1</a>
-						</li>*/}
 						<li>
 							<LinkedinLogin callbackFunction={this.props.callbackFunction}/>
 						</li>
