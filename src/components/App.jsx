@@ -31,7 +31,6 @@ class App extends Component {
       socket.emit('userLogin', data2)
     }
     this.seeProfile = this.seeProfile.bind(this);
-    this.backToEP = this.backToEP.bind(this);
     this.backToMain = this.backToMain.bind(this);
     this.addEvent = this.addEvent.bind(this);
     this.eventPage = this.eventPage.bind(this);
@@ -93,7 +92,13 @@ class App extends Component {
     IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
   }
 
-
+  sendMessage(message, userID){
+    let data = {
+      userId: cookie.load('userId'),
+      eventId: event
+    }
+    socket.emit("addEvent", data)
+  }
 
   addEvent(event){
     let data = {
@@ -137,26 +142,10 @@ class App extends Component {
     socket.emit('userLogin', data2)
   }
 
-  seeProfile() {
+  seeProfile(data) {
     this.setState({
       type: 'userProfile',
-      data: {
-          name: 'Davie',
-          company: 'Lighthouse',
-          summary: 'I code stuff',
-        }
-    });
-  }
-
-  backToEP(){
-    this.setState({
-      type: 'event',
-      data: {
-          name: "sdsadas",
-          timeStart: 'April 6th 2016, 6:30 PM',
-          timeEnd: 'April 6th 2016, 7:30 PM',
-          people:['John', 'Jack', 'Joe', 'Jill', 'J.J.']
-        }
+      data: data
     });
   }
 
@@ -209,7 +198,7 @@ class App extends Component {
        return <EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout}/>
     }
     if (this.state.type === "userProfile"){
-       return <UserProfile name={this.state.name} backToEP={this.backToEP} data={this.state.data} onLogout={this.onLogout}/>
+       return <UserProfile name={this.state.name} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
     }
     return (
       <h1>ERROR</h1>

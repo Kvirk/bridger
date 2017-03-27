@@ -48,9 +48,11 @@ io.on('connection', function(client) {
       .then(function(id){
 
 
-        knex.select( 'user_id1',
+        knex.select( 'event_users.event_id',
+                      'user_id1',
                       'user_id2',
                       'users.id',
+                      'users.linkedin_id',
                       'users.first_name',
                       'users.email_address',
                       'users.last_name',
@@ -68,9 +70,11 @@ io.on('connection', function(client) {
         .where('event_users.event_id', data.event)
         .andWhere('points.user_id1', id[0].id)
         .union(function() {
-          this.select( 'user_id1',
+          this.select('event_users.event_id',
+                      'user_id1',
                       'user_id2',
                       'users.id',
+                      'users.linkedin_id',
                       'users.first_name',
                       'users.email_address',
                       'users.last_name',
@@ -99,6 +103,10 @@ io.on('connection', function(client) {
           })
         })
       })
+  });
+
+  client.on('message', function(data) {
+
   });
 
   client.on('userLogin', function(data) {
