@@ -36,7 +36,7 @@ class App extends Component {
     this.addEvent = this.addEvent.bind(this);
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
-    this.linkedinLogin = this.linkedinLogin.bind(this);
+    this.callbackFunction = this.callbackFunction.bind(this);
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.goHome= this.goHome.bind(this);
     this.eventsCreation = this.eventsCreation.bind(this);
@@ -66,7 +66,7 @@ class App extends Component {
     });
   }
 
-  linkedinLogin() {
+  callbackFunction() {
     let app = this;
     function onSuccess(data) {
       let data2 = {
@@ -76,7 +76,6 @@ class App extends Component {
       cookie.save('userId', data.id, { path: '/' });
       cookie.save('name', data.firstName, { path: '/' });
       app.setState({
-        type: 'loggedin',
         userId: data.id,
         name: data.firstName});
     }

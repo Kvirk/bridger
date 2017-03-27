@@ -80,7 +80,7 @@ class NavBar extends Component {
 							<a href="#event" onClick={this.goToEvent.bind(this)}>Event 1</a>
 						</li>*/}
 						<li>
-							<LinkedinLogin callbackFunction={this.props.linkedinLoginHandler}/>
+							<LinkedinLogin callbackFunction={this.props.callbackFunction}/>
 						</li>
 					</ul>
 				}
