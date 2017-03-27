@@ -46,12 +46,57 @@ io.on('connection', function(client) {
   client.on('getEvent', function(data){
     knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
-        knex.select('user_id1', 'user_id2', 'points').table('event_users')
-        .where('event_id', data.event).andWhere('user_id', id[0].id)
-        .leftJoin('points', function(){
-          this.on('user_id1', 'user_id').orOn('user_id2', 'user_id');
-        }).then(function(result){
-          console.log(result);
+
+
+        knex.select( 'user_id1',
+                      'user_id2',
+                      'users.id',
+                      'users.first_name',
+                      'users.email_address',
+                      'users.last_name',
+                      'users.headline',
+                      'users.industry',
+                      'users.location',
+                      'users.public_profile_url',
+                      'points.points').from('points')
+        .join('users', function(){
+          this.on('points.user_id2','users.id')
+        })
+        .join('event_users', function(){
+          this.on('event_users.user_id', 'users.id')
+        })
+        .where('event_users.event_id', data.event)
+        .andWhere('points.user_id1', id[0].id)
+        .union(function() {
+          this.select( 'user_id1',
+                      'user_id2',
+                      'users.id',
+                      'users.first_name',
+                      'users.email_address',
+                      'users.last_name',
+                      'users.headline',
+                      'users.industry',
+                      'users.location',
+                      'users.public_profile_url',
+                      'points.points').from('points')
+        .join('users', function(){
+          this.on('points.user_id1','users.id')
+        })
+        .join('event_users', function(){
+          this.on('event_users.user_id', 'users.id')
+        })
+        .where('event_users.event_id', data.event)
+        .andWhere('points.user_id2', id[0].id)
+        }).orderBy('points', 'desc').limit(5)
+        .then(function(result){
+          knex.select().table('events').where('id', data.event)
+          .then(function(event){
+            let send = {
+              event: event[0],
+              users: result
+            }
+            client.emit('responseGetEvent', send);
+          })
         })
       })
   });

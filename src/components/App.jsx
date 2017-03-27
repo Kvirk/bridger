@@ -64,6 +64,12 @@ class App extends Component {
       }
       socket.emit('userLogin', data2)
     });
+    socket.on('responseGetEvent', function(data){
+      app.setState({
+      type: 'event',
+      data: data
+      })
+    })
   }
 
   callbackFunction() {
@@ -116,15 +122,6 @@ class App extends Component {
       userId: cookie.load('userId')
     }
     socket.emit('getEvent', sendData)
-    this.setState({
-      type: 'event',
-      data: {
-          name: event,
-          timeStart: 'April 6th 2016, 6:30 PM',
-          timeEnd: 'April 6th 2016, 7:30 PM',
-          people:['John', 'Jack', 'Joe', 'Jill', 'J.J.']
-        }
-    });
   }
 
   eventsCreation(){
