@@ -72,6 +72,7 @@ class App extends Component {
       let data2 = {
         userId: data.id,
       }
+      socket.emit('user', data)
       socket.emit('userLogin', data2)
       cookie.save('userId', data.id, { path: '/' });
       cookie.save('name', data.firstName, { path: '/' });
@@ -85,6 +86,8 @@ class App extends Component {
 
     IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
   }
+
+
 
   addEvent(event){
     let data = {
@@ -108,7 +111,11 @@ class App extends Component {
 
 
   eventPage(event){
-    socket.emit('getEvent', event)
+    let sendData = {
+      event,
+      userId: cookie.load('userId')
+    }
+    socket.emit('getEvent', sendData)
     this.setState({
       type: 'event',
       data: {

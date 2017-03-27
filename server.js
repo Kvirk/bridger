@@ -43,11 +43,17 @@ io.on('connection', function(client) {
     client.emit("message", "leave me alone");
   });
 
-  client.on('getEvent', function(event_id){
-    knex.table('events').where('id', event_id)
-    .then(function(event){
-      console.log(event)
-    })
+  client.on('getEvent', function(data){
+    knex.column('id').table('users').where('linkedin_id', data.userId)
+      .then(function(id){
+        knex.select('user_id1', 'user_id2', 'points').table('event_users')
+        .where('event_id', data.event).andWhere('user_id', id[0].id)
+        .leftJoin('points', function(){
+          this.on('user_id1', 'user_id').orOn('user_id2', 'user_id');
+        }).then(function(result){
+          console.log(result);
+        })
+      })
   });
 
   client.on('userLogin', function(data) {
