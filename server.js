@@ -6,6 +6,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const settings = require("./settings"); // settings.json
 const pg = require("pg");
+const index = require('./e_search/index.js');
 const util = require('util');
 const knex = require('knex')({
   client: 'pg',
@@ -266,7 +267,10 @@ io.on('connection', function(client) {
     let insert = knex('users').insert(insertData).toString();
     let update = knex('users').update(insertData).whereRaw('users.linkedin_id = ' + "'" + insertData.linkedin_id + "'").toString();
     let query = util.format('%s ON CONFLICT (linkedin_id) DO UPDATE SET %s', insert, update.replace(/^update\s.*\sset\s/i, ''));
-    knex.raw(query).catch((err) => {
+    knex.raw(query).then((data)=> {
+      // require('./e_search/index.js');
+      index.test();
+    }).catch((err) => {
       console.error(err);
     });
   });

@@ -17,7 +17,7 @@ class AllEvents extends Component {
 				<Slider {...settings}>
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
-							<div>
+							<div key={i}>
 								<Card style={{width: '350px', height: '600px'}}>
 									<CardTitle
 										avatar="https://placeimg.com/80/80/animals"
@@ -34,8 +34,7 @@ class AllEvents extends Component {
 									/>
 									<CardText>{dat.description}</CardText>
 									<CardActions>
-										<Button label="Action 1" />
-										<Button label="Action 2" />
+										<Button onClick={this.props.addEvent.bind(null, dat.id)} label="Join" />
 									</CardActions>
 								</Card>
 							</div>
