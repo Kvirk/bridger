@@ -23,12 +23,19 @@ class App extends Component {
     super(props);
 
     let type = 'login';
-    let data = {};
+    let data = {allEvent: [{ id: 2,
+      name: "Techvibes Techfest",
+      description: "A unique recruiting event. Techfest…",
+      venue: "Vancouver Convention Centre",
+      start_time: "2017-03-25T21:39:04.753Z",
+      end_time: "2017-03-25T21:39:04.753Z" }]};
     if (cookie.load('userId')){
       let data2 = {
         userId: cookie.load('userId'),
       }
       socket.emit('userLogin', data2)
+    } else {
+      socket.emit('getData', 'give me more')
     }
 
     this.sendMessage = this.sendMessage.bind(this)
@@ -44,7 +51,8 @@ class App extends Component {
     this.handleForm = this.handleForm.bind(this);
     this.state = {type: type,
         userId: cookie.load('userId'),
-        name: cookie.load('name')
+        name: cookie.load('name'),
+        data
       }
   }
 
@@ -52,11 +60,12 @@ class App extends Component {
     const app = this;
     socket.on('connect', function(data) {});
     socket.on('responseUserLogin', function(data) {
+      console.log('lol')
       app.setState({
         type: 'events',
         data: {
           myEvent: data.userEvent,
-          allEvent: data.allEvents
+          allEvent: data.allEvent,
         }});
     });
     socket.on('eventAdded', function(data) {
@@ -68,6 +77,12 @@ class App extends Component {
     socket.on('responseGetEvent', function(data){
       app.setState({
       type: 'event',
+      data: data
+      })
+    })
+    socket.on('responseGetData', function(data){
+      console.log(data)
+      app.setState({
       data: data
       })
     })
@@ -90,13 +105,24 @@ class App extends Component {
 			let data2 = {
 				userId: data.id,
 			}
+      console.log('inside the login')
 			socket.emit('user', data)
 			socket.emit('userLogin', data2)
 			cookie.save('userId', data.id, { path: '/' });
 			cookie.save('name', data.firstName, { path: '/' });
 			app.setState({
 				userId: data.id,
-				name: data.firstName});
+				name: data.firstName,
+        data: {
+          myEvent: [],
+          allEvent: [{ id: 2,
+                      name: "Techvibes Techfest",
+                      description: "A unique recruiting event. Techfest…",
+                      venue: "Vancouver Convention Centre",
+                      start_time: "2017-03-25T21:39:04.753Z",
+                      end_time: "2017-03-25T21:39:04.753Z" }]
+        }
+      });
 		}
 		function onError(error) {
 		}
@@ -187,11 +213,13 @@ class App extends Component {
 	onLogout() {
 		cookie.remove('userId', { path: '/' });
 		cookie.remove('name', { path: '/' });
+    socket.emit('destroy', cookie.load('userId'));
+    socket.emit('getData', 'give me more');
 		this.setState({
 				type: 'login',
-				data: {},
 				userId: null,
-				name: null});
+				name: null
+      });
 	}
 
 
@@ -203,17 +231,17 @@ class App extends Component {
 	}
 
 	render() {
-		if (!this.state.userId) {
+		if (this.state.type === "login") {
 			return (
-				<div className="container">
-					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
-					<section className="top-section row">
-						<Welcome />
-					</section>
-					<section className="bottom-section row">
-						<AllEvents data={this.state.data}/>
-					</section>
-				</div>
+        <div className="container">
+          <NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+          <section className="top-section row">
+            <Welcome />
+          </section>
+          <section className="bottom-section row">
+            <AllEvents data={this.state.data}/>
+          </section>
+        </div>
 		)}
 
 		if (this.state.type === "events") {
@@ -224,7 +252,7 @@ class App extends Component {
 						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
 					<section className="bottom-section row">
-						<AllEvents />
+						<AllEvents data={this.state.data}/>
 					</section>
 				</div>
 			)
