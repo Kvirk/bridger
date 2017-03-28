@@ -195,6 +195,13 @@ io.on('connection', function(client) {
     });
   });
 
+  client.on('getData', function(data) {
+    knex.select().table('events')
+    .then(function(dat){
+      client.emit('responseGetData', {allEvents: dat})
+    });
+  });
+
   client.on('addEvent', function(data) {
     knex.column('id').table('users').where('linkedin_id', data.userId)
     .then(function(dat){
@@ -209,6 +216,8 @@ io.on('connection', function(client) {
       })
     })
   });
+
+
 
   client.on('user', function(data) {
     let position_company_name = [];

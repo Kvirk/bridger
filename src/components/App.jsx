@@ -23,12 +23,19 @@ class App extends Component {
     super(props);
 
     let type = 'login';
-    let data = {};
+    let data = {allEvents: [{ id: 2,
+      name: "Techvibes Techfest",
+      description: "A unique recruiting event. Techfest…",
+      venue: "Vancouver Convention Centre",
+      start_time: "2017-03-25T21:39:04.753Z",
+      end_time: "2017-03-25T21:39:04.753Z" }]};
     if (cookie.load('userId')){
       let data2 = {
         userId: cookie.load('userId'),
       }
       socket.emit('userLogin', data2)
+    } else {
+      socket.emit('getData', 'give me more')
     }
 
     this.sendMessage = this.sendMessage.bind(this)
@@ -44,7 +51,8 @@ class App extends Component {
     this.handleForm = this.handleForm.bind(this);
     this.state = {type: type,
         userId: cookie.load('userId'),
-        name: cookie.load('name')
+        name: cookie.load('name'),
+        data
       }
   }
 
@@ -68,6 +76,12 @@ class App extends Component {
     socket.on('responseGetEvent', function(data){
       app.setState({
       type: 'event',
+      data: data
+      })
+    })
+    socket.on('responseGetData', function(data){
+      console.log(data.allEvents[1])
+      app.setState({
       data: data
       })
     })
@@ -187,9 +201,9 @@ class App extends Component {
 	onLogout() {
 		cookie.remove('userId', { path: '/' });
 		cookie.remove('name', { path: '/' });
+    socket.emit('getData', 'give me more')
 		this.setState({
 				type: 'login',
-				data: {},
 				userId: null,
 				name: null});
 	}
@@ -203,12 +217,13 @@ class App extends Component {
 	}
 
 	render() {
-		if (!this.state.userId) {
+		if (this.state.type === "login") {
 			return (
 				<div className="container">
 					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<Welcome />
+            <h1>{this.state.data.allEvents[0].name}</h1>
 					</section>
 					<section className="bottom-section row">
 						<AllEvents data={this.state.data}/>
