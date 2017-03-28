@@ -19,53 +19,69 @@ import Event from './Event.jsx';
 let socket = io.connect();
 
 class App extends Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		let type = 'login';
-		let data = {};
-		if (cookie.load('userId')){
-			let data2 = {
-				userId: cookie.load('userId'),
-			}
-			socket.emit('userLogin', data2)
-		}
-		this.seeProfile = this.seeProfile.bind(this);
-		this.backToEP = this.backToEP.bind(this);
-		this.backToMain = this.backToMain.bind(this);
-		this.addEvent = this.addEvent.bind(this);
-		this.eventPage = this.eventPage.bind(this);
-		this.onLogout = this.onLogout.bind(this);
-		this.callbackFunctionCreateEvent = this.callbackFunctionCreateEvent.bind(this);
-		this.callbackFunction = this.callbackFunction.bind(this);
-		this.goToEventProfile = this.goToEventProfile.bind(this);
-		// this.goHome= this.goHome.bind(this);
-		this.eventsCreation = this.eventsCreation.bind(this);
-		this.handleForm = this.handleForm.bind(this);
-		this.state = {type: type,
-				userId: cookie.load('userId'),
-				name: cookie.load('name')
-			}
-	}
+    let type = 'login';
+    let data = {};
+    if (cookie.load('userId')){
+      let data2 = {
+        userId: cookie.load('userId'),
+      }
+      socket.emit('userLogin', data2)
+    }
 
-	componentDidMount() {
-		const app = this;
-		socket.on('connect', function(data) {});
-		socket.on('responseUserLogin', function(data) {
-			app.setState({
-				type: 'events',
-				data: {
-					myEvent: data.userEvent,
-					allEvent: data.allEvents
-				}});
-		});
-		socket.on('eventAdded', function(data) {
-			let data2 = {
-				userId: cookie.load('userId'),
-			}
-			socket.emit('userLogin', data2)
-		});
-	}
+    this.sendMessage = this.sendMessage.bind(this)
+    this.seeProfile = this.seeProfile.bind(this);
+    this.backToMain = this.backToMain.bind(this);
+    this.addEvent = this.addEvent.bind(this);
+    this.eventPage = this.eventPage.bind(this);
+    this.onLogout = this.onLogout.bind(this);
+    this.callbackFunction = this.callbackFunction.bind(this);
+    this.goToEventProfile = this.goToEventProfile.bind(this);
+    this.eventsCreation = this.eventsCreation.bind(this);
+    this.handleForm = this.handleForm.bind(this);
+    this.state = {type: type,
+        userId: cookie.load('userId'),
+        name: cookie.load('name')
+      }
+  }
+
+  componentDidMount() {
+    const app = this;
+    socket.on('connect', function(data) {});
+    socket.on('responseUserLogin', function(data) {
+      app.setState({
+        type: 'events',
+        data: {
+          myEvent: data.userEvent,
+          allEvent: data.allEvents
+        }});
+    });
+    socket.on('eventAdded', function(data) {
+      let data2 = {
+        userId: cookie.load('userId'),
+      }
+      socket.emit('userLogin', data2)
+    });
+    socket.on('responseGetEvent', function(data){
+      app.setState({
+      type: 'event',
+      data: data
+      })
+    })
+    socket.on('responseMessage', function(data){
+      app.setState({
+        data
+      })
+    })
+    socket.on('OMGmessage', function(data){
+      app.setState({
+        type: 'userProfile',
+        data: data
+      });
+    })
+  }
 
 	callbackFunction() {
 		let app = this;
@@ -107,6 +123,14 @@ class App extends Component {
 		IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
 	}
 
+  sendMessage(message, userID){
+    let currentMessage = this.state.data.message;
+    currentMessage.push(message);
+    let data = this.state.data;
+    data['message'] = currentMessage;
+    socket.emit("message", data)
+  }
+
 	addEvent(event){
 		let data = {
 			userId: cookie.load('userId'),
@@ -128,17 +152,13 @@ class App extends Component {
 	}
 
 
-	eventPage(event){
-		this.setState({
-			type: 'event',
-			data: {
-					name: event,
-					timeStart: 'April 6th 2016, 6:30 PM',
-					timeEnd: 'April 6th 2016, 7:30 PM',
-					people:['John', 'Jack', 'Joe', 'Jill', 'J.J.']
-				}
-		});
-	}
+  eventPage(event){
+    let sendData = {
+      event,
+      userId: cookie.load('userId')
+    }
+    socket.emit('getEvent', sendData)
+  }
 
 	eventsCreation(){
 		this.setState({
@@ -153,28 +173,15 @@ class App extends Component {
 		socket.emit('userLogin', data2)
 	}
 
-	seeProfile() {
-		this.setState({
-			type: 'userProfile',
-			data: {
-					name: 'Davie',
-					company: 'Lighthouse',
-					summary: 'I code stuff',
-				}
-		});
-	}
-
-	backToEP(){
-		this.setState({
-			type: 'event',
-			data: {
-					name: "sdsadas",
-					timeStart: 'April 6th 2016, 6:30 PM',
-					timeEnd: 'April 6th 2016, 7:30 PM',
-					people:['John', 'Jack', 'Joe', 'Jill', 'J.J.']
-				}
-		});
-	}
+  seeProfile(data) {
+    let data2 = data;
+    console.log(data)
+    data2['message'] = [];
+    this.setState({
+      type: 'userProfile',
+      data: data2
+    });
+  }
 
 	onLogout() {
 		cookie.remove('userId', { path: '/' });
@@ -193,13 +200,6 @@ class App extends Component {
 			type: 'event'
 		})
 	}
-
-	// goHome() {
-	// 	console.log("State is about to change to home");
-	// 	this.setState({
-	// 		type: 'events'
-	// 	})
-	// }
 
 	render() {
 		if (!this.state.userId) {
@@ -253,7 +253,7 @@ class App extends Component {
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 				 	<section className="top-section row">
-			 			<UserProfile name={this.state.name} backToEP={this.backToEP} data={this.state.data} onLogout={this.onLogout}/>
+				 		<UserProfile name={this.state.name} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
 				</div>
 			)
