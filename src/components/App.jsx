@@ -60,11 +60,12 @@ class App extends Component {
     const app = this;
     socket.on('connect', function(data) {});
     socket.on('responseUserLogin', function(data) {
+      console.log('lol')
       app.setState({
         type: 'events',
         data: {
           myEvent: data.userEvent,
-          allEvent: data.allEvents,
+          allEvent: data.allEvent,
         }});
     });
     socket.on('eventAdded', function(data) {
@@ -80,7 +81,7 @@ class App extends Component {
       })
     })
     socket.on('responseGetData', function(data){
-      console.log(data.allEvents[1])
+      console.log(data)
       app.setState({
       data: data
       })
@@ -104,13 +105,24 @@ class App extends Component {
 			let data2 = {
 				userId: data.id,
 			}
+      console.log('inside the login')
 			socket.emit('user', data)
 			socket.emit('userLogin', data2)
 			cookie.save('userId', data.id, { path: '/' });
 			cookie.save('name', data.firstName, { path: '/' });
 			app.setState({
 				userId: data.id,
-				name: data.firstName});
+				name: data.firstName,
+        data: {
+          myEvent: [],
+          allEvent: [{ id: 2,
+                      name: "Techvibes Techfest",
+                      description: "A unique recruiting event. Techfest…",
+                      venue: "Vancouver Convention Centre",
+                      start_time: "2017-03-25T21:39:04.753Z",
+                      end_time: "2017-03-25T21:39:04.753Z" }]
+        }
+      });
 		}
 		function onError(error) {
 		}
@@ -206,7 +218,8 @@ class App extends Component {
 		this.setState({
 				type: 'login',
 				userId: null,
-				name: null});
+				name: null
+      });
 	}
 
 

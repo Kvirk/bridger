@@ -179,7 +179,6 @@ io.on('connection', function(client) {
 
   client.on('userLogin', function(data) {
     currentUsers[data.userId] = client.id;
-    console.log(currentUsers)
     let sendData;
     knex.select().table('events')
     .then(function(dat){
@@ -187,7 +186,7 @@ io.on('connection', function(client) {
       .then(function(id){
         knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
         .then(function(userEvent){
-          sendData = {allEvents: dat, userEvent: userEvent}
+          sendData = {allEvent: dat, userEvent: userEvent}
           client.emit("responseUserLogin", sendData);
         })
       });
@@ -198,7 +197,7 @@ io.on('connection', function(client) {
   client.on('getData', function(data) {
     knex.select().table('events')
     .then(function(dat){
-      client.emit('responseGetData', {allEvents: dat})
+      client.emit('responseGetData', {allEvent: dat})
     });
   });
 
