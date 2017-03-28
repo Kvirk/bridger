@@ -4,25 +4,7 @@ import LinkedinLogin from './LinkedInLogin.jsx';
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
-		// this.goHome = this.goHome.bind(this);
-		// this.login = this.login.bind(this);
-		// this.logout = this.logout.bind(this);
 	}
-
-	// goHome(event) {
-	// 	console.log("Going back home");
-	// 	this.props.goHomeHandler();
-	// }
-
-	// login(event) {
-	// 	console.log("Logging in");
-	// 	this.props.loginHandler();
-	// }
-
-	// logout(event) {
-	// 	console.log("Logging out");
-	// 	this.props.logoutHandler();
-	// }
 
 	render () {
 		console.log("Rendering <Navbar />");
