@@ -110,9 +110,12 @@ io.on('connection', function(client) {
   client.on('message', function(data) {
     let response = data;
     console.log(data)
-    console.log(data.user_id1)
+    let id;
+    id = data.user_id1;
+    if(data.id === data.user_id1){
+      id = data.user_id2;
+    }
     let receiverID = currentUsers[data.linkedin_id];
-    console.log(receiverID)
     if(!receiverID){
       response.message.push("User isn't online. Get a life!")
       client.emit('responseMessage', response)
@@ -138,6 +141,31 @@ io.on('connection', function(client) {
       }).where('event_users.event_id', data.event_id)
       .andWhere('points.user_id1', data.user_id1)
       .andWhere('points.user_id2', data.user_id2)
+      .andWhere('users.id', id)
+      .union(function() {
+          this.select( 'event_users.event_id',
+                      'user_id1',
+                      'user_id2',
+                      'users.id',
+                      'users.linkedin_id',
+                      'users.first_name',
+                      'users.email_address',
+                      'users.last_name',
+                      'users.headline',
+                      'users.industry',
+                      'users.location',
+                      'users.public_profile_url',
+                      'points.points').from('points')
+        .join('users', function(){
+          this.on('points.user_id1','users.id')
+        })
+        .join('event_users', function(){
+          this.on('event_users.user_id', 'users.id')
+        }).where('event_users.event_id', data.event_id)
+        .andWhere('points.user_id1', data.user_id1)
+        .andWhere('points.user_id2', data.user_id2)
+        .andWhere('users.id', id)
+      })
       .then(function(result){
         let dataSend = result[0];
         dataSend['message'] = data.message;
@@ -167,6 +195,13 @@ io.on('connection', function(client) {
     });
   });
 
+  client.on('getData', function(data) {
+    knex.select().table('events')
+    .then(function(dat){
+      client.emit('responseGetData', {allEvents: dat})
+    });
+  });
+
   client.on('addEvent', function(data) {
     knex.column('id').table('users').where('linkedin_id', data.userId)
     .then(function(dat){
@@ -181,6 +216,8 @@ io.on('connection', function(client) {
       })
     })
   });
+
+
 
   client.on('user', function(data) {
     let position_company_name = [];
@@ -254,6 +291,11 @@ io.on('connection', function(client) {
 
   client.on('disconnect', function() {
     console.log("disconnect")
+    for (remove in currentUsers) {
+      if (currentUsers[remove] === client.id){
+        currentUsers[remove];
+      }
+    }
     console.log(client.id)
   });
 });
