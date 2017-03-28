@@ -289,11 +289,15 @@ io.on('connection', function(client) {
 
   })
 
+  client.on('destroy', function(data){
+    delete currentUsers[data];
+  })
+
   client.on('disconnect', function() {
     console.log("disconnect")
     for (remove in currentUsers) {
       if (currentUsers[remove] === client.id){
-        currentUsers[remove];
+        delete currentUsers[remove];
       }
     }
     console.log(client.id)
