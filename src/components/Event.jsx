@@ -37,6 +37,12 @@ class Event extends Component {
 				)
 			})}
 
+				<div>
+					{this.props.data.allEvent.map((dat, i) => {
+						return <button key={i} onClick={this.props.addEvent.bind(null, dat.id)}>{dat.name}</button>
+					})}
+				</div>
+
 
 			</div>
 		)
