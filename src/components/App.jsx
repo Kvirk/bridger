@@ -21,7 +21,7 @@ let socket = io.connect();
 class App extends Component {
   constructor(props) {
     super(props);
-
+    let type = 'blank';
     let data = {allEvent: [{ id: 2,
       name: "Techvibes Techfest",
       description: "A unique recruiting event. Techfest…",
@@ -35,6 +35,7 @@ class App extends Component {
       socket.emit('userLogin', data2)
     } else {
       socket.emit('getData', 'give me more')
+      type = 'login'
     }
 
     this.sendMessage = this.sendMessage.bind(this)
@@ -48,7 +49,7 @@ class App extends Component {
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.eventsCreation = this.eventsCreation.bind(this);
     this.handleForm = this.handleForm.bind(this);
-    this.state = {
+    this.state = {type,
         userId: cookie.load('userId'),
         name: cookie.load('name'),
         data
@@ -59,7 +60,6 @@ class App extends Component {
     const app = this;
     socket.on('connect', function(data) {});
     socket.on('responseUserLogin', function(data) {
-      console.log('lol')
       app.setState({
         type: 'events',
         data: {
@@ -241,16 +241,16 @@ class App extends Component {
 			return (
         <div className="container">
           <NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+          <section className="top-section row">
             <ReactCSSTransitionGroup
               transitionName="example"
               transitionEnterTimeout={1000}
               transitionLeaveTimeout={1000}
               transitionAppearTimeout={1000}
               transitionAppear={true}>
-            <section className="top-section row">
               <Welcome />
-            </section>
             </ReactCSSTransitionGroup>
+          </section>
             <ReactCSSTransitionGroup
               transitionName="example"
               transitionEnterTimeout={1000}
