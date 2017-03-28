@@ -23,7 +23,7 @@ class App extends Component {
     super(props);
 
     let type = 'login';
-    let data = {allEvents: [{ id: 2,
+    let data = {allEvent: [{ id: 2,
       name: "Techvibes Techfest",
       description: "A unique recruiting event. Techfest…",
       venue: "Vancouver Convention Centre",
@@ -64,7 +64,7 @@ class App extends Component {
         type: 'events',
         data: {
           myEvent: data.userEvent,
-          allEvent: data.allEvents
+          allEvent: data.allEvents,
         }});
     });
     socket.on('eventAdded', function(data) {
@@ -80,6 +80,7 @@ class App extends Component {
       })
     })
     socket.on('responseGetData', function(data){
+      console.log(data.allEvents[1])
       app.setState({
       data: data
       })
@@ -219,15 +220,15 @@ class App extends Component {
 	render() {
 		if (this.state.type === "login") {
 			return (
-				<div className="container">
-					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
-					<section className="top-section row">
-						<Welcome />
-					</section>
-					<section className="bottom-section row">
-						<AllEvents data={this.state.data}/>
-					</section>
-				</div>
+        <div className="container">
+          <NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+          <section className="top-section row">
+            <Welcome />
+          </section>
+          <section className="bottom-section row">
+            <AllEvents data={this.state.data}/>
+          </section>
+        </div>
 		)}
 
 		if (this.state.type === "events") {
@@ -238,7 +239,7 @@ class App extends Component {
 						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
 					<section className="bottom-section row">
-						<AllEvents />
+						<AllEvents data={this.state.data}/>
 					</section>
 				</div>
 			)
