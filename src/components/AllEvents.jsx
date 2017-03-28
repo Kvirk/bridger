@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 class AllEvents extends Component {
 
 	render () {
-		console.log('Rendering <MyEvent />');
+		console.log('Rendering <AllEvent />');
 		var settings = {
       dots: true,
       slidesToShow: 3

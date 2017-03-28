@@ -41,10 +41,12 @@
 }
 
 .featurette-heading {
-		font-size: 50px;
+		font-size: 55px;
+		color: #007FFF;
 
-		span {
-			color: #007FFF;
+		div {
+			font-size: 40px;
+			padding-bottom: 10px;
 		}
 }
 
@@ -70,7 +72,7 @@
 
 		.navbar-brand {
 			padding-top: 10px;
-			padding-left: 3px;
+			margin-right: 0;
 
 			img {
 				height: 40px;
@@ -78,22 +80,53 @@
 			}
 		}
 
+		.navbar-text {
+			margin-left: 5px;
+			font-size: large;
+			font-weight: bold;
+		}
+
 		.navbar-collapse {
 				text-align: right;
+				padding-top: 17.5px;
 
 			.navbar-nav {
 				display: inline-block;
 				float: none;
 
-				a {
-						color: #484848;
-						background: none;
-						font-weight: bolder;
+				span {
+					padding: 15px;
+					color: #484848;
+					background: none;
+					font-weight: bolder;
+					cursor: pointer;
 				}
 			}
 		}
 	}
 }
+
+/*Events.jsx*/
+
+.eventsContainer {
+	padding-top: 90px;
+
+	.theme__card___8pay8 {
+		margin: auto;
+		margin-bottom: 5%;
+
+		.enterButton {
+			font-weight: 600;
+			color: #007FFF;
+		}
+
+		button:focus {
+			outline: 0;
+		}
+	}
+}
+
+/*Events.jsx*/
 
 /*Carousel*/
 

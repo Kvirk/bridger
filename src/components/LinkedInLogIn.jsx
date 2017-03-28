@@ -32,7 +32,7 @@ class LinkedinLogin extends Component {
 
 	render() {
 		return (
-			<a href="#login" onClick={this.handleClick}>Log In</a>
+			<span onClick={this.handleClick}>{this.props.name}</span>
 		);
 	}
 }
