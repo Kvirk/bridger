@@ -239,7 +239,7 @@ class App extends Component {
             <Welcome />
           </section>
           <section className="bottom-section row">
-            <AllEvents data={this.state.data}/>
+            <AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
           </section>
         </div>
 		)}
@@ -252,7 +252,7 @@ class App extends Component {
 						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
 					<section className="bottom-section row">
-						<AllEvents data={this.state.data}/>
+						<AllEvents data={this.state.data} addEvent={this.addEvent}/>
 					</section>
 				</div>
 			)
