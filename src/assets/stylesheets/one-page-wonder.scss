@@ -62,8 +62,11 @@
 		margin: 0px;
 		width: 100%;
 
-		.icon-bar {
-			background: #484848;
+		.navbar-toggle {
+
+			.icon-bar {
+				background: #484848;
+			}
 		}
 
 		.navbar-brand {
@@ -125,6 +128,16 @@
 }
 
 /*Events.jsx*/
+
+/*EventsCreation.jsx*/
+
+.eventsCreationContainer {
+	padding-top: 90px;
+	margin: auto;
+	width: 60%;
+}
+
+/*EventsCreation.jsx*/
 
 /*Carousel*/
 

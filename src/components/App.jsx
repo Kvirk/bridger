@@ -80,7 +80,6 @@ class App extends Component {
       })
     })
     socket.on('responseGetData', function(data){
-      console.log(data.allEvents[1])
       app.setState({
       data: data
       })
@@ -157,10 +156,10 @@ class App extends Component {
 	handleForm(formInput) {
 		let contentToServer = {
 			formInput:formInput
-				}
+		}
 		let data2 = {
 				userId: cookie.load('userId'),
-				}
+		}
 		socket.emit('createEvent', contentToServer)
 		socket.emit('userLogin', data2)
 		console.log("This is the content", formInput)
@@ -226,7 +225,7 @@ class App extends Component {
             <Welcome />
           </section>
           <section className="bottom-section row">
-            <AllEvents data={this.state.data}/>
+            <AllEvents data={this.state.data} />
           </section>
         </div>
 		)}
@@ -239,7 +238,7 @@ class App extends Component {
 						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
 					<section className="bottom-section row">
-						<AllEvents data={this.state.data}/>
+						<AllEvents data={this.state.data} />
 					</section>
 				</div>
 			)
@@ -249,7 +248,7 @@ class App extends Component {
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 				 	<section className="top-section row">
-					 	<EventsCreation  handleForm={this.handleForm}/>
+					 	<EventsCreation  handleForm={this.handleForm} />
 					</section>
 				</div>
 			)

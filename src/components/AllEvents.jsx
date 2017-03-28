@@ -12,6 +12,7 @@ class AllEvents extends Component {
 			slidesToShow: 3,
 			// centerMode: true,
 		};
+		console.log(this.props.data.allEvent);
 		return (
 			<div className="carousel">
 				<Slider {...settings}>
