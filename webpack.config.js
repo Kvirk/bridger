@@ -8,8 +8,22 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
-      { test: /\.s?css$/, loader: 'style!css!sass' }
-    ]
+      { test: /\.scss$/, loader: 'style!css!sass', exclude: /node_modules/ },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss?sourceMap&sourceComments',
+        ]
+      }
+    ],
+  },
+  postcss: () => {
+    return [
+      /* eslint-disable global-require */
+      require('postcss-cssnext'),
+      /* eslint-enable global-require */
+    ];
   },
   resolve: {
     extensions: ['', '.js']

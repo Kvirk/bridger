@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LinkedinLogin from './LinkedInLogin.jsx';
 
 class Welcome extends Component {
 
@@ -9,10 +8,10 @@ class Welcome extends Component {
 			<header className="header-image">
 				<div className="container">
 					<div className="featurette" classID="about">
-						<h2 className="featurette-heading">The Secret Is
-							<span> Teamwork.</span>
+						<h2 className="featurette-heading">Together,
+							<div className="text-muted"> We Can Do Amazing Things</div>
 						</h2>
-						<p className="lead">Bridged connects you with the right people.</p>
+						<p className="lead text-muted">Bridged helps you reach your full potential by connecting you with the right people.</p>
 					</div>
 				</div>
 				<hr className="featurette-divider"/>

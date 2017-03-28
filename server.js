@@ -19,6 +19,8 @@ const knex = require('knex')({
   }
 });
 
+let currentUsers = {}
+
 // using webpack-dev-server and middleware in development environment
 if (process.env.NODE_ENV !== 'production') {
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -42,7 +44,142 @@ io.on('connection', function(client) {
   client.on('join', function(data) {
     client.emit("message", "leave me alone");
   });
+
+  client.on('getEvent', function(data){
+    knex.column('id').table('users').where('linkedin_id', data.userId)
+      .then(function(id){
+
+
+        knex.select( 'event_users.event_id',
+                      'user_id1',
+                      'user_id2',
+                      'users.id',
+                      'users.linkedin_id',
+                      'users.first_name',
+                      'users.email_address',
+                      'users.last_name',
+                      'users.headline',
+                      'users.industry',
+                      'users.location',
+                      'users.public_profile_url',
+                      'points.points').from('points')
+        .join('users', function(){
+          this.on('points.user_id2','users.id')
+        })
+        .join('event_users', function(){
+          this.on('event_users.user_id', 'users.id')
+        })
+        .where('event_users.event_id', data.event)
+        .andWhere('points.user_id1', id[0].id)
+        .union(function() {
+          this.select('event_users.event_id',
+                      'user_id1',
+                      'user_id2',
+                      'users.id',
+                      'users.linkedin_id',
+                      'users.first_name',
+                      'users.email_address',
+                      'users.last_name',
+                      'users.headline',
+                      'users.industry',
+                      'users.location',
+                      'users.public_profile_url',
+                      'points.points').from('points')
+        .join('users', function(){
+          this.on('points.user_id1','users.id')
+        })
+        .join('event_users', function(){
+          this.on('event_users.user_id', 'users.id')
+        })
+        .where('event_users.event_id', data.event)
+        .andWhere('points.user_id2', id[0].id)
+        }).orderBy('points', 'desc').limit(5)
+        .then(function(result){
+          knex.select().table('events').where('id', data.event)
+          .then(function(event){
+            let send = {
+              event: event[0],
+              users: result
+            }
+            client.emit('responseGetEvent', send);
+          })
+        })
+      })
+  });
+
+  client.on('message', function(data) {
+    let response = data;
+    console.log(data)
+    let id;
+    id = data.user_id1;
+    if(data.id === data.user_id1){
+      id = data.user_id2;
+    }
+    let receiverID = currentUsers[data.linkedin_id];
+    if(!receiverID){
+      response.message.push("User isn't online. Get a life!")
+      client.emit('responseMessage', response)
+    } else {
+      knex.select( 'event_users.event_id',
+                    'user_id1',
+                    'user_id2',
+                    'users.id',
+                    'users.linkedin_id',
+                    'users.first_name',
+                    'users.email_address',
+                    'users.last_name',
+                    'users.headline',
+                    'users.industry',
+                    'users.location',
+                    'users.public_profile_url',
+                    'points.points').from('points')
+      .join('users', function(){
+        this.on('points.user_id2','users.id')
+      })
+      .join('event_users', function(){
+        this.on('event_users.user_id', 'users.id')
+      }).where('event_users.event_id', data.event_id)
+      .andWhere('points.user_id1', data.user_id1)
+      .andWhere('points.user_id2', data.user_id2)
+      .andWhere('users.id', id)
+      .union(function() {
+          this.select( 'event_users.event_id',
+                      'user_id1',
+                      'user_id2',
+                      'users.id',
+                      'users.linkedin_id',
+                      'users.first_name',
+                      'users.email_address',
+                      'users.last_name',
+                      'users.headline',
+                      'users.industry',
+                      'users.location',
+                      'users.public_profile_url',
+                      'points.points').from('points')
+        .join('users', function(){
+          this.on('points.user_id1','users.id')
+        })
+        .join('event_users', function(){
+          this.on('event_users.user_id', 'users.id')
+        }).where('event_users.event_id', data.event_id)
+        .andWhere('points.user_id1', data.user_id1)
+        .andWhere('points.user_id2', data.user_id2)
+        .andWhere('users.id', id)
+      })
+      .then(function(result){
+        let dataSend = result[0];
+        dataSend['message'] = data.message;
+        io.sockets.connected[receiverID].emit('OMGmessage', dataSend);
+        client.emit('responseMessage', response)
+      })
+
+
+    }
+  });
+
   client.on('userLogin', function(data) {
+    currentUsers[data.userId] = client.id;
+    console.log(currentUsers)
     let sendData;
     knex.select().table('events')
     .then(function(dat){
@@ -145,6 +282,11 @@ io.on('connection', function(client) {
 
   client.on('disconnect', function() {
     console.log("disconnect")
+    for (remove in currentUsers) {
+      if (currentUsers[remove] === client.id){
+        currentUsers[remove];
+      }
+    }
     console.log(client.id)
   });
 });
