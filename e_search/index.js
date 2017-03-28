@@ -1,6 +1,4 @@
-(function () {
-  'use strict';
-  const settings = require("../settings"); // settings.json
+ const settings = require("../settings"); // settings.json
   const knex = require('knex')({
     client: 'pg',
     connection: {
@@ -64,9 +62,6 @@
     // bulkIndex('users', 'article', data);
   };
 
-  test();
-
   module.exports = {
-    bulkIndex
+    test
   };
-} ());

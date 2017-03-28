@@ -19,19 +19,19 @@
       from: 0,
       query: {
         multi_match: {
-          query: 'developer',
+          query: 'engineering',
           fields: ['summary','headline'],
           fuzziness: 2
         }
       }
     };
 
-    console.log(`retrieving documents whose summary matches phrase '${body.query.multi_match.query}' (displaying ${body.size} items at a time)...`);
+    console.log(`retrieving documents whose summary and headline matches phrase '${body.query.multi_match.query}' (displaying ${body.size} items at a time)...`);
     search('users', body)
     .then(results => {
       console.log(`found ${results.hits.total} items in ${results.took}ms`);
       if (results.hits.total > 0) console.log(`returned article summary:`);
-      results.hits.hits.forEach((hit, index) => console.log(`\t${body.from + ++index} - ${hit._source.summary} (score: ${hit._score})`));
+      results.hits.hits.forEach((hit, index) => console.log(`\t ${hit._source.first_name} - ${body.from + ++index} - ${hit._source.headline} - ${hit._source.summary}  (score: ${hit._score})`));
     })
     .catch(console.error);
   };
