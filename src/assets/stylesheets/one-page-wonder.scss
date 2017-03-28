@@ -51,7 +51,7 @@
 }
 
 .navbar {
-	height: 64px;
+	min-height: 64px;
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 0 1px 5px rgba(0,0,0,0.1);
@@ -62,13 +62,9 @@
 		margin: 0px;
 		width: 100%;
 
-		.navbar-toggle {
-			/*background:lightgray;*/
-
 			.icon-bar {
 				background: #484848;
 			}
-		}
 
 		.navbar-brand {
 			padding-top: 10px;
@@ -81,18 +77,20 @@
 		}
 
 		.navbar-text {
-			margin-left: 5px;
+			margin: 0px;
+	    padding-top: 15px;
+	    padding-left: 3px;
 			font-size: large;
 			font-weight: bold;
 		}
 
 		.navbar-collapse {
 				text-align: right;
-				padding-top: 17.5px;
 
 			.navbar-nav {
 				display: inline-block;
 				float: none;
+				padding-top: 17.5px;
 
 				span {
 					padding: 15px;
