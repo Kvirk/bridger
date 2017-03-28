@@ -39,26 +39,7 @@
             query: results[0].industry,
             type: 'best_fields',
             fields: ['industry'],
-            fuzziness: 2
-          }
-        },
-        aggs: {
-          top_ids: {
-            terms: {
-              field: "id"
-            },
-            aggs: {
-              top_ids_hits: {
-                sort: [
-                  {
-                    _score: {
-                      order: 'desc'
-                    }
-                  }
-                ],
-                size: 1
-              }
-            }
+            fuzziness: 'auto'
           }
         }
       };
