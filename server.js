@@ -140,7 +140,7 @@ io.on('connection', function(client) {
       .andWhere('points.user_id2', data.user_id2)
       .then(function(result){
         let dataSend = result[0];
-        dataSend['message'] =data.message;
+        dataSend['message'] = data.message;
         io.sockets.connected[receiverID].emit('OMGmessage', dataSend);
         client.emit('responseMessage', response)
       })
