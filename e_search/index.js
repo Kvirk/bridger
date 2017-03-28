@@ -49,17 +49,12 @@
   // all calls should be initiated through the module
   const test = function test() {
     const data = knex.select().table('users').then(function(data) {
-      // console.log("data from knex", data);
       // const articles = JSON.parse(data);
       console.log(`${data.length} items parsed from data file`);
-      bulkIndex('users', 'article', data);
+      bulkIndex('users', 'profile', data);
     }, function() {
       console.log("this is error");
     });
-    // console.log('This is the users data',data);
-    // const articles = JSON.parse(data);
-    // console.log(`${articles.length} items parsed from data file`);
-    // bulkIndex('users', 'article', data);
   };
 
   module.exports = {
