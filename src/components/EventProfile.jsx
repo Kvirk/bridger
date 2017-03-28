@@ -14,6 +14,7 @@ class EventProfile extends Component {
    render() {
     let dateStart = new Date(this.props.data.event.start_time)
     let dateEnd = new Date(this.props.data.event.end_time)
+    let length = this.props.data.users.length
     return (
       <div>
         <header className="header-image">
@@ -38,36 +39,39 @@ class EventProfile extends Component {
           </div>
           <hr className="featurette-divider"/>
         </header>
-        {this.props.data.users.map((dat, i) => {
-          return (
-            <div className="container">
-              <Card style={{width: '350px'}}>
-                  <CardTitle
-                    avatar="https://placeimg.com/80/80/animals"
-                    title="Avatar style title"
-                    subtitle="Subtitle here"
-                  />
-                  <CardMedia
-                    aspectRatio="wide"
-                    image="https://placeimg.com/800/450/nature"
-                  />
-                  <CardTitle
-                    title="Title goes here"
-                    subtitle="Subtitle here"
-                  />
-                  <CardText></CardText>
-                  <CardActions>
-                    <Button label="Action 1" />
-                    <Button label="Action 2" />
-                  </CardActions>
-                </Card>
-
-              <h3 key={i} onClick={this.props.seeProfile.bind(null, dat)}>{dat.first_name}</h3>
-            </div>
-          )
-        })}
-        <button onClick={this.props.backToMain}> Back</button>
-        <button onClick={this.props.onLogout}> Log Out</button>
+          {this.props.data.users.map((dat, i) => {
+            return (
+              <div className={"col-md-" + (12/length).toString()}>
+                <div className="center-block">
+                  <Card style={{width: '350px'}}>
+                    <CardTitle
+                      avatar="https://placeimg.com/80/80/animals"
+                      title="Avatar style title"
+                      subtitle="Click Above to enter profile"
+                    />
+                    <CardMedia
+                      aspectRatio="wide"
+                      image="https://placeimg.com/800/450/nature"
+                    />
+                    <CardTitle
+                      key={i}
+                      onClick={this.props.seeProfile.bind(null, dat)}
+                      title={dat.first_name}
+                      subtitle="Subtitle here"
+                    />
+                    <CardText></CardText>
+                    <CardActions>
+                      <Button label="Action 1" />
+                      <Button label="Action 2" />
+                    </CardActions>
+                  </Card>
+                </div>
+              </div>
+            )
+          })}
+        <hr className="featurette-divider"/>
+        <Button  icon='back' onClick={this.props.backToMain} raised />
+        <Button  icon='logout'onClick={this.props.onLogout} raised/>
       </div>
     )
   }
