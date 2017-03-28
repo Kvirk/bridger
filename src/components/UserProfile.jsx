@@ -13,7 +13,7 @@ class UserProfile extends Component {
    if (key.charCode === 13) {
      const newMessage = key.target.value;
      key.target.value = '';
-     return this.props.sendMessage(newMessage, this.props.data.linkedin_id);
+     return this.props.sendMessage(`${this.props.data.first_name}: ${newMessage}`, this.props.data.linkedin_id);
    }
  }
 
