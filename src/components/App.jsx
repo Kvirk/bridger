@@ -78,7 +78,7 @@ class App extends Component {
     socket.on('OMGmessage', function(data){
       app.setState({
         type: 'userProfile',
-        data: data
+        data: {'message': data}
       });
     })
   }
