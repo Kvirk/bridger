@@ -20,7 +20,7 @@ class EventsCreation extends Component {
     this.refs.start.value = '';
     formInput['end'] = this.refs.end.value;
     this.refs.end.value = '';
-    this.props.handleForm(formInput)
+    this.props.handleForm(formInput);
   }
 
   render() {

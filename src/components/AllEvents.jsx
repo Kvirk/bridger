@@ -12,14 +12,13 @@ class AllEvents extends Component {
 			slidesToShow: 3,
 			// centerMode: true,
 		};
-		console.log(this.props.data.allEvent);
 		return (
 			<div className="carousel">
 				<Slider {...settings}>
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
-							<div>
-								<Card style={{width: '350px', height: '600px'}} key={i}>
+							<div key={i}>
+								<Card style={{width: '350px', height: '600px'}}>
 									<CardTitle
 										avatar="https://placeimg.com/80/80/animals"
 										title="CREATOR NAME"
