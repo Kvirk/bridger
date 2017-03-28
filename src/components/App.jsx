@@ -80,7 +80,6 @@ class App extends Component {
       })
     })
     socket.on('responseGetData', function(data){
-      console.log(data.allEvents[1])
       app.setState({
       data: data
       })
@@ -223,7 +222,6 @@ class App extends Component {
 					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<Welcome />
-            <h1>{this.state.data.allEvents[0].name}</h1>
 					</section>
 					<section className="bottom-section row">
 						<AllEvents data={this.state.data}/>
