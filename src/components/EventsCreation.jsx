@@ -1,54 +1,50 @@
 import React, { Component } from 'react';
+import Input from 'react-toolbox/lib/input';
 
 class EventsCreation extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+ constructor(props) {
+   super(props);
+   this.handleChange = this.handleChange.bind(this);
+   this.handleSubmit = this.handleSubmit.bind(this);
+   this.state = { name: '',
+                 description: '',
+                 venue: '',
+                 start: '',
+                 end: ''
+               };
+ }
 
+  handleChange(name, value) {
+    let data = this.state;
+    data[name] = value;
+    this.setState(data);
+  };
 
-  handleSubmit(event){
-    event.preventDefault();
-    let formInput = {};
-    formInput['name'] = this.refs.name.value;
-    this.refs.name.value = '';
-    formInput['description'] = this.refs.description.value;
-    this.refs.description.value = '';
-    formInput['venue'] = this.refs.venue.value;
-    this.refs.venue.value = '';
-    formInput['start'] = this.refs.start.value;
-    this.refs.start.value = '';
-    formInput['end'] = this.refs.end.value;
-    this.refs.end.value = '';
-    this.props.handleForm(formInput)
+ handleSubmit(event){
+   event.preventDefault();
+   let formInput = {};
+   formInput['name'] = this.state.name;
+   formInput['description'] = this.state.description;
+   formInput['venue'] = this.state.venue;
+   formInput['start'] = this.state.start;
+   formInput['end'] = this.state.end;
+   this.props.handleForm(formInput);
+ }
 
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Hello, I am creating an event</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label>Event:
-              <input type="text" ref='name' name="name" />
-            </label>
-            <label>Description:
-              <input type="text" ref='description' name="description" />
-            </label>
-            <label>Venue:
-              <input type="text" ref='venue' name="venue" />
-            </label>
-            <label>Start Time:
-              <input type="text" ref='start' name="start-time" type="Datetime-local"/>
-            </label>
-            <label>End Time:
-              <input type="text" ref='end' name="end-time" type="Datetime-local"/>
-            </label>
-            <input type="submit" value="Submit"/>
-          </form>
-      </div>
-    )
-  }
+ render() {
+   return (
+     <section className="eventsCreationContainer">
+     <h1></h1>
+     <h1></h1>
+         <Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' />
+         <Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" />
+         <Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" />
+         <Input type="Datetime-local" onChange={this.handleChange.bind(this, 'start')} label='Start Time' name="start-time" />
+         <Input type="Datetime-local" onChange={this.handleChange.bind(this, 'end')} label='End Time' name="end-time" />
+         <Input type="submit" value="Submit" onClick={this.handleSubmit}/>
+     </section>
+   )
+ }
 };
 
 export default EventsCreation;
