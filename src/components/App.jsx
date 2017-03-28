@@ -38,6 +38,7 @@ class App extends Component {
     this.eventPage = this.eventPage.bind(this);
     this.onLogout = this.onLogout.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
+    this.callbackFunctionCreateEvent = this.callbackFunctionCreateEvent.bind(this)
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.eventsCreation = this.eventsCreation.bind(this);
     this.handleForm = this.handleForm.bind(this);
@@ -78,7 +79,7 @@ class App extends Component {
     socket.on('OMGmessage', function(data){
       app.setState({
         type: 'userProfile',
-        data: {'message': data}
+        data: data
       });
     })
   }

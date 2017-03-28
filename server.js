@@ -109,10 +109,7 @@ io.on('connection', function(client) {
 
   client.on('message', function(data) {
     let response = data;
-    console.log(data)
-    console.log(data.user_id1)
     let receiverID = currentUsers[data.linkedin_id];
-    console.log(receiverID)
     if(!receiverID){
       response.message.push("User isn't online. Get a life!")
       client.emit('responseMessage', response)
@@ -141,6 +138,7 @@ io.on('connection', function(client) {
       .then(function(result){
         let dataSend = result[0];
         dataSend['message'] = data.message;
+        console.log(dataSend);
         io.sockets.connected[receiverID].emit('OMGmessage', dataSend);
         client.emit('responseMessage', response)
       })
