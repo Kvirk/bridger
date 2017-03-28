@@ -19,7 +19,7 @@
       from: 0,
       query: {
         multi_match: {
-          query: 'engineering',
+          query: 'artist',
           fields: ['summary','headline'],
           fuzziness: 2
         }
