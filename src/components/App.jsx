@@ -200,7 +200,8 @@ class App extends Component {
 	onLogout() {
 		cookie.remove('userId', { path: '/' });
 		cookie.remove('name', { path: '/' });
-    socket.emit('getData', 'give me more')
+    socket.emit('destroy', cookie.load('userId'));
+    socket.emit('getData', 'give me more');
 		this.setState({
 				type: 'login',
 				userId: null,
