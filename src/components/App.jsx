@@ -3,7 +3,7 @@ import NavBar from './NavBar.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
 import cookie from 'react-cookie';
 import EventsCreation from './EventsCreation.jsx';
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Welcome from './Welcome.jsx';
 import AllEvents from './AllEvents.jsx';
 import MyEvents from './MyEvents.jsx';
@@ -22,7 +22,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    let type = 'login';
     let data = {allEvent: [{ id: 2,
       name: "Techvibes Techfest",
       description: "A unique recruiting event. Techfest…",
@@ -49,7 +48,7 @@ class App extends Component {
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.eventsCreation = this.eventsCreation.bind(this);
     this.handleForm = this.handleForm.bind(this);
-    this.state = {type: type,
+    this.state = {
         userId: cookie.load('userId'),
         name: cookie.load('name'),
         data
@@ -211,6 +210,12 @@ class App extends Component {
   }
 
 	onLogout() {
+    let data = {allEvent: [{ id: 2,
+      name: "Techvibes Techfest",
+      description: "A unique recruiting event. Techfest…",
+      venue: "Vancouver Convention Centre",
+      start_time: "2017-03-25T21:39:04.753Z",
+      end_time: "2017-03-25T21:39:04.753Z" }]};
 		cookie.remove('userId', { path: '/' });
 		cookie.remove('name', { path: '/' });
     socket.emit('destroy', cookie.load('userId'));
@@ -218,7 +223,8 @@ class App extends Component {
 		this.setState({
 				type: 'login',
 				userId: null,
-				name: null
+				name: null,
+        data
       });
 	}
 
@@ -235,12 +241,26 @@ class App extends Component {
 			return (
         <div className="container">
           <NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
-          <section className="top-section row">
-            <Welcome />
-          </section>
-          <section className="bottom-section row">
-            <AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
-          </section>
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+            <section className="top-section row">
+              <Welcome />
+            </section>
+            </ReactCSSTransitionGroup>
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+            <section className="bottom-section row">
+              <AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
+            </section>
+            </ReactCSSTransitionGroup>
         </div>
 		)}
 
@@ -248,12 +268,26 @@ class App extends Component {
 			return (
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
-					<section className="top-section row">
-						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
-					</section>
-					<section className="bottom-section row">
-						<AllEvents data={this.state.data} addEvent={this.addEvent}/>
-					</section>
+            <section className="top-section row">
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+  						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
+  					</ReactCSSTransitionGroup>
+            </section>
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+  					<section className="bottom-section row">
+  						<AllEvents data={this.state.data} addEvent={this.addEvent}/>
+  					</section>
+            </ReactCSSTransitionGroup>
 				</div>
 			)
 		}

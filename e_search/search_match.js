@@ -19,7 +19,7 @@
       from: 0,
       query: {
         multi_match: {
-          query: 'artist',
+          query: 'software',
           fields: ['summary','headline'],
           fuzziness: 2
         }
