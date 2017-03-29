@@ -1,5 +1,5 @@
  const settings = require("../settings"); // settings.json
- const knexSettings = require("./knexfile.js");
+ const knexSettings = require("../knexfile.js");
 
 let connection = knexSettings.development;
 
