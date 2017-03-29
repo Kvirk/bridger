@@ -28,7 +28,7 @@ class UserProfile extends Component {
 
  render() {
    return (
-     <div>
+     <div className='userProfile' >
         <div className="jumbotron">
           <h1 className="display-3">{this.props.data.first_name} {this.props.data.last_name} - {this.props.data.location}</h1>
           <p className="lead">{this.props.data.headline}</p>
