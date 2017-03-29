@@ -11,6 +11,7 @@ class Event extends Component {
 	}
 
 	render() {
+		console.log('Rendering <Event />');
 		return (
 			<div className="eventsContainer">
 				{this.props.data.myEvent.map((dat, i) => {
