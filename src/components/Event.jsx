@@ -15,7 +15,7 @@ class Event extends Component {
 			<div className="eventsContainer">
 				{this.props.data.myEvent.map((dat, i) => {
 					return (
-						<Card style={{width: '80%'}} key={i}>
+						<Card style={{width: '70%'}} key={i}>
 							<CardTitle
 								avatar="https://placeimg.com/80/80/animals"
 								title='CREATOR NAME'
@@ -36,11 +36,6 @@ class Event extends Component {
 						</Card>
 					)
 				})}
-				<div>
-					{this.props.data.allEvent.map((dat, i) => {
-						return <button key={i} onClick={this.props.addEvent.bind(null, dat.id)}>{dat.name}</button>
-					})}
-				</div>
 			</div>
 		)
 	}

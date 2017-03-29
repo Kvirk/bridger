@@ -6,6 +6,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const settings = require("./settings"); // settings.json
 const pg = require("pg");
+const index = require('./e_search/index.js');
 const util = require('util');
 const knex = require('knex')({
   client: 'pg',
@@ -180,17 +181,23 @@ io.on('connection', function(client) {
   client.on('userLogin', function(data) {
     currentUsers[data.userId] = client.id;
     let sendData;
-    knex.select().table('events')
-    .then(function(dat){
-      knex.column('id').table('users').where('linkedin_id', data.userId)
+    knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
-        knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
-        .then(function(userEvent){
-          sendData = {allEvent: dat, userEvent: userEvent}
-          client.emit("responseUserLogin", sendData);
-        })
+      knex.select().table(knex.raw(`(SELECT * FROM "event_users" WHERE "user_id" = ${id[0].id}) AS "eventUsers"`))
+      .rightOuterJoin('events', function(){
+        this.on('eventUsers.event_id', 'events.id')
+      }).where('user_id', null)
+      .then(function(dat){
+        console.log(dat)
+        knex.column('id').table('users').where('linkedin_id', data.userId)
+        .then(function(id){
+          knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
+          .then(function(userEvent){
+            sendData = {allEvent: dat, userEvent: userEvent}
+            client.emit("responseUserLogin", sendData);
+          })
+        });
       });
-
     });
   });
 
@@ -266,7 +273,10 @@ io.on('connection', function(client) {
     let insert = knex('users').insert(insertData).toString();
     let update = knex('users').update(insertData).whereRaw('users.linkedin_id = ' + "'" + insertData.linkedin_id + "'").toString();
     let query = util.format('%s ON CONFLICT (linkedin_id) DO UPDATE SET %s', insert, update.replace(/^update\s.*\sset\s/i, ''));
-    knex.raw(query).catch((err) => {
+    knex.raw(query).then((data)=> {
+      // require('./e_search/index.js');
+      index.test();
+    }).catch((err) => {
       console.error(err);
     });
   });
@@ -289,7 +299,10 @@ io.on('connection', function(client) {
   })
 
   client.on('destroy', function(data){
+    console.log(data)
+    console.log(currentUsers)
     delete currentUsers[data];
+    console.log(currentUsers)
   })
 
   client.on('disconnect', function() {

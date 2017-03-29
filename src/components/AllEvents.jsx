@@ -9,11 +9,14 @@ class AllEvents extends Component {
 		console.log('Rendering <AllEvent />');
 		var settings = {
 			dots: true,
-			slidesToShow: 3,
-			// centerMode: true,
+			slidesToShow: 1,
+			centerMode: true,
 		};
+
+
 		return (
 			<div className="carousel">
+				{this.props.data.allEvent[0] ? (
 				<Slider {...settings}>
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
@@ -34,14 +37,16 @@ class AllEvents extends Component {
 									/>
 									<CardText>{dat.description}</CardText>
 									<CardActions>
-										<Button label="Action 1" />
-										<Button label="Action 2" />
+										<Button onClick={this.props.addEvent.bind(null, dat.id)} label="Join" />
 									</CardActions>
 								</Card>
 							</div>
 						)
 					})}
 				</Slider>
+				) : (
+					<h1>No Events</h1>
+				)}
 			</div>
 		)
 	}

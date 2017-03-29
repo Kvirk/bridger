@@ -3,17 +3,17 @@ import NavBar from './NavBar.jsx';
 import LinkedinLogin from './LinkedInLogin.jsx';
 import cookie from 'react-cookie';
 import EventsCreation from './EventsCreation.jsx';
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Welcome from './Welcome.jsx';
 import AllEvents from './AllEvents.jsx';
 import MyEvents from './MyEvents.jsx';
 import AllPeople from './AllPeople.jsx';
 import PersonProfile from './PersonProfile.jsx';
 import Schedule from './Schedule.jsx';
-
 import UserProfile from './UserProfile.jsx';
 import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
 
 
 let socket = io.connect();
@@ -21,8 +21,7 @@ let socket = io.connect();
 class App extends Component {
   constructor(props) {
     super(props);
-
-    let type = 'login';
+    let type = 'blank';
     let data = {allEvent: [{ id: 2,
       name: "Techvibes Techfest",
       description: "A unique recruiting event. Techfest…",
@@ -36,6 +35,7 @@ class App extends Component {
       socket.emit('userLogin', data2)
     } else {
       socket.emit('getData', 'give me more')
+      type = 'login'
     }
 
     this.sendMessage = this.sendMessage.bind(this)
@@ -49,7 +49,7 @@ class App extends Component {
     this.goToEventProfile = this.goToEventProfile.bind(this);
     this.eventsCreation = this.eventsCreation.bind(this);
     this.handleForm = this.handleForm.bind(this);
-    this.state = {type: type,
+    this.state = {type,
         userId: cookie.load('userId'),
         name: cookie.load('name'),
         data
@@ -60,7 +60,6 @@ class App extends Component {
     const app = this;
     socket.on('connect', function(data) {});
     socket.on('responseUserLogin', function(data) {
-      console.log('lol')
       app.setState({
         type: 'events',
         data: {
@@ -210,14 +209,21 @@ class App extends Component {
   }
 
 	onLogout() {
+    let data = {allEvent: [{ id: 2,
+      name: "Techvibes Techfest",
+      description: "A unique recruiting event. Techfest…",
+      venue: "Vancouver Convention Centre",
+      start_time: "2017-03-25T21:39:04.753Z",
+      end_time: "2017-03-25T21:39:04.753Z" }]};
+    socket.emit('destroy', cookie.load('userId'));
 		cookie.remove('userId', { path: '/' });
 		cookie.remove('name', { path: '/' });
-    socket.emit('destroy', cookie.load('userId'));
     socket.emit('getData', 'give me more');
 		this.setState({
 				type: 'login',
 				userId: null,
-				name: null
+				name: null,
+        data
       });
 	}
 
@@ -235,11 +241,25 @@ class App extends Component {
         <div className="container">
           <NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
           <section className="top-section row">
-            <Welcome />
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+              <Welcome />
+            </ReactCSSTransitionGroup>
           </section>
-          <section className="bottom-section row">
-            <AllEvents data={this.state.data} />
-          </section>
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+            <section className="bottom-section row">
+              <AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
+            </section>
+            </ReactCSSTransitionGroup>
         </div>
 		)}
 
@@ -247,12 +267,26 @@ class App extends Component {
 			return (
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
-					<section className="top-section row">
-						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
-					</section>
-					<section className="bottom-section row">
-						<AllEvents data={this.state.data} />
-					</section>
+            <section className="top-section row">
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+  						<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
+  					</ReactCSSTransitionGroup>
+            </section>
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+              transitionAppearTimeout={1000}
+              transitionAppear={true}>
+  					<section className="bottom-section row">
+  						<AllEvents data={this.state.data} addEvent={this.addEvent}/>
+  					</section>
+            </ReactCSSTransitionGroup>
 				</div>
 			)
 		}
@@ -287,7 +321,7 @@ class App extends Component {
 			)
 		}
 		return (
-			<h1>ERROR</h1>
+	    <ProgressBar className="loadingPage" type='circular' mode='indeterminate' multicolor />
 		)
 	}
 };
