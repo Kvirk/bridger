@@ -5,20 +5,19 @@ const PORT = process.env.PORT || 8080;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const settings = require("./settings"); // settings.json
+const knexSettings = require("./knexfile.js");
 const pg = require("pg");
 const index = require('./e_search/index.js');
 const util = require('util');
-const knex = require('knex')({
-  client: 'pg',
-  connection: {
-    user     : settings.user,
-    password : settings.password,
-    database : settings.database,
-    host     : settings.hostname,
-    port     : settings.port,
-    ssl      : settings.ssl
-  }
-});
+
+let connection = knexSettings.development;
+
+if (process.env.NODE_ENV === 'production'){
+  connection = knexSettings.production;
+}
+
+const knex = require('knex')(
+  connection);
 
 let currentUsers = {}
 
@@ -60,6 +59,7 @@ io.on('connection', function(client) {
                       'users.email_address',
                       'users.last_name',
                       'users.headline',
+                      'users.picture_url',
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
@@ -82,6 +82,7 @@ io.on('connection', function(client) {
                       'users.email_address',
                       'users.last_name',
                       'users.headline',
+                      'users.picture_url',
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
@@ -130,6 +131,7 @@ io.on('connection', function(client) {
                     'users.email_address',
                     'users.last_name',
                     'users.headline',
+                    'users.picture_url',
                     'users.industry',
                     'users.location',
                     'users.public_profile_url',
@@ -153,6 +155,7 @@ io.on('connection', function(client) {
                       'users.email_address',
                       'users.last_name',
                       'users.headline',
+                      'users.picture_url',
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
@@ -181,17 +184,23 @@ io.on('connection', function(client) {
   client.on('userLogin', function(data) {
     currentUsers[data.userId] = client.id;
     let sendData;
-    knex.select().table('events')
-    .then(function(dat){
-      knex.column('id').table('users').where('linkedin_id', data.userId)
+    knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
-        knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
-        .then(function(userEvent){
-          sendData = {allEvent: dat, userEvent: userEvent}
-          client.emit("responseUserLogin", sendData);
-        })
+      knex.select().table(knex.raw(`(SELECT * FROM "event_users" WHERE "user_id" = ${id[0].id}) AS "eventUsers"`))
+      .rightOuterJoin('events', function(){
+        this.on('eventUsers.event_id', 'events.id')
+      }).where('user_id', null)
+      .then(function(dat){
+        console.log(dat)
+        knex.column('id').table('users').where('linkedin_id', data.userId)
+        .then(function(id){
+          knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
+          .then(function(userEvent){
+            sendData = {allEvent: dat, userEvent: userEvent}
+            client.emit("responseUserLogin", sendData);
+          })
+        });
       });
-
     });
   });
 
@@ -280,6 +289,7 @@ io.on('connection', function(client) {
       name: data.formInput.name,
       description: data.formInput.description,
       venue: data.formInput.venue,
+      creator_name: data.creator_name,
       start_time: data.formInput.start,
       end_time: data.formInput.end
     }
@@ -293,7 +303,10 @@ io.on('connection', function(client) {
   })
 
   client.on('destroy', function(data){
+    console.log(data)
+    console.log(currentUsers)
     delete currentUsers[data];
+    console.log(currentUsers)
   })
 
   client.on('disconnect', function() {

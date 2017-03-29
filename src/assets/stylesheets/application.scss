@@ -2,8 +2,26 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css);
 @import 'one-page-wonder';
+@import 'userProfile';
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
 html, body {
   font-family: 'Nunito', sans-serif;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .9s ease-in;
+}
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 3s ease-in;
 }
