@@ -21,14 +21,14 @@ class AllEvents extends Component {
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
 							<div key={i}>
-								<Card style={{width: '350px', height: '600px'}}>
+								<Card style={{width: '350px', height: '600px'}} raised>
 									<CardTitle
 										avatar="https://placeimg.com/80/80/animals"
 										title="CREATOR NAME"
 										subtitle={dat.venue}
 									/>
 									<CardMedia className="cardImage"
-										aspectRatio="wide"
+										aspectRatio="square"
 										image="https://placeimg.com/800/450/nature"
 									/>
 									<CardTitle
