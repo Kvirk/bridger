@@ -38,7 +38,7 @@ class App extends Component {
 			type = 'login'
 		}
 
-		this.sendMessage = this.sendMessage.bind(this)
+		this.sendMessage = this.sendMessage.bind(this);
 		this.seeProfile = this.seeProfile.bind(this);
 		this.backToMain = this.backToMain.bind(this);
 		this.addEvent = this.addEvent.bind(this);
