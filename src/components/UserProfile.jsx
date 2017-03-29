@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {List, ListSubHeader, ListItem} from 'react-toolbox/lib/list';
 import Input from 'react-toolbox/lib/input';
+import {Button} from 'react-toolbox/lib/button';
+
 
 class UserProfile extends Component {
   constructor(props) {
@@ -27,16 +29,15 @@ class UserProfile extends Component {
  render() {
    return (
      <div>
-       <h1>Hello, {this.props.name}!</h1>
-       <button onClick={this.props.onLogout}> Log Out</button>
-       <h3>{this.props.data.first_name}</h3>
-       <h3>{this.props.data.last_name}</h3>
-       <h3>{this.props.data.headline}</h3>
-       <h3>{this.props.data.company}</h3>
-       <h3>{this.props.data.industry}</h3>
-       <h3>{this.props.data.location}</h3>
-       <button onClick={this.props.backToEP.bind(null, this.props.data.event_id)}> Back</button>
-       <List selectable ripple>
+        <div className="jumbotron">
+          <h1 className="display-3">{this.props.data.first_name} {this.props.data.last_name} - {this.props.data.location}</h1>
+          <p className="lead">{this.props.data.headline}</p>
+          <p>{this.props.data.company} {this.props.data.industry}</p>
+          <p className="lead">
+            <a className="btn btn-primary btn-lg" href={this.props.data.public_profile_url} role="button">Learn more</a>
+          </p>
+        </div>
+        <Button onClick={this.props.backToEP.bind(null, this.props.data.event_id)} label='Back' raised />       <List selectable ripple>
         <ListSubHeader caption='Chat Below!' />
            {this.props.data.message.map((dat, i) => {
               let nameMatch = dat.match(/^(.*?):/i)
