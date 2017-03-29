@@ -15,13 +15,14 @@ const knex = require('knex')({
 
 let aggregateResults = [];
 
-function collectResults(queryResults) {
-  console.log('------->', queryResults);
-  aggregateResults.push(queryResults);
-  // console.log('Aggregated Results', aggregateResults);
-}
+// function collectResults(queryResults) {
+//   console.log('------->', queryResults);
+//   aggregateResults.push(queryResults);
+//   // console.log('Aggregated Results', aggregateResults);
+// }
 
 let consumeResult = (results) => {
+  console.log('---->', results.hits);
   // let searchResults = [];
   console.log(`found ${results.hits.total} items in ${results.took}ms`);
   if (results.hits.total > 0) {
@@ -31,18 +32,18 @@ let consumeResult = (results) => {
       //   linkedin_id: hit._source.linkedin_id,
       //   matching_score: hit._score
       // });
-      let searchResults = {
-        linkedin_id: hit._source.linkedin_id,
-        matching_score: hit._score
-      }
-      collectResults(searchResults);
+      // let searchResults = {
+      //   linkedin_id: hit._source.linkedin_id,
+      //   matching_score: hit._score
+      // }
+      // collectResults(searchResults);
     });
   }
 };
 
 
-elasticSearch.invokeSearch('Software Engineer', ['summary', 'industry'])
-.then(consumeResult, (err) => {
-  console.log(err);
-});
+// elasticSearch.invokeSearch('Senior software engineer seeking new position, Chief Technology Officer at Microsoft previously.', ['summary', 'industry'])
+// .then(consumeResult, (err) => {
+//   console.log(err);
+// });
 
