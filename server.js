@@ -268,7 +268,6 @@ io.on('connection', function(client) {
     let update = knex('users').update(insertData).whereRaw('users.linkedin_id = ' + "'" + insertData.linkedin_id + "'").toString();
     let query = util.format('%s ON CONFLICT (linkedin_id) DO UPDATE SET %s', insert, update.replace(/^update\s.*\sset\s/i, ''));
     knex.raw(query).then((data)=> {
-      // require('./e_search/index.js');
       index.test();
     }).catch((err) => {
       console.error(err);
