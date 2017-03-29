@@ -176,7 +176,8 @@ class App extends Component {
 
 	handleForm(formInput) {
 		let contentToServer = {
-			formInput:formInput
+			formInput:formInput,
+			creator_name: cookie.load('name')
 		}
 		let data2 = {
 				userId: cookie.load('userId'),

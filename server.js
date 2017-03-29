@@ -290,6 +290,7 @@ io.on('connection', function(client) {
       name: data.formInput.name,
       description: data.formInput.description,
       venue: data.formInput.venue,
+      creator_name: data.creator_name,
       start_time: data.formInput.start,
       end_time: data.formInput.end
     }

@@ -19,7 +19,7 @@ class Event extends Component {
 						<Card style={{width: '70%'}} raised key={i}>
 							<CardTitle
 								avatar="https://placeimg.com/80/80/animals"
-								title='CREATOR NAME'
+								title={dat.creator_name}
 								subtitle={dat.venue}
 							/>
 							<CardMedia className="cardImage"
