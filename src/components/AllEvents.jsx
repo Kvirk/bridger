@@ -9,7 +9,7 @@ class AllEvents extends Component {
 		console.log('Rendering <AllEvent />');
 		var settings = {
 			dots: true,
-			slidesToShow: 1,
+			slidesToShow: 2,
 			centerMode: true,
 		};
 
