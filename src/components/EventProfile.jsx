@@ -17,10 +17,11 @@ class EventProfile extends Component {
     let length = this.props.data.users.length
     return (
       <div className="event-profile-container">
+        <p>this.props.data.event</p>
         <header className="header-image">
           <div className="container">
             <div className="featurette" classID="about">
-              <h2 className="featurette-heading">{this.props.data.event.name}</h2>
+              <h2 className="featurette-heading">{this.props.data.event.name.toUpperCase()}</h2>
                 <div className="container">
                   {this.props.data.users.map((dat, i) => {
                     return (
@@ -30,7 +31,7 @@ class EventProfile extends Component {
                             <CardTitle/>
                             <CardMedia
                               aspectRatio="square"
-                              image="https://placeimg.com/800/450/nature"
+                              image= { dat.picture_url ? dat.picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
                             />
                             <CardTitle
                               key={i}
@@ -48,6 +49,7 @@ class EventProfile extends Component {
                   })}
                 </div>
               <hr className="featurette-divider"/>
+
 
               <div className='col-sm-4'>
                 <p className="lead text-muted"> Venue:</p>
