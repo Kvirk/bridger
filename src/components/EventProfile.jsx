@@ -62,7 +62,7 @@ class EventProfile extends Component {
               </div>
             </div>
           </div>
-          <Button icon='back' onClick={this.props.backToMain} raised />
+          <Button label='back' onClick={this.props.backToMain} raised />
           <hr className="featurette-divider"/>
         </header>
       </div>
