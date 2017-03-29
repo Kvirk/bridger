@@ -7,8 +7,9 @@ class EventsCreation extends Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleToggle = this.handleToggle.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.state = { name: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '' };
+		this.state = { name: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '', active: false };
 	}
 
 	 handleChange(name, value) {
@@ -26,6 +27,10 @@ class EventsCreation extends Component {
 		 data[name] = value;
 		 this.setState(data);
 	 };
+
+  handleToggle() {
+    this.setState({active: !this.state.active});
+  };
 
 	handleSubmit(event){
 		event.preventDefault();
@@ -46,10 +51,10 @@ class EventsCreation extends Component {
 				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" value={this.state.venue} />
 
         <DatePicker inputClassName='datePicker' label='Start Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'startDateTemp')} value={this.state.startDateTemp} />
-        <TimePicker inputClassName='timePicker' label='Start Time' format='ampm' onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
+        <TimePicker inputClassName='timePicker' label='Start Time' format='ampm' active={this.state.active} onClick={this.handleToggle} onOverlayClick={this.handleToggle} onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
 
         <DatePicker inputClassName='datePicker' label='End Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'endDateTemp')} value={this.state.endDateTemp} />
-        <TimePicker inputClassName='timePicker' label='End Time' format='ampm' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
+        <TimePicker inputClassName='timePicker' label='End Time' format='ampm' active={this.state.active} onClick={this.handleToggle} onOverlayClick={this.handleToggle} onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
 
 				<Input type="submit" value="Submit" onClick={this.handleSubmit}/>
 			</section>

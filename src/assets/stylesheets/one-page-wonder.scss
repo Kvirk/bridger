@@ -202,11 +202,8 @@
 
 	.timePicker {
 
-		.theme__input___2APuy:focus {
-			transform: scale(0);
-		}
-
 		input:focus {
+			/*transform: scale(0);*/
 		}
 	}
 }
@@ -336,6 +333,14 @@
 
 /* Loading Page */
 
+
+/*TESTINGREACTDRAWER*/
+.iconButton {
+	position: absolute;
+	left: 98%;
+	top: 15%;
+}
+/*TESTINGREACTDRAWER*/
 
 
 footer {

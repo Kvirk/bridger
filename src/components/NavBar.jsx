@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import LinkedinLogin from './LinkedInLogin.jsx';
+import { Drawer } from 'react-toolbox/lib/drawer';
+import { IconButton } from 'react-toolbox/lib/button';
+import { List, ListItem } from 'react-toolbox/lib/list';
 
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
+		this.handleToggle = this.handleToggle.bind(this);
+		this.state = { active: false }
 	}
+
+  handleToggle() {
+    this.setState({ active: !this.state.active });
+  }
 
 	render () {
 		console.log("Rendering <Navbar />");
@@ -56,6 +65,17 @@ class NavBar extends Component {
 						<p className="navbar-text text-muted">
 							{this.props.name}
 						</p>
+		        <IconButton className="iconButton" icon='menu' onClick={this.handleToggle} />
+		        <Drawer type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
+		        	<br/>
+		        	<br/>
+		        	<br/>
+		        	<br/>
+		        	<br/>
+			        <ListItem caption='Host Event' leftIcon='send' />
+  	          <ListItem caption='Events' leftIcon='delete' />
+		        	{navItemsPartial}
+		        </Drawer>
 					</div>
 					<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						{navItemsPartial}
