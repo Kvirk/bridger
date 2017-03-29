@@ -20,13 +20,13 @@ class EventProfile extends Component {
         <header className="header-image">
           <div className="container">
             <div className="featurette" classID="about">
-              <h2 className="featurette-heading">{this.props.data.event.name},
-                <div className="text-muted">Hello, {this.props.name}!</div>
+              <h2 className="featurette-heading">{this.props.data.event.name}</h2>
+                <div className="container">
                   {this.props.data.users.map((dat, i) => {
                     return (
-                      <div className="col-lg-15 .col-xs-15 .col-sm-15 .col-md-15">
+                      <div className="col-lg-15">
                         <div className="center-block">
-                          <Card style={{width: '225px'}}>
+                          <Card style={{width: '215px'}}>
                             <CardTitle/>
                             <CardMedia
                               aspectRatio="square"
@@ -34,38 +34,34 @@ class EventProfile extends Component {
                             />
                             <CardTitle
                               key={i}
-                              onClick={this.props.seeProfile.bind(null, dat)}
-                              title={dat.first_name}
+                              title={dat.first_name + " " + dat.last_name}
                               subtitle="Subtitle here"
                             />
                             <CardText></CardText>
                             <CardActions>
-                              <Button label="Action 1" />
-                              <Button label="Action 2" />
+                              <Button label="Contact" onClick={this.props.seeProfile.bind(null, dat)} raised/>
                             </CardActions>
                           </Card>
                         </div>
                       </div>
                     )
                   })}
+                </div>
               <hr className="featurette-divider"/>
-              </h2>
-              <p className="lead text-muted">
-                Bridged helps you reach your full potential by connecting you with the right people.
-              </p>
-              <p className="lead text-muted">
-                Loation: {this.props.data.event.venue}
-              </p>
-              <p className="lead text-muted">
-                Start Time: {dateStart.toString()}
-              </p>
-              <p className="lead text-muted">
-                Start Time: {dateEnd.toString()}
-              </p>
+
+              <div className='col-sm-4'>
+                <p className="lead text-muted"> Venue:</p>
+                <p className="lead text-muted"> Starting Time:</p>
+                <p className="lead text-muted"> End Time:</p>
+              </div>
+              <div className='col-sm-6'>
+                <p className="lead text-muted">{this.props.data.event.venue}</p>
+                <p className="lead text-muted">Start Time: {new Date(dateStart).toString().split(' ').slice(0, 5).join(' ')}</p>
+                <p className="lead text-muted">End Time: {new Date(dateEnd).toString().split(' ').slice(0, 5).join(' ')}</p>
+              </div>
             </div>
           </div>
           <Button  icon='back' onClick={this.props.backToMain} raised />
-          <Button  icon='logout'onClick={this.props.onLogout} raised/>
           <hr className="featurette-divider"/>
         </header>
       </div>
