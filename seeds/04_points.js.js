@@ -16,6 +16,21 @@ exports.seed = function(knex, Promise) {
           points: 20
         }),
         knex('points').insert({
+          user_id1: 3,
+          user_id2: 4,
+          points: 20
+        }),
+        knex('points').insert({
+          user_id1: 3,
+          user_id2: 5,
+          points: 20
+        }),
+        knex('points').insert({
+          user_id1: 3,
+          user_id2: 6,
+          points: 20
+        }),
+        knex('points').insert({
           user_id1: 1,
           user_id2: 4,
           points: -30

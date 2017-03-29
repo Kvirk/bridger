@@ -37,7 +37,6 @@ class Event extends Component {
 				)
 			})}
 
-
 			</div>
 		)
 	}
