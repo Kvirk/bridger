@@ -135,6 +135,23 @@
 	padding-top: 90px;
 	margin: auto;
 	width: 60%;
+
+	.datePicker {
+
+    input:focus {
+    	transform: scale(0);
+    }
+	}
+
+	.timePicker {
+
+		.theme__input___2APuy:focus {
+			transform: scale(0);
+		}
+
+		input:focus {
+		}
+	}
 }
 
 /*EventsCreation.jsx*/
