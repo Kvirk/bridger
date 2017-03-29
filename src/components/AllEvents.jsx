@@ -45,7 +45,7 @@ class AllEvents extends Component {
 					})}
 				</Slider>
 				) : (
-					<h1>No Events</h1>
+					<h1 className="jumbotron text-muted">No Events</h1>
 				)}
 			</div>
 		)
