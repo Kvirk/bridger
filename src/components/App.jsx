@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
-import LinkedinLogin from './LinkedInLogin.jsx';
+import LinkedinLogin from './LinkedInLogIn.jsx';
 import cookie from 'react-cookie';
 import EventsCreation from './EventsCreation.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
@@ -176,7 +176,8 @@ class App extends Component {
 
 	handleForm(formInput) {
 		let contentToServer = {
-			formInput:formInput
+			formInput:formInput,
+			creator_name: cookie.load('name')
 		}
 		let data2 = {
 				userId: cookie.load('userId'),
