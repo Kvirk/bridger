@@ -12,8 +12,11 @@ class AllEvents extends Component {
 			slidesToShow: 3,
 			// centerMode: true,
 		};
+
+
 		return (
 			<div className="carousel">
+				{this.props.data.allEvent[0] ? (
 				<Slider {...settings}>
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
@@ -41,6 +44,9 @@ class AllEvents extends Component {
 						)
 					})}
 				</Slider>
+				) : (
+					<h1>No Events</h1>
+				)}
 			</div>
 		)
 	}
