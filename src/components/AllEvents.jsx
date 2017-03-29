@@ -9,23 +9,26 @@ class AllEvents extends Component {
 		console.log('Rendering <AllEvent />');
 		var settings = {
 			dots: true,
-			slidesToShow: 3,
-			// centerMode: true,
+			slidesToShow: 2,
+			centerMode: true,
 		};
+
+
 		return (
 			<div className="carousel">
+				{this.props.data.allEvent[0] ? (
 				<Slider {...settings}>
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
 							<div key={i}>
-								<Card style={{width: '350px', height: '600px'}}>
+								<Card style={{width: '350px', height: '600px'}} raised>
 									<CardTitle
 										avatar="https://placeimg.com/80/80/animals"
-										title="CREATOR NAME"
+										title={dat.creator_name}
 										subtitle={dat.venue}
 									/>
 									<CardMedia className="cardImage"
-										aspectRatio="wide"
+										aspectRatio="square"
 										image="https://placeimg.com/800/450/nature"
 									/>
 									<CardTitle
@@ -41,6 +44,9 @@ class AllEvents extends Component {
 						)
 					})}
 				</Slider>
+				) : (
+					<h1>No Events</h1>
+				)}
 			</div>
 		)
 	}

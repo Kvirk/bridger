@@ -62,9 +62,12 @@
 		margin: 0px;
 		width: 100%;
 
+		.navbar-toggle {
+
 			.icon-bar {
 				background: #484848;
 			}
+		}
 
 		.navbar-brand {
 			padding-top: 10px;
@@ -78,14 +81,14 @@
 
 		.navbar-text {
 			margin: 0px;
-	    padding-top: 15px;
-	    padding-left: 3px;
+			padding-top: 15px;
+			padding-left: 3px;
 			font-size: large;
 			font-weight: bold;
 		}
 
 		.navbar-collapse {
-				text-align: right;
+			text-align: right;
 
 			.navbar-nav {
 				display: inline-block;
@@ -124,28 +127,112 @@
 	}
 }
 
+
+
+/*EventsProfile.jsx*/
+.center-block {
+   margin:auto;
+   display:table;
+}
+
+.event-profile-container{
+	padding-bottom: 175px;
+}
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+.col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 768px) {
+.col-xs-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+
+
 /*Events.jsx*/
+
+/*EventsCreation.jsx*/
+
+.eventsCreationContainer {
+	padding-top: 90px;
+	margin: auto;
+	width: 60%;
+
+	.datePicker {
+
+		input:focus {
+			transform: scale(0);
+		}
+	}
+
+	.timePicker {
+
+		.theme__input___2APuy:focus {
+			transform: scale(0);
+		}
+
+		input:focus {
+		}
+	}
+}
+
+/*EventsCreation.jsx*/
 
 /*Carousel*/
 
 .carousel {
-  margin: 0 auto;
-  padding: 40px;
-  width: 80%;
-  color: #484848;
-  padding-bottom: 175px;
+	margin: 0 auto;
+	padding: 40px;
+	width: 80%;
+	color: #484848;
+	padding-bottom: 175px;
 
-  div {
-  	/*text-align: center;*/
-  }
+	div {
+		/*text-align: center;*/
+	}
 
-  .slick-prev:before {
-  	color: #484848;
-  }
+	.slick-prev:before {
+		color: #484848;
+	}
 
-  .slick-next:before {
-  	color: #484848;
-  }
+	.slick-next:before {
+		color: #484848;
+	}
 }
 
 /*Carousel*/
@@ -232,7 +319,22 @@
 
 /* Profile */
 
+/* Loading Page */
 
+.loadingPage {
+	width: 100px;
+	height: 100px;
+
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	margin: auto;
+}
+
+/* Loading Page */
 
 
 

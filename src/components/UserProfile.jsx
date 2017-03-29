@@ -1,39 +1,70 @@
 import React, { Component } from 'react';
+import {List, ListSubHeader, ListItem} from 'react-toolbox/lib/list';
+import Input from 'react-toolbox/lib/input';
+import Button from 'react-toolbox/lib/button';
+import Avatar from 'react-toolbox/lib/avatar';
+
 
 class UserProfile extends Component {
- constructor(props) {
-   super(props);
-   this.submit = this.submit.bind(this);
- }
+  constructor(props) {
+    super(props);
+    this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = { message: '' };
+  }
 
- componentDidMount() {
- }
+  componentDidMount() {
+  }
 
- submit(key) {
-   if (key.charCode === 13) {
-     const newMessage = key.target.value;
-     key.target.value = '';
-     return this.props.sendMessage(`${this.props.name}: ${newMessage}`, this.props.data.linkedin_id);
-   }
- }
+  handleChange(name, message){
+    this.setState({message});
+  };
+
+  submit(key) {
+    if (key.charCode === 13) {
+      this.setState({message: ''})
+      return this.props.sendMessage(`${this.props.name}: ${this.state.message}`, this.props.data.linkedin_id);
+    }
+  }
 
  render() {
    return (
-     <div>
-       <h1>Hello, {this.props.name}!</h1>
-       <button onClick={this.props.onLogout}> Log Out</button>
-       <h3>{this.props.data.first_name}</h3>
-       <h3>{this.props.data.last_name}</h3>
-       <h3>{this.props.data.headline}</h3>
-       <h3>{this.props.data.company}</h3>
-       <h3>{this.props.data.industry}</h3>
-       <h3>{this.props.data.location}</h3>
-       <button onClick={this.props.backToEP.bind(null, this.props.data.event_id)}> Back</button>
-       {this.props.data.message.map((dat, i) => {
-           return <h3 key={i} >{dat}</h3>
-       })}
-        <input onKeyPress={this.submit} className="chatbar-message" placeholder="Type a message and hit ENTER" />
-     </div>
+     <div className='userProfile' >
+        <div className="jumbotron">
+              <Avatar><img src={this.props.data.picture_url}/></Avatar>
+          <h1 className="display-3">{this.props.data.first_name} {this.props.data.last_name} - {this.props.data.location}</h1>
+          <p className="lead">{this.props.data.headline}</p>
+          <p>{this.props.data.company} {this.props.data.industry}</p>
+          <p className="lead">
+            <a className="btn btn-primary btn-lg" href={this.props.data.public_profile_url} role="button">Learn more</a>
+          </p>
+        </div>
+        <Button onClick={this.props.backToEP.bind(null, this.props.data.event_id)} label='Back' raised />       <List selectable ripple>
+        <ListSubHeader caption='Chat Below!' />
+           {this.props.data.message.map((dat, i) => {
+              let nameMatch = dat.match(/^(.*?):/i)
+              let crop = 0;
+              let name = 'System';
+              let picture = this.props.data.picture_url;
+              if(nameMatch){
+                name = nameMatch[0].slice(0, -1)
+                crop = nameMatch[0].length + 1;
+                if (this.props.name === name) {
+                  picture = this.props.picture;
+                }
+              }
+              if(name === 'System') {
+                picture = `https://babbleon5.files.wordpress.com/2009/08/james_cameron01.jpg`;
+              }
+               return <ListItem key = {i}
+                          avatar={picture}
+                          caption={name}
+                          legend={dat.slice(crop)}
+                        />
+           })}
+      </List>
+      <Input onKeyPress={this.submit} type='text' label='Message' name='message' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} />
+      </div>
    )
  }
 };

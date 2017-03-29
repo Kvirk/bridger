@@ -9,6 +9,7 @@ exports.seed = function(knex, Promise) {
           name: 'Lighthouse Labs Demo Day',
           description: 'Come enjoy the final projects! Everybody welcome, employers and families.',
           venue: 'Lighthouse Labs',
+          creator_name: 'David',
           start_time: new Date(),
           end_time: new Date()
         }),
@@ -16,6 +17,7 @@ exports.seed = function(knex, Promise) {
           name: 'Techvibes Techfest',
           description: 'A unique recruiting event. Techfest attracts up to 1,000 attendees, more than 300 career opportunities, and up to 15 hiring companies. Hiring company executives pitch a crowd of potential employees on why they’re the best employer in the room.',
           venue: 'Vancouver Convention Centre',
+          creator_name: 'David',
           start_time: new Date(),
           end_time: new Date()
         })
