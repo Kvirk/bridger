@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {List, ListSubHeader, ListItem} from 'react-toolbox/lib/list';
 import Input from 'react-toolbox/lib/input';
-import {Button} from 'react-toolbox/lib/button';
+import Button from 'react-toolbox/lib/button';
+import Avatar from 'react-toolbox/lib/avatar';
 
 
 class UserProfile extends Component {
@@ -30,6 +31,7 @@ class UserProfile extends Component {
    return (
      <div className='userProfile' >
         <div className="jumbotron">
+              <Avatar><img src={this.props.data.picture_url}/></Avatar>
           <h1 className="display-3">{this.props.data.first_name} {this.props.data.last_name} - {this.props.data.location}</h1>
           <p className="lead">{this.props.data.headline}</p>
           <p>{this.props.data.company} {this.props.data.industry}</p>
