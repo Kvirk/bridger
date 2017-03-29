@@ -14,7 +14,6 @@ let connection = knexSettings.development;
 
 if (process.env.NODE_ENV === 'production'){
   connection = knexSettings.production;
-  console.log('test')
 }
 
 const knex = require('knex')(

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LinkedinLogin from './LinkedInLogin.jsx';
+import LinkedinLogin from './LinkedInLogIn.jsx';
 
 class NavBar extends Component {
 	constructor(props) {

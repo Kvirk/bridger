@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar.jsx';
-import LinkedinLogin from './LinkedInLogin.jsx';
+import LinkedinLogin from './LinkedInLogIn.jsx';
 import cookie from 'react-cookie';
 import EventsCreation from './EventsCreation.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
