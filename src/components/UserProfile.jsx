@@ -44,14 +44,20 @@ class UserProfile extends Component {
            {this.props.data.message.map((dat, i) => {
               let nameMatch = dat.match(/^(.*?):/i)
               let crop = 0;
-              let name = 'System'
+              let name = 'System';
+              let picture = this.props.data.picture_url;
               if(nameMatch){
                 name = nameMatch[0].slice(0, -1)
                 crop = nameMatch[0].length + 1;
+                if (this.props.name === name) {
+                  picture = this.props.picture;
+                }
               }
-
+              if(name === 'System') {
+                picture = `https://babbleon5.files.wordpress.com/2009/08/james_cameron01.jpg`;
+              }
                return <ListItem key = {i}
-                          avatar='https://images.pexels.com/photos/9291/nature-bird-flying-red.jpg?w=1260&h=750&auto=compress&cs=tinysrgb'
+                          avatar={picture}
                           caption={name}
                           legend={dat.slice(crop)}
                         />

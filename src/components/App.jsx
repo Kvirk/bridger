@@ -52,6 +52,7 @@ class App extends Component {
     this.state = {type,
         userId: cookie.load('userId'),
         name: cookie.load('name'),
+        picture_url: cookie.load('picture_url'),
         data
       }
   }
@@ -101,6 +102,7 @@ class App extends Component {
 	callbackFunction() {
 		let app = this;
 		function onSuccess(data) {
+      let picture_url = !data.pictureUrls.values ? `https://pbs.twimg.com/profile_images/594731918647816193/dxinx-l6.png` : data.pictureUrls.values[0];
 			let data2 = {
 				userId: data.id,
 			}
@@ -109,9 +111,11 @@ class App extends Component {
 			socket.emit('userLogin', data2)
 			cookie.save('userId', data.id, { path: '/' });
 			cookie.save('name', data.firstName, { path: '/' });
+      cookie.save('picture_url', picture_url, { path: '/' });
 			app.setState({
 				userId: data.id,
 				name: data.firstName,
+        picture_url,
         data: {
           myEvent: [],
           allEvent: [{ id: 2,
@@ -132,14 +136,17 @@ class App extends Component {
 	callbackFunctionCreateEvent() {
 		let app = this;
 		function onSuccess(data) {
+      let picture_url = !data.pictureUrls.values ? `https://pbs.twimg.com/profile_images/594731918647816193/dxinx-l6.png` : data.pictureUrls.values[0];
 			let data2 = {
 				userId: data.id
 			}
 			socket.emit('user', data)
 			cookie.save('userId', data.id, { path: '/' });
 			cookie.save('name', data.firstName, { path: '/' });
+      cookie.save('picture_url', picture_url, { path: '/' });
 			app.setState({
 				type: 'creation',
+        picture_url,
 				userId: data.id,
 				name: data.firstName});
 		}
@@ -219,6 +226,7 @@ class App extends Component {
     socket.emit('destroy', cookie.load('userId'));
 		cookie.remove('userId', { path: '/' });
 		cookie.remove('name', { path: '/' });
+    cookie.remove('picture_url', { path: '/' });
     socket.emit('getData', 'give me more');
 		this.setState({
 				type: 'login',
@@ -316,7 +324,7 @@ class App extends Component {
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 				 	<section className="top-section row">
-				 		<UserProfile name={this.state.name} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
+				 		<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
 				</div>
 			)
