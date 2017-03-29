@@ -5,20 +5,20 @@ const PORT = process.env.PORT || 8080;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const settings = require("./settings"); // settings.json
+const knexSettings = require("./knexfile.js");
 const pg = require("pg");
 const index = require('./e_search/index.js');
 const util = require('util');
-const knex = require('knex')({
-  client: 'pg',
-  connection: {
-    user     : settings.user,
-    password : settings.password,
-    database : settings.database,
-    host     : settings.hostname,
-    port     : settings.port,
-    ssl      : settings.ssl
-  }
-});
+
+let connection = knexSettings.development;
+
+if (process.env.NODE_ENV === 'production'){
+  connection = knexSettings.production;
+  console.log('test')
+}
+
+const knex = require('knex')(
+  connection);
 
 let currentUsers = {}
 
