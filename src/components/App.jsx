@@ -267,16 +267,16 @@ class App extends Component {
 							<Welcome />
 						</ReactCSSTransitionGroup>
 					</section>
+						<ReactCSSTransitionGroup
+							transitionName="example"
+							transitionEnterTimeout={1000}
+							transitionLeaveTimeout={1000}
+							transitionAppearTimeout={1000}
+							transitionAppear={true}>
 						<section className="bottom-section row">
-							<ReactCSSTransitionGroup
-								transitionName="example"
-								transitionEnterTimeout={1000}
-								transitionLeaveTimeout={1000}
-								transitionAppearTimeout={1000}
-								transitionAppear={true}>
-								<AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
-							</ReactCSSTransitionGroup>
+							<AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
 						</section>
+						</ReactCSSTransitionGroup>
 				</div>
 		)}
 
@@ -297,7 +297,7 @@ class App extends Component {
 								transitionAppear={true}>
 								<Tabs index={this.state.index} onChange={this.handleTabChange} fixed>
 									<Tab ripple={false} label='All Events'></Tab>
-									<Tab ripple={false} label='Your Upcoming Events'></Tab>
+									<Tab ripple={false} label='Your Events'></Tab>
 								</Tabs>
 								{(this.state.index === 0) ? (
 									<AllEvents data={this.state.data} addEvent={this.addEvent} />
@@ -314,7 +314,7 @@ class App extends Component {
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<EventsCreation  handleForm={this.handleForm} />
+						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
 				</div>
 			)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LinkedinLogin from './LinkedInLogin.jsx';
 import { Drawer } from 'react-toolbox/lib/drawer';
 import { IconButton } from 'react-toolbox/lib/button';
-import { List, ListItem } from 'react-toolbox/lib/list';
+import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
 
 class NavBar extends Component {
 	constructor(props) {
@@ -60,7 +60,7 @@ class NavBar extends Component {
 							<span className="icon-bar"></span>
 						</button>
 						<div className="navbar-brand">
-							<img alt="Brand" src="http://i.imgur.com/X9cGCcR.png" />
+							<img alt="Brand" src="http://i.imgur.com/X9cGCcR.png" onClick={this.props.backToMain} />
 						</div>
 						<p className="navbar-text text-muted">
 							{this.props.name}
@@ -72,8 +72,11 @@ class NavBar extends Component {
 		        	<br/>
 		        	<br/>
 		        	<br/>
-			        <ListItem caption='Host Event' leftIcon='send' />
-  	          <ListItem caption='Events' leftIcon='delete' />
+      	      <List selectable ripple>
+				        <ListSubHeader caption='Configuration' />
+				        <ListItem caption='Host Event' leftIcon='send' onClick={this.props.eventsCreation} onClick={this.handleToggle} />
+	  	          <ListItem caption='Events' leftIcon='delete' onClick={this.handleToggle} />
+            	</List>
 		        	{navItemsPartial}
 		        </Drawer>
 					</div>

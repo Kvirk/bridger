@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
-import {Button} from 'react-toolbox/lib/button';
+import { Button } from 'react-toolbox/lib/button';
 
 class AllEvents extends Component {
 
@@ -9,7 +9,7 @@ class AllEvents extends Component {
 		console.log('Rendering <AllEvent />');
 		var settings = {
 			dots: true,
-			slidesToShow: 1,
+			slidesToShow: 2,
 			centerMode: true,
 		};
 
@@ -21,7 +21,7 @@ class AllEvents extends Component {
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
 							<div key={i}>
-								<Card style={{width: '350px', height: '600px'}} raised>
+								<Card style={{width: '350px', height: '75%'}} raised>
 									<CardTitle
 										avatar="https://placeimg.com/80/80/animals"
 										title="CREATOR NAME"
