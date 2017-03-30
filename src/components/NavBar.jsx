@@ -3,6 +3,7 @@ import LinkedinLogin from './LinkedInLogIn.jsx';
 import { Drawer } from 'react-toolbox/lib/drawer';
 import { IconButton } from 'react-toolbox/lib/button';
 import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
+import Avatar from 'react-toolbox/lib/avatar';
 
 class NavBar extends Component {
 	constructor(props) {
@@ -65,7 +66,7 @@ class NavBar extends Component {
 						<p className="navbar-text text-muted">
 							{this.props.name}
 						</p>
-		        <IconButton className="iconButton" icon='menu' onClick={this.handleToggle} />
+				    <Avatar className="iconButton" onClick={this.handleToggle}><img src={this.props.picture}/></Avatar>
 		        <Drawer type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
 		        	<br/>
 		        	<br/>

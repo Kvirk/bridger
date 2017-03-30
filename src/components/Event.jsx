@@ -18,7 +18,7 @@ class Event extends Component {
 					return (
 						<Card style={{width: '75%'}} raised key={i}>
 							<CardTitle
-								avatar="https://placeimg.com/80/80/animals"
+								avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
 								title={dat.creator_name}
 								subtitle={dat.venue}
 							/>

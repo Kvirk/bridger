@@ -224,6 +224,15 @@
 		padding-left: 10%;
 		padding-right: 10%;
 		box-shadow: none;
+
+		.joinButton {
+			font-weight: 600;
+			color: #007FFF;
+		}
+
+		button:focus {
+			outline: 0;
+		}
 	}
 
 	.slick-prev:before {
