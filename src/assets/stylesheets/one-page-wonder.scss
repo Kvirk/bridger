@@ -170,6 +170,11 @@
 			color: #007FFF;
 		}
 
+		.leaveButton {
+			font-weight: 600;
+			color: #007FFF;
+		}
+
 		button:focus {
 			outline: 0;
 		}
@@ -273,8 +278,8 @@
 	padding-bottom: 175px;
 
 	.carouselCard {
-		padding-left: 10%;
-		padding-right: 10%;
+/*		padding-left: 10%;
+		padding-right: 10%;*/
 		box-shadow: none;
 
 		.joinButton {

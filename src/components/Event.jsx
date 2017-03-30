@@ -33,6 +33,7 @@ class Event extends Component {
 							<CardText>{dat.description}</CardText>
 							<CardActions>
 								<Button className="enterButton" onClick={this.props.eventPage.bind(null, dat.event_id)} label="Enter" />
+								<Button className="leaveButton" onClick={this.props.leaveEvent.bind(null, dat.event_id)} label="Leave Event" />
 							</CardActions>
 						</Card>
 					)

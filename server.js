@@ -244,6 +244,16 @@ io.on('connection', function(client) {
     })
   });
 
+  client.on('leaveEvent', function(data) {
+    knex.column('id').table('users').where('linkedin_id', data.userId)
+    .then(function(dat){
+      knex.table('event_users').where('event_id', data.eventId).andWhere('user_id', dat[0].id).del()
+      .then(function(){
+        client.emit('eventLeft');
+      })
+    })
+  });
+
 
 
   client.on('user', function(data) {
