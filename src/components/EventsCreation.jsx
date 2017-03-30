@@ -44,7 +44,7 @@ class EventsCreation extends Component {
 	handleSubmit(event){
 		event.preventDefault();
 		let formInput = {};
-		if(this.state.files !== null){
+		if(this.state.file !== null){
 			var req = request.post('/upload');
 			req.attach(this.state.file.name, this.state.file);
 			req.end(function(good, err){
