@@ -185,7 +185,8 @@ class App extends Component {
 	handleForm(formInput) {
 		let contentToServer = {
 			formInput:formInput,
-			creator_name: cookie.load('name')
+			creator_name: cookie.load('name'),
+			creator_picture_url: cookie.load('picture_url')
 		}
 		let data2 = {
 				userId: cookie.load('userId'),
@@ -298,11 +299,7 @@ class App extends Component {
 		if (this.state.type === "events") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} handleTesting={this.testElasticSearch} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
-						<br/>
-						<br/>
-						<br/>
-						<br/>
+					<NavBar urlPath={this.state.type} handleTesting={this.testElasticSearch} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
 						<section>
 							<ReactCSSTransitionGroup
 								transitionName="example"
@@ -310,7 +307,7 @@ class App extends Component {
 								transitionLeaveTimeout={1000}
 								transitionAppearTimeout={1000}
 								transitionAppear={true}>
-								<Tabs index={this.state.index} onChange={this.handleTabChange} fixed>
+								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
 									<Tab ripple={false} label='All Events'></Tab>
 									<Tab ripple={false} label='Your Events'></Tab>
 								</Tabs>
@@ -327,9 +324,9 @@ class App extends Component {
 		if (this.state.type === "creation") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
+						<EventsCreation handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
 				</div>
 			)
@@ -337,7 +334,7 @@ class App extends Component {
 		if (this.state.type === "event") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
 					</section>
@@ -347,7 +344,7 @@ class App extends Component {
 		if (this.state.type === "userProfile") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>

@@ -27,13 +27,13 @@ class AllEvents extends Component {
 							<div key={i}>
 								<Card className="carouselCard">
 									<CardTitle
-										avatar="https://placeimg.com/80/80/animals"
+										avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
 										title={dat.creator_name}
 										subtitle={dat.venue}
 									/>
 									<CardMedia className="cardImage"
 										aspectRatio="square"
-										image="https://placeimg.com/800/450/nature"
+										image={dat.picture_url ? dat.picture_url: "https://placeimg.com/80/80/nature"}
 									/>
 									<CardTitle
 										title={dat.name}
@@ -41,7 +41,7 @@ class AllEvents extends Component {
 									/>
 									<CardText>{dat.description}</CardText>
 									<CardActions>
-										<Button onClick={this.props.addEvent.bind(null, dat.id)} label="Join" />
+										<Button className="joinButton" onClick={this.props.addEvent.bind(null, dat.id)} label="Join Event" />
 									</CardActions>
 								</Card>
 							</div>
