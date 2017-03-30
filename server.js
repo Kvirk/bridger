@@ -49,11 +49,36 @@ io.on('connection', function(client) {
 
   // TEST: Displaying results from elasticsearch
   client.on('elasticsearch', function(data) {
-    // console.log("some data from client", data);
-    matchingFunction.runMatching(knex, 2, (matchingResults) => {
-      console.log("Result from matching", matchingResults);
-    });
-    // console.log("This is executed before function finished");
+    
+    matchingFunction
+      .findUserById(2)
+      .then(matchingFunction.runMatching)
+      .then((results) => {
+        results.hits.hits.forEach((hit) => {
+          knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
+          .then((result) => {
+            // console.log("After update --->", result);
+            if(result.rowCount === 0) {
+              knex('points').insert({
+                user_id1: 2,
+                user_id2: hit._source.id,
+                points: hit._score
+              })
+              .then((result) => {
+                console.log("adding new entries --->", result);
+              })   
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        })
+      })
+
+      // .then(matchingFunction.updateUserPoints)
+      // .then(results => console.log("Done updating --->", results))
+      // .catch(err => console.log(err))
+
     // client.emit("elasticsearch", "--it's returning from elasticsearch server--");
   })
 

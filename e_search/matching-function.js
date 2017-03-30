@@ -13,59 +13,64 @@ const elasticSearch = require ('./search-match.js');
     }
   });
 
+let resultCollection = [];
+
 let handleError = (err) => {
   console.log(err);
 }
 
-let updateUserPoints = (matchResult) => {
-  // console.log("What is knex", knex);
-  console.log("Updating points...");
-  knex('points').where({
-    user_id1: 2,
-    user_id2: matchResult.userId
-  }).increment('points', matchResult.matchingScore)
-  .then((result) => {
-    console.log('Update result', result);
-    // done(result);
-    if (result === 0) {
-      knex('points').returning('points').insert({
-        user_id1: 2,
-        user_id2: matchResult.userId,
-        points: matchResult.matchingScore
-      }).then((output) => {
-        console.log("Output: ", output);
-      }, handleError);
-    }
-  }, handleError);
+const updateUserPoints = (matchResults) => {
+  let allPromises = [];
+  matchResults.hits.hits.forEach((hit) => {
+    allPromises.push(
+    knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
+      .then((result) => {
+        console.log("After update --->", result);
+        if(result.rowCount === 0) {
+          knex('points').insert({
+            user_id1: 2,
+            user_id2: hit._source.id,
+            points: hit._score
+          })
+          .then((result) => {
+            console.log("adding new entries --->", result);
+          })   
+        }
+      })
+    );
+  });
+  return Promise.all(allPromises);
 };
 
-let consumeResult = (results) => {
-  console.log("inside consumeResult");
+
+const consumeResult = (results) => {
   console.log(`found ${results.hits.total} items in ${results.took}ms`);
   if (results.hits.total > 0) {
     results.hits.hits.forEach((hit, index) => {
       console.log("User id", hit._source.id);
       console.log(`\t ${++index} - ${hit._source.first_name} - ${hit._source.linkedin_id} \n Summary: ${hit._source.summary} \n Industry: ${hit._source.industry} \n Score: ${hit._score} \n`);
-      let searchResults = {
+      let searchResult = {
         userId: hit._source.id,
         matchingScore: hit._score
       }
-      updateUserPoints(searchResults);
     });
   }
 };
 
-const runMatching = (knex, userId, done) => {
-  knex.select().from('users').where('id', userId)
-  .then((user) => {
-    let queryValue = user[0].industry;
-    elasticSearch.invokeSearch(queryValue, ['summary', 'industry'])
-      .then(consumeResult, handleError);
-  });
-}
+const findUserById = (userId) => {
+  return knex.select().from('users').where('id', userId)
+};
+
+const runMatching = (user) => {
+  let queryValue = user[0].summary;
+  return elasticSearch.invokeSearch(queryValue, ['summary', 'industry'])
+};
 
 // runMatching();
 
 module.exports = {
-  runMatching
+  findUserById,
+  runMatching,
+  consumeResult,
+  updateUserPoints
 };
