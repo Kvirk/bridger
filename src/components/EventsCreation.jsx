@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Input from 'react-toolbox/lib/input';
 import DatePicker from 'react-toolbox/lib/date_picker';
 import TimePicker from 'react-toolbox/lib/time_picker';
-var Dropzone = require('react-dropzone');
-var request = require('superagent');
+import Dropzone from 'react-dropzone';
+import request  from 'superagent';
+import { Button } from 'react-toolbox/lib/button';
 
 class EventsCreation extends Component {
 	constructor(props) {
@@ -39,6 +40,7 @@ class EventsCreation extends Component {
 		 this.setState(data);
 	 };
 
+
 	handleSubmit(event){
 		event.preventDefault();
 		let formInput = {};
@@ -68,14 +70,12 @@ class EventsCreation extends Component {
 				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' value={this.state.name} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" value={this.state.venue} />
-
         <DatePicker inputClassName='datePicker' label='Start Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'startDateTemp')} value={this.state.startDateTemp} />
-        <TimePicker inputClassName='timePicker' label='Start Time' format='ampm' onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
-
+        <TimePicker inputClassName='timePicker' label='Start Time' onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
         <DatePicker inputClassName='datePicker' label='End Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'endDateTemp')} value={this.state.endDateTemp} />
-        <TimePicker inputClassName='timePicker' label='End Time' format='ampm' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
-
-				<Input type="submit" value="Submit" onClick={this.handleSubmit}/>
+        <TimePicker inputClassName='timePicker' label='End Time' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
+				<Button icon="event_available" label="Create Event" onClick={this.handleSubmit} primary raised />
+				<Button icon="arrow_back" label="Back" onClick={this.props.backToMain} raised />
 				<iframe name="votar" className='hack'></iframe>
 			</section>
 		)

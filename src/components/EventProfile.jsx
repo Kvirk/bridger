@@ -17,7 +17,6 @@ class EventProfile extends Component {
     let length = this.props.data.users.length
     return (
       <div className="event-profile-container">
-        <p>this.props.data.event</p>
         <header className="header-image">
           <div className="container">
             <div className="featurette" classID="about">
