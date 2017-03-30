@@ -214,6 +214,7 @@ io.on('connection', function(client) {
         .then(function(id){
           knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
           .then(function(userEvent){
+            console.log(userEvent);
             sendData = {allEvent: dat, userEvent: userEvent}
             client.emit("responseUserLogin", sendData);
           })
