@@ -13,30 +13,29 @@ const knex = require('knex')({
   }
 });
 
+let handleError = (err) => {
+  console.log(err);
+  knex.destroy();
+}
 
 let updateUserPoints = (matchResult) => {
-  console.log("Incoming results", matchResult);
   console.log("Updating points...");
   knex('points').where({
-    user_id1: 3,
+    user_id1: 2,
     user_id2: matchResult.userId
   }).increment('points', matchResult.matchingScore)
   .then((result) => {
     console.log('Update result', result);
     if (result === 0) {
       knex('points').returning('points').insert({
-        user_id1: 3,
+        user_id1: 2,
         user_id2: matchResult.userId,
         points: matchResult.matchingScore
       }).then((output) => {
         console.log("Output: ", output);
-      }, (err) => {
-        console.log(err);
-      });
+      }, handleError);
     }
-  }, (err) => {
-    console.log(err);
-  });
+  }, handleError);
 };
 
 let consumeResult = (results) => {
@@ -53,10 +52,6 @@ let consumeResult = (results) => {
     });
   }
 };
-
-let handleError = (err) => {
-  console.log(err);
-}
 
 knex.select().from('users').where('id', 2)
   .then((user) => {
