@@ -73,33 +73,35 @@ io.on('connection', function(client) {
     matchingFunction
       .findUserById(2)
       .then(matchingFunction.runMatching)
+      // .then((results) => {
+      //   results.hits.hits.forEach((hit) => {
+      //     console.log("Hit -->", hit);
+      //     knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
+      //     .then((result) => {
+      //       console.log("Status --->", result);
+      //       if(result.rowCount === 0) {
+      //         knex('points').insert({
+      //           user_id1: 2,
+      //           user_id2: hit._source.id,
+      //           points: hit._score
+      //         })
+      //         .then((result) => {
+      //           console.log("adding new entries --->", result);
+      //         })   
+      //       }
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     })
+      //   })
+      // })
+
+      .then(matchingFunction.updateUserPoints)
       .then((results) => {
-        results.hits.hits.forEach((hit) => {
-          knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
-          .then((result) => {
-            // console.log("After update --->", result);
-            if(result.rowCount === 0) {
-              knex('points').insert({
-                user_id1: 2,
-                user_id2: hit._source.id,
-                points: hit._score
-              })
-              .then((result) => {
-                console.log("adding new entries --->", result);
-              })   
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-        })
+        console.log("Done updating --->", results);
+        client.emit("elasticsearch", "Matching people is done");
       })
-
-      // .then(matchingFunction.updateUserPoints)
-      // .then(results => console.log("Done updating --->", results))
-      // .catch(err => console.log(err))
-
-    // client.emit("elasticsearch", "--it's returning from elasticsearch server--");
+      .catch(err => console.log(err))
   })
 
   client.on('getEvent', function(data){

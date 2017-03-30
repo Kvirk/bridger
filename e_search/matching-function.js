@@ -23,7 +23,8 @@ const updateUserPoints = (matchResults) => {
   let allPromises = [];
   matchResults.hits.hits.forEach((hit) => {
     allPromises.push(
-    knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
+      knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
+      // knex.raw('INSERT INTO points (user_id1, user_id2, points) VALUES (2, ?, ?) ON CONFLICT (user_id2=?) UPDATE points SET points=points+?', [hit._source.id, hit._score, hit._source.id, hit._score ])
       .then((result) => {
         console.log("After update --->", result);
         if(result.rowCount === 0) {
@@ -32,9 +33,6 @@ const updateUserPoints = (matchResults) => {
             user_id2: hit._source.id,
             points: hit._score
           })
-          .then((result) => {
-            console.log("adding new entries --->", result);
-          })   
         }
       })
     );
@@ -57,12 +55,13 @@ const consumeResult = (results) => {
   }
 };
 
-const findUserById = (userId) => {
-  return knex.select().from('users').where('id', userId)
+const findUserById = (userLinkedInId) => {
+  return knex.select().from('users').where('linkedin_id', userLinkedInId)
 };
 
 const runMatching = (user) => {
-  let queryValue = user[0].summary;
+  console.log("User is -->", user);
+  let queryValue = user[0].industry;
   return elasticSearch.invokeSearch(queryValue, ['summary', 'industry'])
 };
 
