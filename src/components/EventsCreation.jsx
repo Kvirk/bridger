@@ -54,8 +54,8 @@ class EventsCreation extends Component {
         <TimePicker inputClassName='timePicker' label='Start Time' active={this.state.active} onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
         <DatePicker inputClassName='datePicker' label='End Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'endDateTemp')} value={this.state.endDateTemp} />
         <TimePicker inputClassName='timePicker' label='End Time' active={this.state.active} onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
-				<Button label="Create Event" onClick={this.handleSubmit} primary raised />
-				<Button label="Back" onClick={this.props.backToMain} raised />
+				<Button icon="event_available" label="Create Event" onClick={this.handleSubmit} primary raised />
+				<Button icon="arrow_back" label="Back" onClick={this.props.backToMain} raised />
 			</section>
 		)
 	}

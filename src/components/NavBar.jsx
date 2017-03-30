@@ -84,12 +84,12 @@ class NavBar extends Component {
 					<div className="navbar-brand">
 						<img alt="Brand" src="http://i.imgur.com/X9cGCcR.png" onClick={this.props.backToMain} />
 					</div>
+				{navItemsPartial}
 					{this.props.name !== undefined &&
-						<p className="navbar-text pull-right text-muted" onClick={this.handleToggle}>
+						<p className="navbar-text pull-right text-muted">
 							{this.props.name}
 						</p>
 					}
-				{navItemsPartial}
 				</div>
 			</nav>
 		)
