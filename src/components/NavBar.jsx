@@ -8,12 +8,18 @@ class NavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.handleToggle = this.handleToggle.bind(this);
+		this.handleTestingElasticsearch = this.handleTestingElasticsearch.bind(this);
 		this.state = { active: false }
 	}
 
   handleToggle() {
     this.setState({ active: !this.state.active });
   }
+
+	handleTestingElasticsearch(event) {
+		event.preventDefault();
+		this.props.handleTesting();
+	}
 
 	render () {
 		console.log("Rendering <Navbar />");
@@ -35,6 +41,7 @@ class NavBar extends Component {
 				console.log("User is logged in, main events page")
 				navItemsPartial =
 					<ul className="nav navbar-nav center">
+						<li><span onClick={this.handleTestingElasticsearch}>Test Elasticsearch</span></li>
 						<li><span onClick={this.props.eventsCreation}>Host Event</span></li>
 						<li><span onClick={this.props.backToMain}>Events</span></li>
 						<li><span onClick={this.props.onLogout}>Logout</span></li>

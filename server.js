@@ -19,6 +19,8 @@ if (process.env.NODE_ENV === 'production'){
 const knex = require('knex')(
   connection);
 
+const matchingFunction = require('./e_search/matching-function.js');
+
 let currentUsers = {}
 
 // using webpack-dev-server and middleware in development environment
@@ -44,6 +46,16 @@ io.on('connection', function(client) {
   client.on('join', function(data) {
     client.emit("message", "leave me alone");
   });
+
+  // TEST: Displaying results from elasticsearch
+  client.on('elasticsearch', function(data) {
+    // console.log("some data from client", data);
+    matchingFunction.runMatching(knex, 2, (matchingResults) => {
+      console.log("Result from matching", matchingResults);
+    });
+    // console.log("This is executed before function finished");
+    // client.emit("elasticsearch", "--it's returning from elasticsearch server--");
+  })
 
   client.on('getEvent', function(data){
     knex.column('id').table('users').where('linkedin_id', data.userId)

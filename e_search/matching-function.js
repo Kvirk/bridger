@@ -1,24 +1,24 @@
-let elasticSearch = require ('./search-match.js');
+const elasticSearch = require ('./search-match.js');
 
-const settings = require("../settings"); // settings.json
-const knex = require('knex')({
-  client: 'pg',
-  connection: {
-    user     : settings.user,
-    password : settings.password,
-    database : settings.database,
-    host     : settings.hostname,
-    port     : settings.port,
-    ssl      : settings.ssl
-  }
-});
+  const settings = require("../settings"); // settings.json
+  const knex = require('knex')({
+    client: 'pg',
+    connection: {
+      user     : settings.user,
+      password : settings.password,
+      database : settings.database,
+      host     : settings.hostname,
+      port     : settings.port,
+      ssl      : settings.ssl
+    }
+  });
 
 let handleError = (err) => {
   console.log(err);
-  knex.destroy();
 }
 
 let updateUserPoints = (matchResult) => {
+  // console.log("What is knex", knex);
   console.log("Updating points...");
   knex('points').where({
     user_id1: 2,
@@ -26,6 +26,7 @@ let updateUserPoints = (matchResult) => {
   }).increment('points', matchResult.matchingScore)
   .then((result) => {
     console.log('Update result', result);
+    // done(result);
     if (result === 0) {
       knex('points').returning('points').insert({
         user_id1: 2,
@@ -39,6 +40,7 @@ let updateUserPoints = (matchResult) => {
 };
 
 let consumeResult = (results) => {
+  console.log("inside consumeResult");
   console.log(`found ${results.hits.total} items in ${results.took}ms`);
   if (results.hits.total > 0) {
     results.hits.hits.forEach((hit, index) => {
@@ -53,9 +55,17 @@ let consumeResult = (results) => {
   }
 };
 
-knex.select().from('users').where('id', 2)
+const runMatching = (knex, userId, done) => {
+  knex.select().from('users').where('id', userId)
   .then((user) => {
     let queryValue = user[0].industry;
     elasticSearch.invokeSearch(queryValue, ['summary', 'industry'])
       .then(consumeResult, handleError);
   });
+}
+
+// runMatching();
+
+module.exports = {
+  runMatching
+};

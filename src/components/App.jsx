@@ -50,6 +50,9 @@ class App extends Component {
 		this.eventsCreation = this.eventsCreation.bind(this);
 		this.handleForm = this.handleForm.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
+
+		this.testElasticSearch = this.testElasticSearch.bind(this);
+
 		this.state = {type,
 				userId: cookie.load('userId'),
 				name: cookie.load('name'),
@@ -98,6 +101,11 @@ class App extends Component {
 				type: 'userProfile',
 				data: data
 			});
+		})
+
+		//TEST Elasticsearch
+		socket.on('elasticsearch', function(data) {
+			console.log("data from server using elasticsearch", data);
 		})
 	}
 
@@ -253,6 +261,12 @@ class App extends Component {
 		})
 	}
 
+	// Testing elastic search
+	testElasticSearch() {
+		console.log("This is testing elasticsearch");
+		socket.emit('elasticsearch', "--some data--");
+	}
+
 	render() {
 		if (this.state.type === "login") {
 			return (
@@ -284,7 +298,7 @@ class App extends Component {
 		if (this.state.type === "events") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
+					<NavBar urlPath={this.state.type} handleTesting={this.testElasticSearch} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
 						<br/>
 						<br/>
 						<br/>
