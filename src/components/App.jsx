@@ -286,10 +286,6 @@ class App extends Component {
 			return (
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
-						<br/>
-						<br/>
-						<br/>
-						<br/>
 						<section>
 							<ReactCSSTransitionGroup
 								transitionName="example"
@@ -297,7 +293,7 @@ class App extends Component {
 								transitionLeaveTimeout={1000}
 								transitionAppearTimeout={1000}
 								transitionAppear={true}>
-								<Tabs index={this.state.index} onChange={this.handleTabChange} fixed>
+								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
 									<Tab ripple={false} label='All Events'></Tab>
 									<Tab ripple={false} label='Your Events'></Tab>
 								</Tabs>

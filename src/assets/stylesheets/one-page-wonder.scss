@@ -51,7 +51,7 @@
 }
 
 .navbar {
-	min-height: 64px;
+	height: 64px;
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 0 1px 5px rgba(0,0,0,0.1);
@@ -70,12 +70,16 @@
 		}
 
 		.navbar-brand {
-			padding-top: 10px;
+			padding-top: 7px;
 			margin-right: 0;
 
+			@media (max-width: 768px) {
+				margin-left: -15px;
+			}
+
 			img {
-				height: 40px;
-				width: 40px;
+				height: 42px;
+				width: 42px;
 				cursor: pointer;
 			}
 		}
@@ -83,30 +87,49 @@
 		.navbar-text {
 			margin: 0px;
 			padding-top: 15px;
-			padding-left: 3px;
+			padding-left: 1%;
 			font-size: large;
 			font-weight: bold;
+			cursor: pointer;
 		}
 
-		.navbar-collapse {
-			text-align: right;
+		.navbar-nav {
+			display: inline-block;
+			float: none;
+			padding-top: 17.5px;
 
-			.navbar-nav {
-				display: inline-block;
-				float: none;
-				padding-top: 17.5px;
+			@media (max-width: 768px) {
+				margin: 0;
+			}
 
-				span {
-					padding: 15px;
-					color: #484848;
-					background: none;
-					font-weight: bolder;
-					cursor: pointer;
-				}
+			span {
+				padding: 15px;
+				color: #484848;
+				background: none;
+				font-weight: bolder;
+				cursor: pointer;
 			}
 		}
 	}
 }
+
+/*REMOVEBOOTSTRAPRESPONSIVE*/
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: right !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-left: -15px !important;
+}
+
+.navbar-right {
+  float: left!important;
+}
+/*REMOVEBOOTSTRAPRESPONSIVE*/
 
 /*Events.jsx*/
 
@@ -128,7 +151,11 @@
 	}
 }
 
-
+/*Tabs*/
+.tabs {
+	padding-top: 81px;
+}
+/*Tabs*/
 
 /*EventsProfile.jsx*/
 .center-block {
@@ -347,11 +374,20 @@
 
 
 /*TESTINGREACTDRAWER*/
-.iconButton {
-	position: absolute;
-	left: 97%;
-	top: 15%;
+.avatarDrawer {
 	cursor: pointer;
+	position: relative;
+	top: 6px;
+	float: right;
+
+	@media (max-width: 768px) {
+		top: 6px;
+		padding-right: 4px;
+	}
+}
+
+.drawer {
+	padding-top: 5%;
 }
 /*TESTINGREACTDRAWER*/
 
