@@ -24,16 +24,14 @@ let updateUserPoints = (matchResult) => {
   .then((result) => {
     console.log('Update result', result);
     if (result === 0) {
-      knex('points').returning('user_id1', 'user_id2', 'points').insert({
+      knex('points').returning('points').insert({
         user_id1: 3,
         user_id2: matchResult.userId,
         points: matchResult.matchingScore
       }).then((output) => {
         console.log("Output: ", output);
-        knex.destroy();
       }, (err) => {
         console.log(err);
-        knex.destroy();
       });
     }
   }, (err) => {
