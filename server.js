@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const app = express();
 const PORT = process.env.PORT || 8080;
 const server = require('http').createServer(app);
@@ -9,6 +10,9 @@ const knexSettings = require("./knexfile.js");
 const pg = require("pg");
 const index = require('./e_search/index.js');
 const util = require('util');
+const fs = require('fs');
+
+app.use(fileUpload());
 
 let connection = knexSettings.development;
 
@@ -34,10 +38,26 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '/src/assets/images')));
 
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/dist/index.html')
+
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/dist/index.html')
 });
+
+app.post('/upload', function(req, res, next) {
+   // let tempPath = req.file.path;
+  console.log(req.files)
+  for (file in req.files){
+    fs.writeFile(__dirname + `/src/assets/images/${file}`, req.files[file].data, {flag: "w"}, (err) => {
+      if (err) throw err;
+        console.log('The file has been saved!');
+    });
+  }
+  res.status(201).send()
+});
+
 
 io.on('connection', function(client) {
   console.log('client connected!');
@@ -111,7 +131,6 @@ io.on('connection', function(client) {
 
   client.on('message', function(data) {
     let response = data;
-    console.log(data)
     let id;
     id = data.user_id1;
     if(data.id === data.user_id1){
@@ -191,7 +210,6 @@ io.on('connection', function(client) {
         this.on('eventUsers.event_id', 'events.id')
       }).where('user_id', null)
       .then(function(dat){
-        console.log(dat)
         knex.column('id').table('users').where('linkedin_id', data.userId)
         .then(function(id){
           knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
@@ -285,11 +303,14 @@ io.on('connection', function(client) {
   });
 
   client.on('createEvent', function(data) {
+    console.log(data.filename);
     let insertData = {
       name: data.formInput.name,
       description: data.formInput.description,
       venue: data.formInput.venue,
       creator_name: data.creator_name,
+      creator_picture_url: data.creator_picture_url,
+      picture_url: data.formInput.imageName,
       start_time: data.formInput.start,
       end_time: data.formInput.end
     }
