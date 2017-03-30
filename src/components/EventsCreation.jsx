@@ -8,7 +8,17 @@ class EventsCreation extends Component {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.state = { name: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '' };
+		this.submit = this.submit.bind(this);
+		this.file = this.file.bind(this);
+		this.state = { image: true, name: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '' };
+	}
+
+	submit(){
+		this.setState({image: false})
+	}
+
+	file(value){
+		console.log(value.target.value)
 	}
 
 	 handleChange(name, value) {
@@ -41,6 +51,16 @@ class EventsCreation extends Component {
 	render() {
 		return (
 			<section className="eventsCreationContainer">
+			{this.state.image ? '' : (<h1>Image uploaded</h1>)}
+				<form onSubmit={this.submit} ref='uploadForm'
+		      id='uploadForm'
+		      action='/upload'
+		      method='post'
+		      encType="multipart/form-data"
+		      target='votar'>
+		        <input type="file" name="sampleFile" onChange={this.file}/>
+		        <input type='submit' value='Upload!'/>
+		    </form>
 				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' value={this.state.name} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" value={this.state.venue} />
@@ -52,6 +72,7 @@ class EventsCreation extends Component {
         <TimePicker inputClassName='timePicker' label='End Time' format='ampm' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
 
 				<Input type="submit" value="Submit" onClick={this.handleSubmit}/>
+				<iframe name="votar" className='hack'></iframe>
 			</section>
 		)
 	}

@@ -27,7 +27,7 @@ module.exports = {
     ];
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.json']
   },
   output: {
     path: path.join(__dirname, '/dist'),
