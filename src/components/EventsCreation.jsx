@@ -2,24 +2,26 @@ import React, { Component } from 'react';
 import Input from 'react-toolbox/lib/input';
 import DatePicker from 'react-toolbox/lib/date_picker';
 import TimePicker from 'react-toolbox/lib/time_picker';
+var Dropzone = require('react-dropzone');
+var request = require('superagent');
 
 class EventsCreation extends Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.submit = this.submit.bind(this);
-		this.file = this.file.bind(this);
-		this.state = { image: true, name: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '' };
+		this.onDrop = this.onDrop.bind(this);
+		this.state = { image: true, name: '', imageName: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '', file: null };
 	}
 
-	submit(){
-		this.setState({image: false})
-	}
+	onDrop(acceptedFiles) {
+    this.setState({
+       file: acceptedFiles[0],
+       image: false,
+       imageName: acceptedFiles[0].name
+   	})
+  }
 
-	file(value){
-		console.log(value.target.value)
-	}
 
 	 handleChange(name, value) {
 		 let data = this.state;
@@ -40,8 +42,17 @@ class EventsCreation extends Component {
 	handleSubmit(event){
 		event.preventDefault();
 		let formInput = {};
+		if(this.state.files !== null){
+			var req = request.post('/upload');
+			req.attach(this.state.file.name, this.state.file);
+			req.end(function(good, err){
+				console.log(good);
+			});
+		}
 		formInput['name'] = this.state.name;
+		formInput['imageName'] =this.state.imageName;
 		formInput['description'] = this.state.description;
+		formInput['filename'] = this.state.filename;
 		formInput['venue'] = this.state.venue;
 		formInput['start'] = new Date(this.state.startDate + ' ' + this.state.startTime);
 		formInput['end'] = new Date(this.state.endDate + ' ' + this.state.endTime);
@@ -51,16 +62,9 @@ class EventsCreation extends Component {
 	render() {
 		return (
 			<section className="eventsCreationContainer">
-			{this.state.image ? '' : (<h1>Image uploaded</h1>)}
-				<form onSubmit={this.submit} ref='uploadForm'
-		      id='uploadForm'
-		      action='/upload'
-		      method='post'
-		      encType="multipart/form-data"
-		      target='votar'>
-		        <input type="file" name="sampleFile" onChange={this.file}/>
-		        <input type='submit' value='Upload!'/>
-		    </form>
+				<Dropzone ref={(node) => { this.dropzone = node; }} onDrop={this.onDrop}>
+            <div>{ this.state.image ? 'Try dropping some files here, or click to select files to upload.' : 'Image uploaded'}</div>
+        </Dropzone>
 				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' value={this.state.name} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" value={this.state.venue} />

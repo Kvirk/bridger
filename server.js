@@ -38,6 +38,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '/src/assets/images')));
+
+
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/dist/index.html')
@@ -45,14 +48,13 @@ app.get('/', function(req, res) {
 
 app.post('/upload', function(req, res, next) {
    // let tempPath = req.file.path;
-   console.log(req.file)
-   console.log(req.files)
-   console.log(req.files.sampleFile)
-
-  fs.writeFile(__dirname + `/src/assets/images/${req.files.sampleFile.name}`, req.files.sampleFile.data, {flag: "w"}, (err) => {
-  if (err) throw err;
-    console.log('The file has been saved!');
-  });
+  console.log(req.files)
+  for (file in req.files){
+    fs.writeFile(__dirname + `/src/assets/images/${file}`, req.files[file].data, {flag: "w"}, (err) => {
+      if (err) throw err;
+        console.log('The file has been saved!');
+    });
+  }
   res.status(201).send()
 });
 
@@ -301,11 +303,13 @@ io.on('connection', function(client) {
   });
 
   client.on('createEvent', function(data) {
+    console.log(data.filename);
     let insertData = {
       name: data.formInput.name,
       description: data.formInput.description,
       venue: data.formInput.venue,
       creator_name: data.creator_name,
+      picture_url: data.formInput.imageName,
       start_time: data.formInput.start,
       end_time: data.formInput.end
     }

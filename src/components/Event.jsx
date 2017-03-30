@@ -24,7 +24,7 @@ class Event extends Component {
 							/>
 							<CardMedia className="cardImage"
 								aspectRatio="square"
-								image="http://www.lighthouselabs.ca/static-assets/lighthouse-labs.png"
+								image={dat.picture_url ? dat.picture_url: "https://placeimg.com/80/80/nature"}
 							/>
 							<CardTitle
 								title={dat.name}

@@ -29,7 +29,7 @@ class AllEvents extends Component {
 									/>
 									<CardMedia className="cardImage"
 										aspectRatio="square"
-										image="https://placeimg.com/800/450/nature"
+										image={dat.picture_url ? dat.picture_url: "https://placeimg.com/80/80/nature"}
 									/>
 									<CardTitle
 										title={dat.name}
