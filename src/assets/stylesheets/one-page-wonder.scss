@@ -76,6 +76,7 @@
 			img {
 				height: 40px;
 				width: 40px;
+				cursor: pointer;
 			}
 		}
 
@@ -110,7 +111,7 @@
 /*Events.jsx*/
 
 .eventsContainer {
-	padding-top: 90px;
+	padding-top: 5%;
 
 	.theme__card___8pay8 {
 		margin: auto;
@@ -189,7 +190,7 @@
 /*EventsCreation.jsx*/
 
 .eventsCreationContainer {
-	padding-top: 90px;
+	padding-top: 9%;
 	margin: auto;
 	width: 60%;
 
@@ -202,11 +203,8 @@
 
 	.timePicker {
 
-		.theme__input___2APuy:focus {
-			transform: scale(0);
-		}
-
 		input:focus {
+			/*transform: scale(0);*/
 		}
 	}
 }
@@ -222,8 +220,10 @@
 	color: #484848;
 	padding-bottom: 175px;
 
-	div {
-		/*text-align: center;*/
+	.carouselCard {
+		padding-left: 10%;
+		padding-right: 10%;
+		box-shadow: none;
 	}
 
 	.slick-prev:before {
@@ -335,6 +335,7 @@
 }
 
 /* Loading Page */
+
 
 footer {
 		margin: 50px 0;

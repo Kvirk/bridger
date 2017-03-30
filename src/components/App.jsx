@@ -38,26 +38,26 @@ class App extends Component {
 			type = 'login'
 		}
 
-    this.sendMessage = this.sendMessage.bind(this)
-    this.seeProfile = this.seeProfile.bind(this);
-    this.backToMain = this.backToMain.bind(this);
-    this.addEvent = this.addEvent.bind(this);
-    this.eventPage = this.eventPage.bind(this);
-    this.onLogout = this.onLogout.bind(this);
-    this.callbackFunction = this.callbackFunction.bind(this);
-    this.callbackFunctionCreateEvent = this.callbackFunctionCreateEvent.bind(this)
-    this.goToEventProfile = this.goToEventProfile.bind(this);
-    this.eventsCreation = this.eventsCreation.bind(this);
-    this.handleForm = this.handleForm.bind(this);
+		this.sendMessage = this.sendMessage.bind(this);
+		this.seeProfile = this.seeProfile.bind(this);
+		this.backToMain = this.backToMain.bind(this);
+		this.addEvent = this.addEvent.bind(this);
+		this.eventPage = this.eventPage.bind(this);
+		this.onLogout = this.onLogout.bind(this);
+		this.callbackFunction = this.callbackFunction.bind(this);
+		this.callbackFunctionCreateEvent = this.callbackFunctionCreateEvent.bind(this)
+		this.goToEventProfile = this.goToEventProfile.bind(this);
+		this.eventsCreation = this.eventsCreation.bind(this);
+		this.handleForm = this.handleForm.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
-    this.state = {type,
-        userId: cookie.load('userId'),
-        name: cookie.load('name'),
-        picture_url: cookie.load('picture_url'),
-        data,
-        index: 1
-      }
-    }
+		this.state = {type,
+				userId: cookie.load('userId'),
+				name: cookie.load('name'),
+				picture_url: cookie.load('picture_url'),
+				data,
+				index: 1
+			}
+		}
 
 
 	componentDidMount() {
@@ -104,7 +104,7 @@ class App extends Component {
 	callbackFunction() {
 		let app = this;
 		function onSuccess(data) {
-      let picture_url = !data.pictureUrls.values ? `https://pbs.twimg.com/profile_images/594731918647816193/dxinx-l6.png` : data.pictureUrls.values[0];
+			let picture_url = !data.pictureUrls.values ? `https://pbs.twimg.com/profile_images/594731918647816193/dxinx-l6.png` : data.pictureUrls.values[0];
 			let data2 = {
 				userId: data.id,
 			}
@@ -113,21 +113,21 @@ class App extends Component {
 			socket.emit('userLogin', data2)
 			cookie.save('userId', data.id, { path: '/' });
 			cookie.save('name', data.firstName, { path: '/' });
-      cookie.save('picture_url', picture_url, { path: '/' });
+			cookie.save('picture_url', picture_url, { path: '/' });
 			app.setState({
 				userId: data.id,
 				name: data.firstName,
-        picture_url,
-        data: {
-          myEvent: [],
-          allEvent: [{ id: 2,
-                      name: "Techvibes Techfest",
-                      description: "A unique recruiting event. Techfest…",
-                      venue: "Vancouver Convention Centre",
-                      start_time: "2017-03-25T21:39:04.753Z",
-                      end_time: "2017-03-25T21:39:04.753Z" }]
-        }
-      });
+				picture_url,
+				data: {
+					myEvent: [],
+					allEvent: [{ id: 2,
+											name: "Techvibes Techfest",
+											description: "A unique recruiting event. Techfest…",
+											venue: "Vancouver Convention Centre",
+											start_time: "2017-03-25T21:39:04.753Z",
+											end_time: "2017-03-25T21:39:04.753Z" }]
+				}
+			});
 		}
 		function onError(error) {
 		}
@@ -138,17 +138,17 @@ class App extends Component {
 	callbackFunctionCreateEvent() {
 		let app = this;
 		function onSuccess(data) {
-      let picture_url = !data.pictureUrls.values ? `https://pbs.twimg.com/profile_images/594731918647816193/dxinx-l6.png` : data.pictureUrls.values[0];
+			let picture_url = !data.pictureUrls.values ? `https://pbs.twimg.com/profile_images/594731918647816193/dxinx-l6.png` : data.pictureUrls.values[0];
 			let data2 = {
 				userId: data.id
 			}
 			socket.emit('user', data)
 			cookie.save('userId', data.id, { path: '/' });
 			cookie.save('name', data.firstName, { path: '/' });
-      cookie.save('picture_url', picture_url, { path: '/' });
+			cookie.save('picture_url', picture_url, { path: '/' });
 			app.setState({
 				type: 'creation',
-        picture_url,
+				picture_url,
 				userId: data.id,
 				name: data.firstName});
 		}
@@ -229,8 +229,8 @@ class App extends Component {
 		socket.emit('destroy', cookie.load('userId'));
 		cookie.remove('userId', { path: '/' });
 		cookie.remove('name', { path: '/' });
-    cookie.remove('picture_url', { path: '/' });
-    socket.emit('getData', 'give me more');
+		cookie.remove('picture_url', { path: '/' });
+		socket.emit('getData', 'give me more');
 		this.setState({
 				type: 'login',
 				userId: null,
@@ -247,11 +247,11 @@ class App extends Component {
 		})
 	}
 
-  handleTabChange(index) {
-    this.setState({
-    	index: index
-    })
-  }
+	handleTabChange(index) {
+		this.setState({
+			index: index
+		})
+	}
 
 	render() {
 		if (this.state.type === "login") {
@@ -289,19 +289,23 @@ class App extends Component {
 						<br/>
 						<br/>
 						<br/>
-						<br/>
-						<br/>
-						<br/>
 						<section>
-			        <Tabs index={this.state.index} onChange={this.handleTabChange} fixed>
-			          <Tab label='Your Upcoming Events'></Tab>
-			          <Tab label='All Events'></Tab>
-			        </Tabs>
-	          	{(this.state.index === 1) ? (
-								<AllEvents data={this.state.data} addEvent={this.addEvent} />
-	          	) : (
-								<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
-	          	)}
+							<ReactCSSTransitionGroup
+								transitionName="example"
+								transitionEnterTimeout={1000}
+								transitionLeaveTimeout={1000}
+								transitionAppearTimeout={1000}
+								transitionAppear={true}>
+								<Tabs index={this.state.index} onChange={this.handleTabChange} fixed>
+									<Tab ripple={false} label='All Events'></Tab>
+									<Tab ripple={false} label='Your Events'></Tab>
+								</Tabs>
+								{(this.state.index === 0) ? (
+									<AllEvents data={this.state.data} addEvent={this.addEvent} />
+								) : (
+									<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
+								)}
+							</ReactCSSTransitionGroup>
 						</section>
 				</div>
 			)
@@ -311,7 +315,7 @@ class App extends Component {
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<EventsCreation  handleForm={this.handleForm} />
+						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
 				</div>
 			)
@@ -330,8 +334,8 @@ class App extends Component {
 			return (
 				<div className="container">
 					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
-				 	<section className="top-section row">
-				 		<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
+					<section className="top-section row">
+						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
 				</div>
 			)

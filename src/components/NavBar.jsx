@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import LinkedinLogin from './LinkedInLogIn.jsx';
+import { Drawer } from 'react-toolbox/lib/drawer';
+import { IconButton } from 'react-toolbox/lib/button';
+import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
 
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
+		this.handleToggle = this.handleToggle.bind(this);
+		this.state = { active: false }
 	}
+
+  handleToggle() {
+    this.setState({ active: !this.state.active });
+  }
 
 	render () {
 		console.log("Rendering <Navbar />");
@@ -51,11 +60,25 @@ class NavBar extends Component {
 							<span className="icon-bar"></span>
 						</button>
 						<div className="navbar-brand">
-							<img alt="Brand" src="http://i.imgur.com/X9cGCcR.png" />
+							<img alt="Brand" src="http://i.imgur.com/X9cGCcR.png" onClick={this.props.backToMain} />
 						</div>
 						<p className="navbar-text text-muted">
 							{this.props.name}
 						</p>
+		        <IconButton className="iconButton" icon='menu' onClick={this.handleToggle} />
+		        <Drawer type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
+		        	<br/>
+		        	<br/>
+		        	<br/>
+		        	<br/>
+		        	<br/>
+      	      <List selectable ripple>
+				        <ListSubHeader caption='Configuration' />
+				        <ListItem caption='Host Event' leftIcon='send' onClick={this.props.eventsCreation} onClick={this.handleToggle} />
+	  	          <ListItem caption='Events' leftIcon='delete' onClick={this.handleToggle} />
+            	</List>
+		        	{navItemsPartial}
+		        </Drawer>
 					</div>
 					<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						{navItemsPartial}

@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Input from 'react-toolbox/lib/input';
 import DatePicker from 'react-toolbox/lib/date_picker';
 import TimePicker from 'react-toolbox/lib/time_picker';
+import { Button } from 'react-toolbox/lib/button';
 
 class EventsCreation extends Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleToggle = this.handleToggle.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.state = { name: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '' };
+		this.state = { name: '', description: '', venue: '', startDate: '', startTime: '', endDate: '', endTime: '', active: false };
 	}
 
 	 handleChange(name, value) {
@@ -27,6 +29,10 @@ class EventsCreation extends Component {
 		 this.setState(data);
 	 };
 
+  handleToggle() {
+    this.setState({active: !this.state.active});
+  };
+
 	handleSubmit(event){
 		event.preventDefault();
 		let formInput = {};
@@ -44,14 +50,12 @@ class EventsCreation extends Component {
 				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' value={this.state.name} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" value={this.state.venue} />
-
         <DatePicker inputClassName='datePicker' label='Start Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'startDateTemp')} value={this.state.startDateTemp} />
-        <TimePicker inputClassName='timePicker' label='Start Time' format='ampm' onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
-
+        <TimePicker inputClassName='timePicker' label='Start Time' active={this.state.active} onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
         <DatePicker inputClassName='datePicker' label='End Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'endDateTemp')} value={this.state.endDateTemp} />
-        <TimePicker inputClassName='timePicker' label='End Time' format='ampm' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
-
-				<Input type="submit" value="Submit" onClick={this.handleSubmit}/>
+        <TimePicker inputClassName='timePicker' label='End Time' active={this.state.active} onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
+				<Button label="Create Event" onClick={this.handleSubmit} primary raised />
+				<Button label="Back" onClick={this.props.backToMain} raised />
 			</section>
 		)
 	}

@@ -16,7 +16,7 @@ class Event extends Component {
 			<div className="eventsContainer">
 				{this.props.data.myEvent.map((dat, i) => {
 					return (
-						<Card style={{width: '70%'}} raised key={i}>
+						<Card style={{width: '75%'}} raised key={i}>
 							<CardTitle
 								avatar="https://placeimg.com/80/80/animals"
 								title={dat.creator_name}
