@@ -62,8 +62,8 @@ class EventsCreation extends Component {
 	render() {
 		return (
 			<section className="eventsCreationContainer">
-				<Dropzone ref={(node) => { this.dropzone = node; }} onDrop={this.onDrop}>
-            <div>{ this.state.image ? 'Try dropping some files here, or click to select files to upload.' : 'Image uploaded'}</div>
+				<Dropzone className='dropzone' ref={(node) => { this.dropzone = node; }} onDrop={this.onDrop}>
+            <div>{ this.state.image ? 'Upload image file here (square size)!' : 'Image uploaded'}</div>
         </Dropzone>
 				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' value={this.state.name} />
 				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} />

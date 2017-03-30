@@ -29,3 +29,14 @@ html, body {
 .hack {
   display:none;
 }
+
+.dropzone{
+  margin: auto;
+  padding: 20px;
+  width: 200px;
+    height: 200px;
+    border-width: 2px;
+    border-color: rgb(102, 102, 102);
+    border-style: dashed;
+    border-radius: 5px;
+}
