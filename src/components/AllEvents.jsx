@@ -9,8 +9,12 @@ class AllEvents extends Component {
 		console.log('Rendering <AllEvent />');
 		var settings = {
 			dots: true,
-			slidesToShow: 2,
-			centerMode: true,
+			slidesToShow: 1,
+		  autoplay: true,
+		  autoplaySpeed: 5000,
+		  pauseOnHover: true,
+			// centerMode: true,
+			adaptiveHeight: true
 		};
 
 
@@ -21,7 +25,7 @@ class AllEvents extends Component {
 					{this.props.data.allEvent.map((dat, i) => {
 						return (
 							<div key={i}>
-								<Card style={{width: '350px', height: '75%'}} raised>
+								<Card className="carouselCard">
 									<CardTitle
 										avatar="https://placeimg.com/80/80/animals"
 										title={dat.creator_name}

@@ -220,8 +220,10 @@
 	color: #484848;
 	padding-bottom: 175px;
 
-	div {
-		/*text-align: center;*/
+	.carouselCard {
+		padding-left: 10%;
+		padding-right: 10%;
+		box-shadow: none;
 	}
 
 	.slick-prev:before {

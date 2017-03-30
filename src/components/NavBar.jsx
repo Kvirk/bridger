@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LinkedinLogin from './LinkedInLogin.jsx';
+import LinkedinLogin from './LinkedInLogIn.jsx';
 import { Drawer } from 'react-toolbox/lib/drawer';
 import { IconButton } from 'react-toolbox/lib/button';
 import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
