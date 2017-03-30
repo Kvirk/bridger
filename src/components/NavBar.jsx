@@ -69,7 +69,7 @@ class NavBar extends Component {
 				console.log("User is logged in");
 				navItemsPartial =
 					<div>
-						<Avatar className="avatarDrawer" onClick={this.handleToggle}><img src={this.props.picture}/></Avatar>
+						<div className="avatarDrawer"><Avatar onClick={this.handleToggle}><img src={this.props.picture}/></Avatar></div>
 						<Drawer className="drawer" type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
 						  <List selectable ripple>
 						    <ListItem caption='Events' leftIcon='today' onClick={this.handleBackToMain} />
@@ -86,7 +86,7 @@ class NavBar extends Component {
 					</div>
 				{navItemsPartial}
 					{this.props.name !== undefined &&
-						<p className="navbar-text pull-right text-muted">
+						<p className="navbar-text pull-right text-muted" onClick={this.handleToggle}>
 							{this.props.name}
 						</p>
 					}
