@@ -69,16 +69,24 @@ io.on('connection', function(client) {
 
   // TEST: Displaying results from elasticsearch
   client.on('elasticsearch', (userId) => {
+    let userNormalId;
 
     matchingFunction
       .findUserById(userId)
-      .then(matchingFunction.runMatching)
-      .then(matchingFunction.updateUserPoints)
-      .then((results) => {
-        console.log("Updating Status --->", results);
-        client.emit("elasticsearch", "Status --> Matching people is done");
+      .then((user) => {
+        userNormalId = user[0].id;
+        matchingFunction.runMatching(user)
+        .then((matchingResults) => {
+          console.log("Matching Results", matchingResults);
+          matchingFunction.updateUserPoints(matchingResults, userNormalId)
+          .then((results) => {
+            console.log("Updating Status --->", results);
+            client.emit("elasticsearch", "Status --> Matching people is done");
+           })
+          .catch(err => console.log(err))
+        })
       })
-      .catch(err => console.log(err))
+
       // .then((results) => {
       //   results.hits.hits.forEach((hit) => {
       //     console.log("Hit -->", hit);
