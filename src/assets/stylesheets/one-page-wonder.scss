@@ -116,28 +116,28 @@
 
 /*REMOVEBOOTSTRAPRESPONSIVE*/
 .navbar-collapse.collapse {
-  display: block!important;
+	display: block!important;
 }
 
 .navbar-nav>li, .navbar-nav {
-  float: right !important;
+	float: right !important;
 }
 
 .navbar-nav.navbar-right:last-child {
-  margin-left: -15px !important;
+	margin-left: -15px !important;
 }
 
 .navbar-right {
-  float: left!important;
+	float: left!important;
 }
 /*REMOVEBOOTSTRAPRESPONSIVE*/
 
 /*AllEvents.jsx*/
 
 .theme__cardTitle___1dU3o.theme__small___1RHxe {
-  background: #EEEEEE;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
+	background: #EEEEEE;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
 }
 
 .theme__cardTitle___1dU3o.theme__large___2iwOK {
@@ -150,8 +150,8 @@
 
 .theme__cardActions___ZoLIG {
 	border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-  background: #EEEEEE;
+	border-bottom-right-radius: 2px;
+	background: #EEEEEE;
 }
 
 /*AllEvents.jsx*/
@@ -189,8 +189,8 @@
 
 /*EventsProfile.jsx*/
 .center-block {
-   margin:auto;
-   display:table;
+	 margin:auto;
+	 display:table;
 }
 
 .event-profile-container{
@@ -201,43 +201,43 @@
 .col-sm-15,
 .col-md-15,
 .col-lg-15 {
-    position: relative;
-    min-height: 1px;
-    padding-right: 10px;
-    padding-left: 10px;
+		position: relative;
+		min-height: 1px;
+		padding-right: 10px;
+		padding-left: 10px;
 }
 
 .col-xs-15 {
-    width: 20%;
-    float: left;
+		width: 20%;
+		float: left;
 }
 
 @media (min-width: 768px) {
 .col-sm-15 {
-        width: 20%;
-        float: left;
-    }
+				width: 20%;
+				float: left;
+		}
 }
 
 @media (min-width: 768px) {
 .col-xs-15 {
-        width: 20%;
-        float: left;
-    }
+				width: 20%;
+				float: left;
+		}
 }
 
 @media (min-width: 992px) {
-    .col-md-15 {
-        width: 20%;
-        float: left;
-    }
+		.col-md-15 {
+				width: 20%;
+				float: left;
+		}
 }
 
 @media (min-width: 1200px) {
-    .col-lg-15 {
-        width: 20%;
-        float: left;
-    }
+		.col-lg-15 {
+				width: 20%;
+				float: left;
+		}
 }
 
 
@@ -294,10 +294,18 @@
 
 	.slick-prev:before {
 		color: #484848;
+
+		@media (max-width: 768px) {
+			display: none;
+		}
 	}
 
 	.slick-next:before {
 		color: #484848;
+
+		@media (max-width: 768px) {
+			display: none;
+		}
 	}
 }
 
@@ -417,10 +425,16 @@
 }
 
 .drawer {
-	padding-top: 5%;
+	padding-top: 57px;
 }
 /*TESTINGREACTDRAWER*/
 
+/*@media (min-width: 576px) {
+	.container {
+		width: 750px;
+		max-width: 100%;
+	}
+}*/
 
 footer {
 		margin: 50px 0;
