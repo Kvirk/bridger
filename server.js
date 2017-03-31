@@ -68,47 +68,69 @@ io.on('connection', function(client) {
   });
 
   // TEST: Displaying results from elasticsearch
+  client.on('indexingData', () => {
+    index.queryAllUsers()
+    .then(index.indexing, (err) => {console.log(err)})
+    .then(() => {client.emit('indexingData', "Indexing is done")}, (err) => {console.log(err)})
+  });
+
   client.on('elasticsearch', (userId) => {
     let userNormalId;
+    matchingFunction.findUserById(userId)
+    .then((user) => {
+      console.log("User -->",user);
+      userNormalId = user[0].id;
+      console.log("User normal id -->", userNormalId);
+      return user;
+    }, (err) => {console.log(err)})
+    .then(matchingFunction.runMatching, (err) => {console.log(err)})
+    // .then((matchResults) => {console.log("Match results -->", matchResults.hits.hits)}, (err) => {console.log(err)})
+    // TODO matchingfunction.runmatching works, implement updatepoints
+    // .then()
+    // .then((data) => {console.log("Same data as previous'then'?", data), (err) => {console.log(err)}})
+ 
+  // .then(() => {
+  //       matchingFunction.runMatching(user)
+  //       .then((matchingResults) => {
+  //         console.log("Matching Results", matchingResults);
+  //       }).catch(err => console.log(err))
+      
+    
+  //   //     matchingFunction.runMatching(user)
+  //   //     .then((matchingResults) => {
+  //   //       console.log("Matching Results", matchingResults);
+  //   //       matchingFunction.updateUserPoints(matchingResults, userNormalId)
+  //   //       .then((results) => {
+  //   //         console.log("Updating Status --->", results);
+  //   //         client.emit("elasticsearch", "Status --> Matching people is done");
+  //   //       })
+  //   //       .catch(err => console.log(err))
+  //   //     })
+  //   //   })
+  //   // })
 
-    matchingFunction
-      .findUserById(userId)
-      .then((user) => {
-        userNormalId = user[0].id;
-        matchingFunction.runMatching(user)
-        .then((matchingResults) => {
-          console.log("Matching Results", matchingResults);
-          matchingFunction.updateUserPoints(matchingResults, userNormalId)
-          .then((results) => {
-            console.log("Updating Status --->", results);
-            client.emit("elasticsearch", "Status --> Matching people is done");
-           })
-          .catch(err => console.log(err))
-        })
-      })
-
-      // .then((results) => {
-      //   results.hits.hits.forEach((hit) => {
-      //     console.log("Hit -->", hit);
-      //     knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
-      //     .then((result) => {
-      //       console.log("Status --->", result);
-      //       if(result.rowCount === 0) {
-      //         knex('points').insert({
-      //           user_id1: 2,
-      //           user_id2: hit._source.id,
-      //           points: hit._score
-      //         })
-      //         .then((result) => {
-      //           console.log("adding new entries --->", result);
-      //         })
-      //       }
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     })
-      //   })
-      // })
+  //     // .then((results) => {
+  //     //   results.hits.hits.forEach((hit) => {
+  //     //     console.log("Hit -->", hit);
+  //     //     knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
+  //     //     .then((result) => {
+  //     //       console.log("Status --->", result);
+  //     //       if(result.rowCount === 0) {
+  //     //         knex('points').insert({
+  //     //           user_id1: 2,
+  //     //           user_id2: hit._source.id,
+  //     //           points: hit._score
+  //     //         })
+  //     //         .then((result) => {
+  //     //           console.log("adding new entries --->", result);
+  //     //         })
+  //     //       }
+  //     //     })
+  //     //     .catch((err) => {
+  //     //       console.log(err);
+  //     //     })
+  //     //   })
+  //     // })
 
   })
 
@@ -355,7 +377,7 @@ io.on('connection', function(client) {
     knex.raw(query)
       .then((data)=> {
         // console.log("---->", data);
-        index.indexing();
+        // index.indexing();
       })
       .catch(err => console.log(err))
   });

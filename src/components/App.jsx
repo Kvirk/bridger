@@ -69,6 +69,7 @@ class App extends Component {
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
 			console.log("Matching up people...");
+			socket.emit('indexingData');
 			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
 				type: 'events',
@@ -76,6 +77,9 @@ class App extends Component {
 					myEvent: data.userEvent,
 					allEvent: data.allEvent,
 				}});
+		});
+		socket.on('indexingData', (message) => {
+			console.log(message);
 		});
 		socket.on('eventAdded', function(data) {
 			let data2 = {
@@ -113,8 +117,8 @@ class App extends Component {
 		})
 
 		//TEST Elasticsearch
-		socket.on('elasticsearch', function(data) {
-			console.log("data from server using elasticsearch", data);
+		socket.on('elasticsearch', function(message) {
+			console.log(message);
 		})
 	}
 
