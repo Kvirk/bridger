@@ -68,6 +68,8 @@ class App extends Component {
 		const app = this;
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
+			console.log("Matching up people...");
+			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
 				type: 'events',
 				data: {
@@ -284,7 +286,8 @@ class App extends Component {
 	// Testing elastic search
 	testElasticSearch() {
 		console.log("This is testing elasticsearch");
-		socket.emit('elasticsearch', "--some data--");
+		console.log("user id", this.state.userId);
+		socket.emit('elasticsearch', this.state.userId);
 	}
 
 	render() {

@@ -23,6 +23,8 @@ if (process.env.NODE_ENV === 'production'){
 const knex = require('knex')(
   connection);
 
+const matchingFunction = require('./e_search/matching-function.js');
+
 let currentUsers = {}
 
 // using webpack-dev-server and middleware in development environment
@@ -64,6 +66,43 @@ io.on('connection', function(client) {
   client.on('join', function(data) {
     client.emit("message", "leave me alone");
   });
+
+  // TEST: Displaying results from elasticsearch
+  client.on('elasticsearch', (userId) => {
+
+    matchingFunction
+      .findUserById(userId)
+      .then(matchingFunction.runMatching)
+      .then(matchingFunction.updateUserPoints)
+      .then((results) => {
+        console.log("Updating Status --->", results);
+        client.emit("elasticsearch", "Status --> Matching people is done");
+      })
+      .catch(err => console.log(err))
+      // .then((results) => {
+      //   results.hits.hits.forEach((hit) => {
+      //     console.log("Hit -->", hit);
+      //     knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
+      //     .then((result) => {
+      //       console.log("Status --->", result);
+      //       if(result.rowCount === 0) {
+      //         knex('points').insert({
+      //           user_id1: 2,
+      //           user_id2: hit._source.id,
+      //           points: hit._score
+      //         })
+      //         .then((result) => {
+      //           console.log("adding new entries --->", result);
+      //         })
+      //       }
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     })
+      //   })
+      // })
+
+  })
 
   client.on('getEvent', function(data){
     knex.column('id').table('users').where('linkedin_id', data.userId)
@@ -305,12 +344,12 @@ io.on('connection', function(client) {
     let insert = knex('users').insert(insertData).toString();
     let update = knex('users').update(insertData).whereRaw('users.linkedin_id = ' + "'" + insertData.linkedin_id + "'").toString();
     let query = util.format('%s ON CONFLICT (linkedin_id) DO UPDATE SET %s', insert, update.replace(/^update\s.*\sset\s/i, ''));
-    knex.raw(query).then((data)=> {
-      // require('./e_search/index.js');
-      index.test();
-    }).catch((err) => {
-      console.error(err);
-    });
+    knex.raw(query)
+      .then((data)=> {
+        // console.log("---->", data);
+        index.indexing();
+      })
+      .catch(err => console.log(err))
   });
 
   client.on('createEvent', function(data) {

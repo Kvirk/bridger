@@ -9,6 +9,9 @@ class NavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.handleToggle = this.handleToggle.bind(this);
+		// Test
+		this.handleTestingElasticsearch = this.handleTestingElasticsearch.bind(this);
+		//End Test
 		this.handleCreateEvent = this.handleCreateEvent.bind(this);
 		this.handleBackToMain = this.handleBackToMain.bind(this);
 		this.handleLogOut = this.handleLogOut.bind(this);
@@ -18,6 +21,13 @@ class NavBar extends Component {
   handleToggle() {
     this.setState({ active: !this.state.active });
   }
+
+	// Test
+	handleTestingElasticsearch(event) {
+		event.preventDefault();
+		this.props.handleTesting();
+	}
+	//End Test
 
   handleCreateEvent() {
   	this.handleToggle();
@@ -57,7 +67,8 @@ class NavBar extends Component {
 						<div className="avatarDrawer"><Avatar onClick={this.handleToggle}><img src={this.props.picture}/></Avatar></div>
 						<Drawer className="drawer" type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
 						  <List selectable ripple>
-						    <ListItem caption='Host Event' leftIcon='add' onClick={this.handleCreateEvent} />
+								<ListItem caption='Test Elasticsearch' onClick={this.handleTestingElasticsearch} />
+								<ListItem caption='Host Event' leftIcon='add' onClick={this.handleCreateEvent} />
 						    <ListItem caption='Events' leftIcon='today' onClick={this.handleBackToMain} />
 						    <ListItem caption='Log Out' leftIcon='power_settings_new' onClick={this.handleLogOut} />
 						  </List>
