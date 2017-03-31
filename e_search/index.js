@@ -46,7 +46,7 @@ const knex = require('knex')(
 
   // only for testing purposes
   // all calls should be initiated through the module
-  const test = function test() {
+  const indexing = function indexing() {
     const data = knex.select().table('users').then(function(data) {
       // const articles = JSON.parse(data);
       console.log(`${data.length} items parsed from data file`);
@@ -57,5 +57,5 @@ const knex = require('knex')(
   };
 
   module.exports = {
-    test
+    indexing
   };

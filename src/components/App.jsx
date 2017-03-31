@@ -67,6 +67,8 @@ class App extends Component {
 		const app = this;
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
+			console.log("Matching up people...");
+			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
 				type: 'events',
 				data: {

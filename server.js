@@ -73,6 +73,12 @@ io.on('connection', function(client) {
     matchingFunction
       .findUserById(userId)
       .then(matchingFunction.runMatching)
+      .then(matchingFunction.updateUserPoints)
+      .then((results) => {
+        console.log("Updating Status --->", results);
+        client.emit("elasticsearch", "Status --> Matching people is done");
+      })
+      .catch(err => console.log(err))
       // .then((results) => {
       //   results.hits.hits.forEach((hit) => {
       //     console.log("Hit -->", hit);
@@ -95,12 +101,7 @@ io.on('connection', function(client) {
       //     })
       //   })
       // })
-      .then(matchingFunction.updateUserPoints)
-      .then((results) => {
-        console.log("Updating Status --->", results);
-        client.emit("elasticsearch", "Status --> Matching people is done");
-      })
-      .catch(err => console.log(err))
+      
   })
 
   client.on('getEvent', function(data){
@@ -332,11 +333,12 @@ io.on('connection', function(client) {
     let insert = knex('users').insert(insertData).toString();
     let update = knex('users').update(insertData).whereRaw('users.linkedin_id = ' + "'" + insertData.linkedin_id + "'").toString();
     let query = util.format('%s ON CONFLICT (linkedin_id) DO UPDATE SET %s', insert, update.replace(/^update\s.*\sset\s/i, ''));
-    knex.raw(query).then((data)=> {
-      index.test();
-    }).catch((err) => {
-      console.error(err);
-    });
+    knex.raw(query)
+      .then((data)=> {
+        // console.log("---->", data);
+        index.indexing();
+      })
+      .catch(err => console.log(err))
   });
 
   client.on('createEvent', function(data) {
