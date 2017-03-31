@@ -15,6 +15,7 @@ import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import {Tab, Tabs} from 'react-toolbox';
+import Footer from './Footer.jsx';
 
 let socket = io.connect();
 
@@ -315,6 +316,7 @@ class App extends Component {
 							<AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
 						</section>
 						</ReactCSSTransitionGroup>
+						<Footer/>
 				</div>
 		)}
 
@@ -345,6 +347,7 @@ class App extends Component {
 								)}
 							</ReactCSSTransitionGroup>
 						</section>
+						<Footer/>
 				</div>
 			)
 		}
@@ -355,6 +358,7 @@ class App extends Component {
 					<section className="top-section row">
 						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
+					<Footer/>
 				</div>
 			)
 		}
@@ -365,6 +369,7 @@ class App extends Component {
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
 					</section>
+					<Footer/>
 				</div>
 			)
 		}
@@ -375,6 +380,7 @@ class App extends Component {
 					<section className="top-section row">
 						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
+					<Footer/>
 				</div>
 			)
 		}

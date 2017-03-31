@@ -70,6 +70,7 @@ io.on('connection', function(client) {
   // TEST: Displaying results from elasticsearch
   client.on('elasticsearch', (userId) => {
     let userNormalId;
+
     matchingFunction
       .findUserById(userId)
       .then((user) => {
