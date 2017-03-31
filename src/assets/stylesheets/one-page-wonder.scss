@@ -91,6 +91,7 @@
 			font-size: large;
 			font-weight: bold;
 			cursor: pointer;
+			width: 59.75px;
 		}
 
 		.navbar-nav {
@@ -131,6 +132,30 @@
 }
 /*REMOVEBOOTSTRAPRESPONSIVE*/
 
+/*AllEvents.jsx*/
+
+.theme__cardTitle___1dU3o.theme__small___1RHxe {
+  background: #EEEEEE;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.theme__cardTitle___1dU3o.theme__large___2iwOK {
+	background: #EEEEEE;
+}
+
+.theme__cardText___K_kzH {
+	background: #EEEEEE;
+}
+
+.theme__cardActions___ZoLIG {
+	border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  background: #EEEEEE;
+}
+
+/*AllEvents.jsx*/
+
 /*Events.jsx*/
 
 .eventsContainer {
@@ -141,6 +166,11 @@
 		margin-bottom: 5%;
 
 		.enterButton {
+			font-weight: 600;
+			color: #007FFF;
+		}
+
+		.leaveButton {
 			font-weight: 600;
 			color: #007FFF;
 		}
@@ -248,8 +278,8 @@
 	padding-bottom: 175px;
 
 	.carouselCard {
-		padding-left: 10%;
-		padding-right: 10%;
+/*		padding-left: 10%;
+		padding-right: 10%;*/
 		box-shadow: none;
 
 		.joinButton {
@@ -378,7 +408,6 @@
 	position: relative;
 	top: 6px;
 	float: right;
-	padding-left: 13px;
 	padding-right: 10px;
 
 	@media (max-width: 768px) {

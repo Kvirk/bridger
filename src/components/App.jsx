@@ -42,6 +42,7 @@ class App extends Component {
 		this.seeProfile = this.seeProfile.bind(this);
 		this.backToMain = this.backToMain.bind(this);
 		this.addEvent = this.addEvent.bind(this);
+		this.leaveEvent = this.leaveEvent.bind(this);
 		this.eventPage = this.eventPage.bind(this);
 		this.onLogout = this.onLogout.bind(this);
 		this.callbackFunction = this.callbackFunction.bind(this);
@@ -76,10 +77,16 @@ class App extends Component {
 		});
 		socket.on('eventAdded', function(data) {
 			let data2 = {
-				userId: cookie.load('userId'),
+				userId: cookie.load('userId')
 			}
 			socket.emit('userLogin', data2)
 		});
+		socket.on('eventLeft', function(data) {
+			let data2 = {
+				userId: cookie.load('userId')
+			}
+			socket.emit('userLogin', data2)
+		})
 		socket.on('responseGetEvent', function(data){
 			app.setState({
 			type: 'event',
@@ -108,6 +115,11 @@ class App extends Component {
 			console.log("data from server using elasticsearch", data);
 		})
 	}
+
+	componentWillUnmount () {
+    this.loadInterval && clearInterval(this.loadInterval);
+    this.loadInterval = false;
+}
 
 	callbackFunction() {
 		let app = this;
@@ -166,7 +178,7 @@ class App extends Component {
 		IN.API.Raw("/people/~:(id,first-name,last-name,headline,location,industry,current-share,num-connections,summary,positions,picture-urls::(original),public-profile-url)?format=json").result(onSuccess).error(onError);
 	}
 
-	sendMessage(message, userID){
+	sendMessage(message, userID) {
 		let currentMessage = this.state.data.message;
 		currentMessage.push(message);
 		let data = this.state.data;
@@ -174,12 +186,20 @@ class App extends Component {
 		socket.emit("message", data)
 	}
 
-	addEvent(event){
+	addEvent(event) {
 		let data = {
 			userId: cookie.load('userId'),
 			eventId: event
 		}
 		socket.emit("addEvent", data)
+	}
+
+	leaveEvent(event) {
+		let data = {
+			userId: cookie.load('userId'),
+			eventId: event
+		}
+		socket.emit("leaveEvent", data)
 	}
 
 	handleForm(formInput) {
@@ -310,14 +330,15 @@ class App extends Component {
 								transitionLeaveTimeout={1000}
 								transitionAppearTimeout={1000}
 								transitionAppear={true}>
-								<Tabs index={this.state.index} onChange={this.handleTabChange} fixed>
-									<Tab ripple={false} label='All Events'></Tab>
-									<Tab ripple={false} label='Your Events'></Tab>
+
+								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
+									<Tab label='All Events'></Tab>
+									<Tab label='Your Events'></Tab>
 								</Tabs>
 								{(this.state.index === 0) ? (
 									<AllEvents data={this.state.data} addEvent={this.addEvent} />
 								) : (
-									<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} data={this.state.data} onLogout={this.onLogout} />
+									<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
 								)}
 							</ReactCSSTransitionGroup>
 						</section>

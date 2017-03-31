@@ -214,6 +214,7 @@ io.on('connection', function(client) {
         .then(function(id){
           knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
           .then(function(userEvent){
+            console.log(userEvent);
             sendData = {allEvent: dat, userEvent: userEvent}
             client.emit("responseUserLogin", sendData);
           })
@@ -240,6 +241,16 @@ io.on('connection', function(client) {
             client.emit('eventAdded');
           })
         }
+      })
+    })
+  });
+
+  client.on('leaveEvent', function(data) {
+    knex.column('id').table('users').where('linkedin_id', data.userId)
+    .then(function(dat){
+      knex.table('event_users').where('event_id', data.eventId).andWhere('user_id', dat[0].id).del()
+      .then(function(){
+        client.emit('eventLeft');
       })
     })
   });

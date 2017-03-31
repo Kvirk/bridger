@@ -1,6 +1,6 @@
- const settings = require("../settings"); // settings.json
- const knexSettings = require("../knexfile.js");
-
+const settings = require("../settings"); // settings.json
+const knexSettings = require("../knexfile.js");
+require('dotenv').config()
 let connection = knexSettings.development;
 
 if (process.env.NODE_ENV === 'production'){
@@ -12,7 +12,7 @@ const knex = require('knex')(
 
   const elasticsearch = require('elasticsearch');
   const esClient = new elasticsearch.Client({
-    host: '127.0.0.1:9200',
+    host: process.env.ELASTIC_URL,
     log: 'error'
   });
 
