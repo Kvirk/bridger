@@ -11,6 +11,7 @@ const pg = require("pg");
 const index = require('./e_search/index.js');
 const util = require('util');
 const fs = require('fs');
+const matchingFunction = require('./e_search/matching-function.js')
 
 app.use(fileUpload());
 
