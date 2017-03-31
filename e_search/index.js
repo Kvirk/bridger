@@ -1,5 +1,5 @@
- const settings = require("../settings"); // settings.json
- const knexSettings = require("../knexfile.js");
+const settings = require("../settings"); // settings.json
+const knexSettings = require("../knexfile.js");
 require('dotenv').config()
 let connection = knexSettings.development;
 

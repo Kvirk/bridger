@@ -1,21 +1,19 @@
-require('dotenv').config()
 
 (function () {
   'use strict';
 
+  const knexSettings = require("../knexfile.js");
+  require('dotenv').config()
   const settings = require("../settings"); // settings.json
-  const knex = require('knex')({
-    client: 'pg',
-    connection: {
-      user     : settings.user,
-      password : settings.password,
-      database : settings.database,
-      host     : settings.hostname,
-      port     : settings.port,
-      ssl      : settings.ssl
-    }
-  });
-  
+  let connection = knexSettings.development;
+
+  if (process.env.NODE_ENV === 'production'){
+    connection = knexSettings.production;
+  }
+
+  const knex = require('knex')(
+    connection);
+
   const elasticsearch = require('elasticsearch');
   const esClient = new elasticsearch.Client({
     host: process.env.ELASTIC_URL,
