@@ -1,0 +1,32 @@
+(function() {
+
+  const elasticsearch = require('elasticsearch');
+  const esClient = new elasticsearch.Client({
+    host: '127.0.0.1:9200',
+    log: 'error'
+  });
+
+  const search = function search(index, body) {
+    return esClient.search({index: index, body: body});
+  };
+
+esClient.explain({
+    index: 'users',
+    type: 'profile',
+    id: '11',
+    body: {
+      // size: 20,
+      // from: 0,
+      query: {
+        multi_match: {
+          query: 'fashion designer',
+          type: 'best_fields',
+          fields: ['headline', 'summary'],
+          fuzziness: 'auto'
+        }
+      }
+    }
+  }, (err) => {
+    console.log(err);
+  })
+} ());

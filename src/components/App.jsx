@@ -51,6 +51,9 @@ class App extends Component {
 		this.eventsCreation = this.eventsCreation.bind(this);
 		this.handleForm = this.handleForm.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
+
+		this.testElasticSearch = this.testElasticSearch.bind(this);
+
 		this.state = {type,
 				userId: cookie.load('userId'),
 				name: cookie.load('name'),
@@ -65,6 +68,8 @@ class App extends Component {
 		const app = this;
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
+			console.log("Matching up people...");
+			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
 				type: 'events',
 				data: {
@@ -105,6 +110,11 @@ class App extends Component {
 				type: 'userProfile',
 				data: data
 			});
+		})
+
+		//TEST Elasticsearch
+		socket.on('elasticsearch', function(data) {
+			console.log("data from server using elasticsearch", data);
 		})
 	}
 
@@ -274,6 +284,13 @@ class App extends Component {
 		})
 	}
 
+	// Testing elastic search
+	testElasticSearch() {
+		console.log("This is testing elasticsearch");
+		console.log("user id", this.state.userId);
+		socket.emit('elasticsearch', this.state.userId);
+	}
+
 	render() {
 		if (this.state.type === "login") {
 			return (
@@ -305,7 +322,7 @@ class App extends Component {
 		if (this.state.type === "events") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
+					<NavBar urlPath={this.state.type} handleTesting={this.testElasticSearch} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
 						<section>
 							<ReactCSSTransitionGroup
 								transitionName="example"
