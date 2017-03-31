@@ -41,27 +41,27 @@ const updateUserPoints = (matchResults) => {
 };
 
 
-const consumeResult = (results) => {
-  console.log(`found ${results.hits.total} items in ${results.took}ms`);
-  if (results.hits.total > 0) {
-    results.hits.hits.forEach((hit, index) => {
-      console.log("User id", hit._source.id);
-      console.log(`\t ${++index} - ${hit._source.first_name} - ${hit._source.linkedin_id} \n Summary: ${hit._source.summary} \n Industry: ${hit._source.industry} \n Score: ${hit._score} \n`);
-      let searchResult = {
-        userId: hit._source.id,
-        matchingScore: hit._score
-      }
-    });
-  }
-};
+// const consumeResult = (results) => {
+//   console.log(`found ${results.hits.total} items in ${results.took}ms`);
+//   if (results.hits.total > 0) {
+//     results.hits.hits.forEach((hit, index) => {
+//       console.log("User id", hit._source.id);
+//       console.log(`\t ${++index} - ${hit._source.first_name} - ${hit._source.linkedin_id} \n Summary: ${hit._source.summary} \n Industry: ${hit._source.industry} \n Score: ${hit._score} \n`);
+//       let searchResult = {
+//         userId: hit._source.id,
+//         matchingScore: hit._score
+//       }
+//     });
+//   }
+// };
 
 const findUserById = (userLinkedInId) => {
   return knex.select().from('users').where('linkedin_id', userLinkedInId)
 };
 
 const runMatching = (user) => {
-  console.log("User is -->", user);
-  let queryValue = user[0].industry;
+  console.log("User is -->", user[0]);
+  let queryValue = user[0].job_bookmarks[1];
   return elasticSearch.invokeSearch(queryValue, ['summary', 'industry'])
 };
 
@@ -70,6 +70,6 @@ const runMatching = (user) => {
 module.exports = {
   findUserById,
   runMatching,
-  consumeResult,
+  // consumeResult,
   updateUserPoints
 };

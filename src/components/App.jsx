@@ -266,7 +266,7 @@ class App extends Component {
 	testElasticSearch() {
 		console.log("This is testing elasticsearch");
 		console.log("user id", this.state.userId);
-		socket.emit('elasticsearch', "--some data--");
+		socket.emit('elasticsearch', this.state.userId);
 	}
 
 	render() {

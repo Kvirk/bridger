@@ -68,10 +68,10 @@ io.on('connection', function(client) {
   });
 
   // TEST: Displaying results from elasticsearch
-  client.on('elasticsearch', function(data) {
+  client.on('elasticsearch', (userId) => {
     
     matchingFunction
-      .findUserById(2)
+      .findUserById(userId)
       .then(matchingFunction.runMatching)
       // .then((results) => {
       //   results.hits.hits.forEach((hit) => {
@@ -95,11 +95,10 @@ io.on('connection', function(client) {
       //     })
       //   })
       // })
-
       .then(matchingFunction.updateUserPoints)
       .then((results) => {
-        console.log("Done updating --->", results);
-        client.emit("elasticsearch", "Matching people is done");
+        console.log("Updating Status --->", results);
+        client.emit("elasticsearch", "Status --> Matching people is done");
       })
       .catch(err => console.log(err))
   })
