@@ -75,7 +75,7 @@ const findUserById = (userLinkedInId) => {
 const runMatching = (user) => {
   console.log("User is -->", user[0]);
   let queryValue = user[0].headline;
-  return elasticSearch.invokeSearch('software', ['summary', 'industry'])
+  return elasticSearch.invokeSearch(queryValue, ['summary', 'industry'])
 };
 
 // runMatching();

@@ -67,13 +67,14 @@ io.on('connection', function(client) {
     client.emit("message", "leave me alone");
   });
 
-  // TEST: Displaying results from elasticsearch
+  // Indexing 'users' data when logging in
   client.on('indexingData', () => {
     index.queryAllUsers()
     .then(index.indexing, (err) => {console.log(err)})
     .then(() => {client.emit('indexingData', "Indexing is done")}, (err) => {console.log(err)})
   });
 
+  // TODO - Matching should happen when entering an event, BUT now is every login
   client.on('elasticsearch', (userId) => {
     let userNormalId;
     let matchResultsUserIdTemp = [];
@@ -87,7 +88,7 @@ io.on('connection', function(client) {
     .then((matchResults) => {
       console.log("Match results -->", matchResults.hits.hits)
       matchResultsUserIdTemp = [];
-      console.log("Matching result user id temp should be empty", matchResultsUserIdTemp);
+      console.log("Temporary match results should be empty first", matchResultsUserIdTemp);
       matchResults.hits.hits.forEach((hit) => {
         let arrInput = {
           user_id2: hit._source.id,
@@ -95,15 +96,15 @@ io.on('connection', function(client) {
         };
         matchResultsUserIdTemp.push(arrInput);
       });
-      console.log("Temporary match results", matchResultsUserIdTemp);
+      console.log("Temporary match results after", matchResultsUserIdTemp);
       return matchingFunction.updateUserPoints(matchResults, userNormalId)
     }, (err) => {console.log(err)})
     .then((updateResults) => {
       console.log("Update results -->", updateResults);
       return matchingFunction.insertNewPair(updateResults, matchResultsUserIdTemp, userNormalId)
     }, (err) => {console.log(err)})
-    .then((data) => {
-      console.log("Same data as previous'then'?", data);
+    .then(() => {
+      // console.log("Same data as previous'then'?", data);
       client.emit('elasticsearch', 'Matching is done');
     }, (err) => {console.log(err)})
   })
