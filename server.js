@@ -76,62 +76,36 @@ io.on('connection', function(client) {
 
   client.on('elasticsearch', (userId) => {
     let userNormalId;
+    let matchResultsUserIdTemp = [];
     matchingFunction.findUserById(userId)
     .then((user) => {
       console.log("User -->",user);
       userNormalId = user[0].id;
-      console.log("User normal id -->", userNormalId);
       return user;
     }, (err) => {console.log(err)})
     .then(matchingFunction.runMatching, (err) => {console.log(err)})
-    // .then((matchResults) => {console.log("Match results -->", matchResults.hits.hits)}, (err) => {console.log(err)})
-    // TODO matchingfunction.runmatching works, implement updatepoints
-    // .then()
-    // .then((data) => {console.log("Same data as previous'then'?", data), (err) => {console.log(err)}})
- 
-  // .then(() => {
-  //       matchingFunction.runMatching(user)
-  //       .then((matchingResults) => {
-  //         console.log("Matching Results", matchingResults);
-  //       }).catch(err => console.log(err))
-      
-    
-  //   //     matchingFunction.runMatching(user)
-  //   //     .then((matchingResults) => {
-  //   //       console.log("Matching Results", matchingResults);
-  //   //       matchingFunction.updateUserPoints(matchingResults, userNormalId)
-  //   //       .then((results) => {
-  //   //         console.log("Updating Status --->", results);
-  //   //         client.emit("elasticsearch", "Status --> Matching people is done");
-  //   //       })
-  //   //       .catch(err => console.log(err))
-  //   //     })
-  //   //   })
-  //   // })
-
-  //     // .then((results) => {
-  //     //   results.hits.hits.forEach((hit) => {
-  //     //     console.log("Hit -->", hit);
-  //     //     knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
-  //     //     .then((result) => {
-  //     //       console.log("Status --->", result);
-  //     //       if(result.rowCount === 0) {
-  //     //         knex('points').insert({
-  //     //           user_id1: 2,
-  //     //           user_id2: hit._source.id,
-  //     //           points: hit._score
-  //     //         })
-  //     //         .then((result) => {
-  //     //           console.log("adding new entries --->", result);
-  //     //         })
-  //     //       }
-  //     //     })
-  //     //     .catch((err) => {
-  //     //       console.log(err);
-  //     //     })
-  //     //   })
-  //     // })
-
+    .then((matchResults) => {
+      console.log("Match results -->", matchResults.hits.hits)
+      matchResultsUserIdTemp = [];
+      console.log("Matching result user id temp should be empty", matchResultsUserIdTemp);
+      matchResults.hits.hits.forEach((hit) => {
+        let arrInput = {
+          user_id2: hit._source.id,
+          score: hit._score
+        };
+        matchResultsUserIdTemp.push(arrInput);
+      });
+      console.log("Temporary match results", matchResultsUserIdTemp);
+      return matchingFunction.updateUserPoints(matchResults, userNormalId)
+    }, (err) => {console.log(err)})
+    .then((updateResults) => {
+      console.log("Update results -->", updateResults);
+      return matchingFunction.insertNewPair(updateResults, matchResultsUserIdTemp, userNormalId)
+    }, (err) => {console.log(err)})
+    .then((data) => {
+      console.log("Same data as previous'then'?", data);
+      client.emit('elasticsearch', 'Matching is done');
+    }, (err) => {console.log(err)})
   })
 
   client.on('getEvent', function(data){
