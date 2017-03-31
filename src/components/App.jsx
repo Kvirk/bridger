@@ -50,6 +50,9 @@ class App extends Component {
 		this.eventsCreation = this.eventsCreation.bind(this);
 		this.handleForm = this.handleForm.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
+
+		this.testElasticSearch = this.testElasticSearch.bind(this);
+
 		this.state = {type,
 				userId: cookie.load('userId'),
 				name: cookie.load('name'),
@@ -98,6 +101,11 @@ class App extends Component {
 				type: 'userProfile',
 				data: data
 			});
+		})
+
+		//TEST Elasticsearch
+		socket.on('elasticsearch', function(data) {
+			console.log("data from server using elasticsearch", data);
 		})
 	}
 
@@ -177,8 +185,7 @@ class App extends Component {
 	handleForm(formInput) {
 		let contentToServer = {
 			formInput:formInput,
-			creator_name: cookie.load('name'),
-			creator_picture_url: cookie.load('picture_url')
+			creator_name: cookie.load('name')
 		}
 		let data2 = {
 				userId: cookie.load('userId'),
@@ -254,6 +261,12 @@ class App extends Component {
 		})
 	}
 
+	// Testing elastic search
+	testElasticSearch() {
+		console.log("This is testing elasticsearch");
+		socket.emit('elasticsearch', "--some data--");
+	}
+
 	render() {
 		if (this.state.type === "login") {
 			return (
@@ -285,7 +298,11 @@ class App extends Component {
 		if (this.state.type === "events") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
+					<NavBar urlPath={this.state.type} handleTesting={this.testElasticSearch} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
+						<br/>
+						<br/>
+						<br/>
+						<br/>
 						<section>
 							<ReactCSSTransitionGroup
 								transitionName="example"
@@ -293,7 +310,7 @@ class App extends Component {
 								transitionLeaveTimeout={1000}
 								transitionAppearTimeout={1000}
 								transitionAppear={true}>
-								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
+								<Tabs index={this.state.index} onChange={this.handleTabChange} fixed>
 									<Tab ripple={false} label='All Events'></Tab>
 									<Tab ripple={false} label='Your Events'></Tab>
 								</Tabs>
@@ -310,9 +327,9 @@ class App extends Component {
 		if (this.state.type === "creation") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<EventsCreation handleForm={this.handleForm} backToMain={this.backToMain} />
+						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
 				</div>
 			)
@@ -320,7 +337,7 @@ class App extends Component {
 		if (this.state.type === "event") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
 					</section>
@@ -330,7 +347,7 @@ class App extends Component {
 		if (this.state.type === "userProfile") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
