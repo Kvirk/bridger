@@ -1,8 +1,13 @@
 // (function(){
 
   const elasticsearch = require('elasticsearch');
+  // const esClient = new elasticsearch.Client({
+  //   host: process.env.ELASTIC_URL,
+  //   log: 'error'
+  // });
+  
   const esClient = new elasticsearch.Client({
-    host: process.env.ELASTIC_URL,
+    host: '127.0.0.1:9200',
     log: 'error'
   });
 

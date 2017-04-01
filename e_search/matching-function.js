@@ -18,6 +18,28 @@ let handleError = (err) => {
   console.log(err);
 }
 
+const insertNewPair = (updateResults, matchResults, userId) => {
+  let allPromises = [];
+  let matchResultsIndex = 0;
+  updateResults.forEach((result) => {
+    if(result.rowCount === 0) {
+      allPromises.push(
+        knex('points').insert({
+          user_id1: userId,
+          user_id2: matchResults[matchResultsIndex].user_id2,
+          points: matchResults[matchResultsIndex].score
+        })
+      );
+    }
+    matchResultsIndex++;
+  })
+  if (allPromises.length >= 0) {
+    return Promise.all(allPromises);
+  } else {
+    return null
+  }
+};
+
 const updateUserPoints = (matchResults, userId) => {
   let allPromises = [];
   console.log("User id --->", userId);
@@ -26,20 +48,6 @@ const updateUserPoints = (matchResults, userId) => {
     console.log(`\t ${++index} - ${hit._source.first_name} - ${hit._source.linkedin_id} \n Summary: ${hit._source.summary} \n Industry: ${hit._source.industry} \n Score: ${hit._score} \n`);
     allPromises.push(
       knex.raw('UPDATE points SET points = points + ? WHERE user_id1=? AND user_id2=?', [hit._score, userId, hit._source.id])
-      // knex.raw('INSERT INTO points (user_id1, user_id2, points) VALUES (2, ?, ?) ON CONFLICT (user_id2=?) UPDATE points SET points=points+?', [hit._source.id, hit._score, hit._source.id, hit._score ])
-      .then((result) => {
-        console.log("After update --->", result);
-        if(result.rowCount === 0) {
-          knex('points').insert({
-            user_id1: userId,
-            user_id2: hit._source.id,
-            points: hit._score
-          })
-          .then((result) => {
-            console.log("After insert --->", result);
-          })
-        }
-      })
     );
   });
   return Promise.all(allPromises);
@@ -76,5 +84,6 @@ module.exports = {
   findUserById,
   runMatching,
   // consumeResult,
+  insertNewPair,
   updateUserPoints
 };

@@ -66,57 +66,52 @@ io.on('connection', function(client) {
     client.emit("message", "leave me alone");
   });
 
+  // Indexing 'users' data when logging in
+  client.on('indexingData', () => {
+    index.queryAllUsers()
+    .then(index.indexing, (err) => {console.log(err)})
+    .then(() => {client.emit('indexingData', "Indexing is done")}, (err) => {console.log(err)})
+  });
 
-  // TEST: Displaying results from elasticsearch
+  // TODO - Matching should happen when entering an event, BUT now is every login
   client.on('elasticsearch', (userId) => {
     let userNormalId;
-
-    matchingFunction
-      .findUserById(userId)
-      .then((user) => {
-        userNormalId = user[0].id;
-        matchingFunction.runMatching(user)
-        .then((matchingResults) => {
-          console.log("Matching Results", matchingResults);
-          matchingFunction.updateUserPoints(matchingResults, userNormalId)
-          .then((results) => {
-            console.log("Updating Status --->", results);
-            client.emit("elasticsearch", "Status --> Matching people is done");
-           })
-          .catch(err => console.log(err))
-        })
-      })
-
-      // .then((results) => {
-      //   results.hits.hits.forEach((hit) => {
-      //     console.log("Hit -->", hit);
-      //     knex.raw('UPDATE points SET points = points + ? WHERE user_id1=2 AND user_id2=?', [hit._score, hit._source.id])
-      //     .then((result) => {
-      //       console.log("Status --->", result);
-      //       if(result.rowCount === 0) {
-      //         knex('points').insert({
-      //           user_id1: 2,
-      //           user_id2: hit._source.id,
-      //           points: hit._score
-      //         })
-      //         .then((result) => {
-      //           console.log("adding new entries --->", result);
-      //         })
-      //       }
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //     })
-      //   })
-      // })
-
+    let matchResultsUserIdTemp = [];
+    matchingFunction.findUserById(userId)
+    .then((user) => {
+      console.log("User -->",user);
+      userNormalId = user[0].id;
+      return user;
+    }, (err) => {console.log(err)})
+    .then(matchingFunction.runMatching, (err) => {console.log(err)})
+    .then((matchResults) => {
+      console.log("Match results -->", matchResults.hits.hits)
+      matchResultsUserIdTemp = [];
+      console.log("Temporary match results should be empty first", matchResultsUserIdTemp);
+      matchResults.hits.hits.forEach((hit) => {
+        let arrInput = {
+          user_id2: hit._source.id,
+          score: hit._score
+        };
+        matchResultsUserIdTemp.push(arrInput);
+      });
+      console.log("Temporary match results after", matchResultsUserIdTemp);
+      return matchingFunction.updateUserPoints(matchResults, userNormalId)
+    }, (err) => {console.log(err)})
+    .then((updateResults) => {
+      console.log("Update results -->", updateResults);
+      return matchingFunction.insertNewPair(updateResults, matchResultsUserIdTemp, userNormalId)
+    }, (err) => {console.log(err)})
+    .then(() => {
+      // console.log("Same data as previous'then'?", data);
+      client.emit('elasticsearch', 'Matching is done');
+    }, (err) => {console.log(err)})
   })
 
   client.on('getEvent', function(data){
+    let randomUsers = [];
     knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
-
-
         knex.select( 'event_users.event_id',
                       'user_id1',
                       'user_id2',
@@ -162,16 +157,40 @@ io.on('connection', function(client) {
         })
         .where('event_users.event_id', data.event)
         .andWhere('points.user_id2', id[0].id)
-        }).orderBy('points', 'desc').limit(5)
+        })
+        .orderBy('points', 'desc').limit(5)
         .then(function(result){
-          knex.select().table('events').where('id', data.event)
-          .then(function(event){
-            let send = {
-              event: event[0],
-              users: result
-            }
-            client.emit('responseGetEvent', send);
-          })
+          if (result.length < 5) {
+            knex.select().table('event_users')
+            .join('users', function(){
+              this.on('user_id', 'users.id')
+            })
+            .join('events', function(){
+              this.on('events.id', data.event)
+            })
+            .where('event_users.event_id', data.event)
+            .andWhere('users.id', '<>', id[0].id)
+            .limit(5 - result.length)
+            .then(function(result){
+              knex.select().table('events').where('id', data.event)
+              .then(function(eventResult){
+                let send = {
+                  event: eventResult[0],
+                  users: result
+                }
+              client.emit('responseGetEvent', send);
+              })
+            })
+          } else {
+            knex.select().table('events').where('id', data.event)
+            .then(function(event){
+              let send = {
+                event: event[0],
+                users: result
+              }
+              client.emit('responseGetEvent', send);
+            })
+          }
         })
       })
   });
@@ -353,12 +372,13 @@ io.on('connection', function(client) {
     let insert = knex('users').insert(insertData).toString();
     let update = knex('users').update(insertData).whereRaw('users.linkedin_id = ' + "'" + insertData.linkedin_id + "'").toString();
     let query = util.format('%s ON CONFLICT (linkedin_id) DO UPDATE SET %s', insert, update.replace(/^update\s.*\sset\s/i, ''));
-    knex.raw(query).then((data)=> {
-      // require('./e_search/index.js');
-      index.test();
-    }).catch((err) => {
-      console.error(err);
-    });
+
+  knex.raw(query)
+      .then((data)=> {
+        // console.log("---->", data);
+        // index.indexing();
+      })
+      .catch(err => console.log(err))
   });
 
   client.on('createEvent', function(data) {

@@ -11,8 +11,13 @@ const knex = require('knex')(
   connection);
 
   const elasticsearch = require('elasticsearch');
+  // const esClient = new elasticsearch.Client({
+  //   host: process.env.ELASTIC_URL,
+  //   log: 'error'
+  // });
+
   const esClient = new elasticsearch.Client({
-    host: process.env.ELASTIC_URL,
+    host: '127.0.0.1:9200',
     log: 'error'
   });
 
@@ -31,31 +36,39 @@ const knex = require('knex')(
       bulkBody.push(item);
     });
 
-    esClient.bulk({body: bulkBody})
-    .then(response => {
-      let errorCount = 0;
-      response.items.forEach(item => {
-        if (item.index && item.index.error) {
-          console.log(++errorCount, item.index.error);
-        }
-      });
-      console.log(`Successfully indexed ${data.length - errorCount} out of ${data.length} items`);
-    })
-    .catch(console.err);
+    return esClient.bulk({body: bulkBody})
+
+    // esClient.bulk({body: bulkBody})
+    // .then(response => {
+    //   let errorCount = 0;
+    //   response.items.forEach(item => {
+    //     if (item.index && item.index.error) {
+    //       console.log(++errorCount, item.index.error);
+    //     }
+    //   });
+    //   console.log(`Successfully indexed ${data.length - errorCount} out of ${data.length} items`);
+    // })
+    // .catch(console.err);
   };
+
+  const queryAllUsers = () => {
+   return  knex.select().from('users')
+  }
 
   // only for testing purposes
   // all calls should be initiated through the module
-  const indexing = function indexing() {
-    const data = knex.select().table('users').then(function(data) {
-      // const articles = JSON.parse(data);
-      console.log(`${data.length} items parsed from data file`);
-      bulkIndex('users', 'profile', data);
-    }, function() {
-      console.log("this is error");
-    });
+  const indexing = (data) => {
+    // knex.select().table('users').then(function(data) {
+    //   // const articles = JSON.parse(data);
+    console.log(`${data.length} items parsed from data file`);
+    return  bulkIndex('users', 'profile', data)
+    // });
+    // , function() {
+    //   console.log("this is error");
+    // });
   };
 
   module.exports = {
-    indexing
+    indexing,
+    queryAllUsers
   };
