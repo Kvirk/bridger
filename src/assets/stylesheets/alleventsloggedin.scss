@@ -1,0 +1,57 @@
+/*AllEventsLoggedIn.jsx*/
+
+/*Carousel*/
+
+.carouselLoggedIn {
+  padding-top: 5%;
+  margin: 0 auto;
+  /*padding-top: 81px;*/
+  color: #484848;
+  padding-bottom: 175px;
+  max-width: 90%;
+
+  @media (max-width: 900px) {
+    max-width: 100%;
+  }
+
+  .carouselCard {
+/*    padding-left: 10%;
+    padding-right: 10%;*/
+    box-shadow: none;
+    border: 1px solid #e6e6e6;
+
+    .cardImage {
+/*      width: 800px;
+      height: 600px;*/
+    }
+
+    .joinButton {
+      font-weight: 600;
+      color: #007FFF;
+    }
+
+    button:focus {
+      outline: 0;
+    }
+  }
+
+  .slick-prev:before {
+    color: #484848;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  .slick-next:before {
+    color: #484848;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+}
+
+/*Carousel*/
+
+/*AllEventsLoggedIn.jsx*/

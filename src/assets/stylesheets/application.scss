@@ -1,42 +1,71 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css);
-@import 'one-page-wonder';
-@import 'userProfile';
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
+@import 'welcome';
+@import 'navbar';
+@import 'allevents';
+@import 'alleventsloggedin';
+@import 'events';
+@import 'eventscreation';
+@import 'eventsprofile';
+@import 'userprofile';
+@import 'loading';
+@import 'footer';
+
 html, body {
-  font-family: 'Nunito', sans-serif;
+	font-family: 'Nunito', sans-serif;
+	background-color: #fafafa;
+	overflow-x: hidden;
+}
+
+.row {
+	margin: 0;
+}
+
+/*Tabs*/
+.tabs {
+	padding-top: 81px;
+}
+/*Tabs*/
+
+footer {
+		margin: 50px 0;
+}
+
+.welcome-span {
+	margin: auto;
 }
 
 .example-appear {
-  opacity: 0.01;
+	opacity: 0.01;
 }
 
 .example-appear.example-appear-active {
-  opacity: 1;
-  transition: opacity .9s ease-in;
+	opacity: 1;
+	transition: opacity .9s ease-in;
 }
 .example-enter {
-  opacity: 0.01;
+	opacity: 0.01;
 }
 
 .example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 3s ease-in;
+	opacity: 1;
+	transition: opacity 3s ease-in;
 }
 
 .hack {
-  display:none;
+	display:none;
 }
 
 .dropzone{
-  margin: auto;
-  padding: 20px;
-  width: 200px;
-    height: 200px;
-    border-width: 2px;
-    border-color: rgb(102, 102, 102);
-    border-style: dashed;
-    border-radius: 5px;
+	margin: auto;
+	padding: 20px;
+	width: 200px;
+		height: 200px;
+		border-width: 2px;
+		border-color: rgb(102, 102, 102);
+		border-style: dashed;
+		border-radius: 5px;
 }
