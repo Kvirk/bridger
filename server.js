@@ -79,15 +79,15 @@ io.on('connection', function(client) {
     let matchResultsUserIdTemp = [];
     matchingFunction.findUserById(userId)
     .then((user) => {
-      console.log("User -->",user);
+      // console.log("User -->",user);
       userNormalId = user[0].id;
       return user;
     }, (err) => {console.log(err)})
     .then(matchingFunction.runMatching, (err) => {console.log(err)})
     .then((matchResults) => {
-      console.log("Match results -->", matchResults.hits.hits)
+      // console.log("Match results -->", matchResults.hits.hits)
       matchResultsUserIdTemp = [];
-      console.log("Temporary match results should be empty first", matchResultsUserIdTemp);
+      // console.log("Temporary match results should be empty first", matchResultsUserIdTemp);
       matchResults.hits.hits.forEach((hit) => {
         let arrInput = {
           user_id2: hit._source.id,
@@ -95,15 +95,14 @@ io.on('connection', function(client) {
         };
         matchResultsUserIdTemp.push(arrInput);
       });
-      console.log("Temporary match results after", matchResultsUserIdTemp);
+      // console.log("Temporary match results after", matchResultsUserIdTemp);
       return matchingFunction.updateUserPoints(matchResults, userNormalId)
     }, (err) => {console.log(err)})
     .then((updateResults) => {
-      console.log("Update results -->", updateResults);
+      // console.log("Update results -->", updateResults);
       return matchingFunction.insertNewPair(updateResults, matchResultsUserIdTemp, userNormalId)
     }, (err) => {console.log(err)})
     .then(() => {
-      // console.log("Same data as previous'then'?", data);
       client.emit('elasticsearch', 'Matching is done');
     }, (err) => {console.log(err)})
   })
