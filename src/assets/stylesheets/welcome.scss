@@ -1,0 +1,85 @@
+/*Welcome.jsx*/
+
+.welcome-span {
+	width: 100%;
+}
+
+.header-image {
+		display: block;
+		width: 100%;
+		height: 100%;
+		height: 999px;
+		text-align: center;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		background: url(http://wallpapercave.com/wp/CJuzwZM.jpg) center center no-repeat;
+		background-size: cover;
+		-o-background-size: cover;
+		margin-top: 64px;
+}
+
+.headline {
+		padding: 120px 0;
+}
+
+.headline h1 {
+		font-size: 130px;
+		background: #fff;
+		background: rgba(255,255,255,0.9);
+}
+
+.headline h2 {
+		font-size: 77px;
+		background: #fff;
+		background: rgba(255,255,255,0.9);
+}
+
+.img-fluid {
+		max-width: 100%;
+		height: auto;
+}
+
+.featurette-divider {
+		margin: 80px 0;
+}
+
+.featurette {
+		overflow: hidden;
+		margin-top: 40px;
+		padding-top: 50px;
+}
+
+.featurette-heading {
+		font-size: 55px;
+		color: #007FFF;
+
+		.subheading {
+			font-size: 40px;
+			padding-bottom: 10px;
+			color: black;
+		}
+}
+
+.lead {
+	color: black;
+}
+
+.whatIsIt {
+	font-size: 50px;
+	margin: auto;
+	padding: 80px;
+	font-weight: bolder;
+	color: black;
+}
+
+.signUpButton {
+	text-align: center;
+	text-align: center;
+	padding-top: 110px;
+
+	button {
+		background: #007FFF !important;
+	}
+}
+
+/*Welcome.jsx*/
