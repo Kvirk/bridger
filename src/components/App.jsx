@@ -324,7 +324,6 @@ class App extends Component {
 		if (this.state.type === "events") {
 			return (
 				<div className="container">
-
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
 						<section>
 							<ReactCSSTransitionGroup
