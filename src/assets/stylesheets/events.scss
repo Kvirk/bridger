@@ -1,0 +1,26 @@
+/*Events.jsx*/
+
+.eventsContainer {
+  padding-top: 5%;
+
+  .theme__card___8pay8 {
+    margin: auto;
+    margin-bottom: 5%;
+
+    .enterButton {
+      font-weight: 600;
+      color: #007FFF;
+    }
+
+    .leaveButton {
+      font-weight: 600;
+      color: #007FFF;
+    }
+
+    button:focus {
+      outline: 0;
+    }
+  }
+}
+
+/*Events.jsx*/

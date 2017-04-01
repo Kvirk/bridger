@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 import { Button } from 'react-toolbox/lib/button';
+import Dotdotdot from 'react-dotdotdot'
 
 class AllEvents extends Component {
 
@@ -9,14 +10,11 @@ class AllEvents extends Component {
 		console.log('Rendering <AllEvent />');
 		var settings = {
 			dots: true,
-			slidesToShow: 1,
-		  autoplay: true,
-		  autoplaySpeed: 5000,
-		  pauseOnHover: true,
-			// centerMode: true,
-			adaptiveHeight: true
+			// autoplay: true,
+			// autoplaySpeed: 5000,
+			// pauseOnHover: true,
 		};
-
+		window.innerWidth < 900 ? settings.slidesToShow = 1 : settings.slidesToShow = 3;
 
 		return (
 			<div className="carousel">
@@ -29,7 +27,7 @@ class AllEvents extends Component {
 									<CardTitle
 										avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
 										title={dat.creator_name}
-										subtitle={dat.venue}
+										// subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
 									/>
 									<CardMedia className="cardImage"
 										aspectRatio="square"
@@ -39,10 +37,12 @@ class AllEvents extends Component {
 										title={dat.name}
 										subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
 									/>
-									<CardText>{dat.description}</CardText>
-									<CardActions>
-										<Button className="joinButton" onClick={this.props.addEvent.bind(null, dat.id)} label="Join Event" />
-									</CardActions>
+									<CardText>
+										<Dotdotdot clamp={2}>{dat.venue}</Dotdotdot>
+									</CardText>
+									<CardText>
+										<Dotdotdot clamp={2}>{dat.description}</Dotdotdot>
+									</CardText>
 								</Card>
 							</div>
 						)

@@ -1,0 +1,103 @@
+/*Navbar.jsx*/
+
+.navbar {
+  height: 64px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  border-bottom: 1px solid #dce0e0;
+  margin: 0px;
+
+  .container {
+    margin: 0px;
+    width: 100%;
+    padding-right: 0;
+
+    .navbar-toggle {
+
+      .icon-bar {
+        background: #484848;
+      }
+    }
+
+    .navbar-brand {
+      padding-top: 7px;
+      margin-right: 0;
+
+      @media (max-width: 768px) {
+        margin-left: -15px;
+      }
+
+      img {
+        height: 42px;
+        width: 42px;
+        cursor: pointer;
+      }
+    }
+
+    .navbar-text {
+      margin: 0px;
+      padding-top: 15px;
+      font-size: large;
+      font-weight: bold;
+      cursor: pointer;
+      padding-right: 13px;
+    }
+
+    .navbar-nav {
+      display: inline-block;
+      float: none;
+      padding-top: 17.5px;
+
+      @media (max-width: 768px) {
+        margin: 0;
+      }
+
+      span {
+        padding: 15px;
+        color: #484848;
+        background: none;
+        font-weight: bolder;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+/*AVATAR DRAWER*/
+.avatarDrawer {
+  cursor: pointer;
+  position: relative;
+  top: 6px;
+  float: right;
+  padding-right: 10px;
+
+  @media (max-width: 768px) {
+    padding-right: 4px;
+  }
+}
+
+.drawer {
+  padding-top: 57px;
+}
+/*AVATAR DRAWER*/
+
+/*DISABLE BOOTSTRAP NAVBAR RESPONSIVENESS*/
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: right !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-left: -15px !important;
+}
+
+.navbar-right {
+  float: left!important;
+}
+/*DISABLE BOOTSTRAP NAVBAR RESPONSIVENESS*/
+
+/*Navbar.jsx*/

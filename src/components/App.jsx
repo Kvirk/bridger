@@ -6,6 +6,8 @@ import EventsCreation from './EventsCreation.jsx';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Welcome from './Welcome.jsx';
 import AllEvents from './AllEvents.jsx';
+import SeedPeople from './SeedPeople.jsx';
+import AllEventsLoggedIn from './AllEventsLoggedIn.jsx';
 import MyEvents from './MyEvents.jsx';
 import AllPeople from './AllPeople.jsx';
 import PersonProfile from './PersonProfile.jsx';
@@ -13,6 +15,7 @@ import Schedule from './Schedule.jsx';
 import UserProfile from './UserProfile.jsx';
 import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
+import Footer from './Footer.jsx';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import {Tab, Tabs} from 'react-toolbox';
 
@@ -294,10 +297,11 @@ class App extends Component {
 	render() {
 		if (this.state.type === "login") {
 			return (
-				<div className="container">
+				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<ReactCSSTransitionGroup
+							className="welcome-span"
 							transitionName="example"
 							transitionEnterTimeout={1000}
 							transitionLeaveTimeout={1000}
@@ -313,15 +317,21 @@ class App extends Component {
 							transitionAppearTimeout={1000}
 							transitionAppear={true}>
 						<section className="bottom-section row">
+							<h4 className="featurette-heading whatIsIt">Select Or Host An Event</h4>
 							<AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
 						</section>
 						</ReactCSSTransitionGroup>
+						<section className="bottom-section2 row">
+							<h4 className="featurette-heading whatIsIt">Get a list of matches, based on skills, professions, and more</h4>
+							<SeedPeople callbackFunction={this.callbackFunction} />
+						</section>
+						<Footer />
 				</div>
 		)}
 
 		if (this.state.type === "events") {
 			return (
-				<div className="container">
+				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} handleTesting={this.testElasticSearch} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} eventsCreation={this.eventsCreation} />
 						<section>
 							<ReactCSSTransitionGroup
@@ -335,42 +345,46 @@ class App extends Component {
 									<Tab label='Your Events'></Tab>
 								</Tabs>
 								{(this.state.index === 0) ? (
-									<AllEvents data={this.state.data} addEvent={this.addEvent} />
+									<AllEventsLoggedIn data={this.state.data} addEvent={this.addEvent} />
 								) : (
 									<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
 								)}
 							</ReactCSSTransitionGroup>
 						</section>
+						<Footer />
 				</div>
 			)
 		}
 		if (this.state.type === "creation") {
 			return (
-				<div className="container">
+				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<EventsCreation handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
+					<Footer />
 				</div>
 			)
 		}
 		if (this.state.type === "event") {
 			return (
-				<div className="container">
+				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
 					</section>
+					<Footer />
 				</div>
 			)
 		}
 		if (this.state.type === "userProfile") {
 			return (
-				<div className="container">
+				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
+					<Footer />
 				</div>
 			)
 		}
