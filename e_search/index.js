@@ -11,15 +11,15 @@ const knex = require('knex')(
   connection);
 
   const elasticsearch = require('elasticsearch');
-  // const esClient = new elasticsearch.Client({
-  //   host: process.env.ELASTIC_URL,
-  //   log: 'error'
-  // });
-
   const esClient = new elasticsearch.Client({
-    host: '127.0.0.1:9200',
+    host: process.env.ELASTIC_URL,
     log: 'error'
   });
+
+  // const esClient = new elasticsearch.Client({
+  //   host: '127.0.0.1:9200',
+  //   log: 'error'
+  // });
 
   const bulkIndex = function bulkIndex(index, type, data) {
     let bulkBody = [];
