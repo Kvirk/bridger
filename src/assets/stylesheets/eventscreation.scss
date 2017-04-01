@@ -1,0 +1,23 @@
+/*EventsCreation.jsx*/
+
+.eventsCreationContainer {
+  padding-top: 81px;
+  margin: auto;
+  width: 60%;
+
+  .datePicker {
+
+    input:focus {
+      transform: scale(0);
+    }
+  }
+
+  .timePicker {
+
+    input:focus {
+      /*transform: scale(0);*/
+    }
+  }
+}
+
+/*EventsCreation.jsx*/
