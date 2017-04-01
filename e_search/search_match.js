@@ -1,7 +1,7 @@
-require('dotenv').config()
+
 (function () {
   'use strict';
-
+  require('dotenv').config()
   const elasticsearch = require('elasticsearch');
   const esClient = new elasticsearch.Client({
     host: process.env.ELASTIC_URL,
@@ -21,8 +21,8 @@ require('dotenv').config()
       query: {
         multi_match: {
           query: 'software',
-          fields: ['summary','headline'],
-          fuzziness: 2
+          fields: ['summary', 'industry'],
+          fuzziness: 'auto'
         }
       }
     };

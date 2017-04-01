@@ -6,6 +6,16 @@ import Dotdotdot from 'react-dotdotdot'
 
 class SeedPeople extends Component {
 
+	constructor(props) {
+		super(props),
+		this.handleClick = this.handleClick.bind(this)
+	}
+
+	handleClick(e) {
+		e.preventDefault();
+		IN.User.authorize(this.props.callbackFunction, '');
+	}
+
 	render () {
 		console.log('Rendering <SeedPeople />');
 		var settings = {
@@ -101,7 +111,7 @@ class SeedPeople extends Component {
 					</div>
 				</Slider>
 				<div className="signUpButton">
-	        <Button onClick={this.props.callbackFunction} label="Join Now" accent raised />
+	        <Button onClick={this.handleClick} label="Join Now" accent raised />
 	      </div>
 			</div>
 		)

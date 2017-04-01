@@ -55,8 +55,6 @@ class App extends Component {
 		this.handleForm = this.handleForm.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
 
-		this.testElasticSearch = this.testElasticSearch.bind(this);
-
 		this.state = {type,
 				userId: cookie.load('userId'),
 				name: cookie.load('name'),
@@ -72,6 +70,7 @@ class App extends Component {
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
 			console.log("Matching up people...");
+			socket.emit('indexingData');
 			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
 				type: 'events',
@@ -80,45 +79,54 @@ class App extends Component {
 					allEvent: data.allEvent,
 				}});
 		});
+
 		socket.on('eventAdded', function(data) {
 			let data2 = {
 				userId: cookie.load('userId')
 			}
 			socket.emit('userLogin', data2)
 		});
+
 		socket.on('eventLeft', function(data) {
 			let data2 = {
 				userId: cookie.load('userId')
 			}
 			socket.emit('userLogin', data2)
-		})
+		});
+
 		socket.on('responseGetEvent', function(data){
 			app.setState({
 			type: 'event',
 			data: data
 			})
-		})
+		});
+
 		socket.on('responseGetData', function(data){
 			app.setState({
 			data: data
 			})
-		})
+		});
+
 		socket.on('responseMessage', function(data){
 			app.setState({
 				data
 			})
-		})
+		});
+
 		socket.on('OMGmessage', function(data){
 			app.setState({
 				type: 'userProfile',
 				data: data
 			});
-		})
+		});
 
-		//TEST Elasticsearch
-		socket.on('elasticsearch', function(data) {
-			console.log("data from server using elasticsearch", data);
-		})
+		socket.on('elasticsearch', function(message) {
+			console.log(message);
+		});
+
+		socket.on('indexingData', function (message) {
+			console.log(message);
+		});
 	}
 
 	componentWillUnmount () {
@@ -210,8 +218,7 @@ class App extends Component {
 	handleForm(formInput) {
 		let contentToServer = {
 			formInput:formInput,
-			creator_name: cookie.load('name'),
-			creator_picture_url: cookie.load('picture_url')
+			creator_name: cookie.load('name')
 		}
 		let data2 = {
 				userId: cookie.load('userId'),
@@ -287,13 +294,6 @@ class App extends Component {
 		})
 	}
 
-	// Testing elastic search
-	testElasticSearch() {
-		console.log("This is testing elasticsearch");
-		console.log("user id", this.state.userId);
-		socket.emit('elasticsearch', this.state.userId);
-	}
-
 	render() {
 		if (this.state.type === "login") {
 			return (
@@ -340,6 +340,7 @@ class App extends Component {
 								transitionLeaveTimeout={1000}
 								transitionAppearTimeout={1000}
 								transitionAppear={true}>
+
 								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
 									<Tab label='All Events'></Tab>
 									<Tab label='Your Events'></Tab>
@@ -360,7 +361,7 @@ class App extends Component {
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<EventsCreation handleForm={this.handleForm} backToMain={this.backToMain} />
+						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
 					<Footer />
 				</div>
