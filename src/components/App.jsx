@@ -15,6 +15,7 @@ import EventProfile from './EventProfile.jsx';
 import Event from './Event.jsx';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import {Tab, Tabs} from 'react-toolbox';
+import Footer from './Footer.jsx';
 
 let socket = io.connect();
 
@@ -215,8 +216,7 @@ class App extends Component {
 	handleForm(formInput) {
 		let contentToServer = {
 			formInput:formInput,
-			creator_name: cookie.load('name'),
-			creator_picture_url: cookie.load('picture_url')
+			creator_name: cookie.load('name')
 		}
 		let data2 = {
 				userId: cookie.load('userId'),
@@ -317,6 +317,7 @@ class App extends Component {
 							<AllEvents data={this.state.data} addEvent={this.callbackFunction}/>
 						</section>
 						</ReactCSSTransitionGroup>
+						<Footer/>
 				</div>
 		)}
 
@@ -331,6 +332,7 @@ class App extends Component {
 								transitionLeaveTimeout={1000}
 								transitionAppearTimeout={1000}
 								transitionAppear={true}>
+
 								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
 									<Tab label='All Events'></Tab>
 									<Tab label='Your Events'></Tab>
@@ -342,36 +344,40 @@ class App extends Component {
 								)}
 							</ReactCSSTransitionGroup>
 						</section>
+						<Footer/>
 				</div>
 			)
 		}
 		if (this.state.type === "creation") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<EventsCreation handleForm={this.handleForm} backToMain={this.backToMain} />
+						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
+					<Footer/>
 				</div>
 			)
 		}
 		if (this.state.type === "event") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
 					</section>
+					<Footer/>
 				</div>
 			)
 		}
 		if (this.state.type === "userProfile") {
 			return (
 				<div className="container">
-					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<NavBar urlPath={this.state.type} name={this.state.name} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
 						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
+					<Footer/>
 				</div>
 			)
 		}

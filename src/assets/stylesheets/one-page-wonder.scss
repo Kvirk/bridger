@@ -410,7 +410,6 @@
 
 /* Loading Page */
 
-
 /*TESTINGREACTDRAWER*/
 .avatarDrawer {
 	cursor: pointer;
@@ -424,9 +423,11 @@
 	}
 }
 
+
 .drawer {
-	padding-top: 57px;
+	padding-top: 50px;
 }
+
 /*TESTINGREACTDRAWER*/
 
 /*@media (min-width: 576px) {
@@ -436,8 +437,16 @@
 	}
 }*/
 
-footer {
-		margin: 50px 0;
+.footer {
+}
+
+.footer-image{
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 30px;
 }
 
 /*// @media(max-width:1200px) {

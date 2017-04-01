@@ -11,6 +11,7 @@ const pg = require("pg");
 const index = require('./e_search/index.js');
 const util = require('util');
 const fs = require('fs');
+const matchingFunction = require('./e_search/matching-function.js')
 
 app.use(fileUpload());
 
@@ -22,8 +23,6 @@ if (process.env.NODE_ENV === 'production'){
 
 const knex = require('knex')(
   connection);
-
-const matchingFunction = require('./e_search/matching-function.js');
 
 let currentUsers = {}
 
@@ -110,6 +109,7 @@ io.on('connection', function(client) {
   })
 
   client.on('getEvent', function(data){
+    let randomUsers = [];
     knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
         knex.select( 'event_users.event_id',
@@ -157,16 +157,40 @@ io.on('connection', function(client) {
         })
         .where('event_users.event_id', data.event)
         .andWhere('points.user_id2', id[0].id)
-        }).orderBy('points', 'desc').limit(5)
+        })
+        .orderBy('points', 'desc').limit(5)
         .then(function(result){
-          knex.select().table('events').where('id', data.event)
-          .then(function(event){
-            let send = {
-              event: event[0],
-              users: result
-            }
-            client.emit('responseGetEvent', send);
-          })
+          if (result.length < 5) {
+            knex.select().table('event_users')
+            .join('users', function(){
+              this.on('user_id', 'users.id')
+            })
+            .join('events', function(){
+              this.on('events.id', data.event)
+            })
+            .where('event_users.event_id', data.event)
+            .andWhere('users.id', '<>', id[0].id)
+            .limit(5 - result.length)
+            .then(function(result){
+              knex.select().table('events').where('id', data.event)
+              .then(function(eventResult){
+                let send = {
+                  event: eventResult[0],
+                  users: result
+                }
+              client.emit('responseGetEvent', send);
+              })
+            })
+          } else {
+            knex.select().table('events').where('id', data.event)
+            .then(function(event){
+              let send = {
+                event: event[0],
+                users: result
+              }
+              client.emit('responseGetEvent', send);
+            })
+          }
         })
       })
   });
@@ -247,6 +271,7 @@ io.on('connection', function(client) {
     let sendData;
     knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
+        console.log('this is id ========>', id)
       knex.select().table(knex.raw(`(SELECT * FROM "event_users" WHERE "user_id" = ${id[0].id}) AS "eventUsers"`))
       .rightOuterJoin('events', function(){
         this.on('eventUsers.event_id', 'events.id')
@@ -347,7 +372,8 @@ io.on('connection', function(client) {
     let insert = knex('users').insert(insertData).toString();
     let update = knex('users').update(insertData).whereRaw('users.linkedin_id = ' + "'" + insertData.linkedin_id + "'").toString();
     let query = util.format('%s ON CONFLICT (linkedin_id) DO UPDATE SET %s', insert, update.replace(/^update\s.*\sset\s/i, ''));
-    knex.raw(query)
+
+  knex.raw(query)
       .then((data)=> {
         // console.log("---->", data);
         // index.indexing();
