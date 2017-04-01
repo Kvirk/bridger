@@ -5,6 +5,7 @@ require('dotenv').config()
   const elasticsearch = require('elasticsearch');
   const esClient = new elasticsearch.Client({
     host: process.env.ELASTIC_URL,
+    auth: '${process.env.ELASTIC_URL}:${process.env.ELASTIC_URL}',
     log: 'error'
   });
 

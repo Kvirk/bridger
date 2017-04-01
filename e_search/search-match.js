@@ -5,9 +5,10 @@
   //   host: process.env.ELASTIC_URL,
   //   log: 'error'
   // });
-  
+
   const esClient = new elasticsearch.Client({
-    host: '127.0.0.1:9200',
+    host: process.env.ELASTIC_URL,
+    auth: '${process.env.ELASTIC_URL}:${process.env.ELASTIC_URL}',
     log: 'error'
   });
 
