@@ -112,8 +112,6 @@ io.on('connection', function(client) {
   client.on('getEvent', function(data){
     knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
-
-
         knex.select( 'event_users.event_id',
                       'user_id1',
                       'user_id2',
