@@ -49,16 +49,16 @@
         bool: {
           must: {
             match: {
-            //  "_all": "software"
-            "_all": value.location,
-            "_all": value.headline,
-            "_all": value.current_share
-            //  "_all": value.position_company_name,
-            //  "_all": value.position_company_industry,
-            //  "_all": value.position_company_type,
-            //  "_all": value.position_company_location,
-            //  "_all": value.position_company_summary,
-            //  "_all": value.position_company_title
+              "_all": value.summary,
+              "_all": value.location,
+              "_all": value.headline
+              // "_all": value.current_share
+              // "_all": value.position_company_name,
+              // "_all": value.position_company_industry,
+              // "_all": value.position_company_type,
+              // "_all": value.position_company_location,
+              // "_all": value.position_company_summary,
+              // "_all": value.position_company_title
             }
           },
           should: {
@@ -70,8 +70,7 @@
         }
       }
     };
-
-    // console.log(`retrieving documents with query: '${body.query.multi_match.query}' (displaying ${body.size} items at a time)...`);
+    console.log(`retrieving documents with query: '${body.query}' (displaying ${body.size} items at a time)...`);
     return search('users', body);
   };
 
