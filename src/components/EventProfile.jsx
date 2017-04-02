@@ -21,7 +21,7 @@ class EventProfile extends Component {
     }
     return (
       <div className="event-profile-container">
-        <header style={style}>
+        <header>
           <div className="container">
             <div className="featurette" classID="about">
               <h2 className="featurette-heading">{this.props.data.event.name.toUpperCase()}</h2>
