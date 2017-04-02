@@ -220,6 +220,7 @@ io.on('connection', function(client) {
     if(data.id === data.user_id1){
       id = data.user_id2;
     }
+    console.log(data.linkedin_id)
     let receiverID = currentUsers[data.linkedin_id];
     if(!receiverID){
       response.message.push("User isn't online. Get a life!")
