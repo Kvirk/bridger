@@ -11,7 +11,7 @@ class Welcome extends Component {
 						<h2 className="featurette-heading">Together,
 							<div className="subheading"> We Can Do Amazing Things</div>
 						</h2>
-						<p className="lead">Bridged helps you reach your full potential by connecting you with the right people.</p>
+						<p className="lead">Bridger helps you reach your full potential by connecting you with the right people.</p>
 					</div>
 				</div>
 			</header>
