@@ -195,6 +195,13 @@ io.on('connection', function(client) {
       })
   });
 
+  client.on('reject', function(data) {
+    let response = data;
+    response.message.push("User doesn't want to talk to you!");
+    let receiverID = currentUsers[data.linkedin_id];
+    io.sockets.connected[receiverID].emit('responseMessage', response);
+  });
+
   client.on('message', function(data) {
     let response = data;
     let id;

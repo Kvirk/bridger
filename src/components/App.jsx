@@ -18,6 +18,7 @@ import Event from './Event.jsx';
 import Footer from './Footer.jsx';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import {Tab, Tabs} from 'react-toolbox';
+import AlertContainer from 'react-alert';
 
 let socket = io.connect();
 
@@ -54,16 +55,28 @@ class App extends Component {
 		this.eventsCreation = this.eventsCreation.bind(this);
 		this.handleForm = this.handleForm.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
+		this.showAlert = this.showAlert.bind(this);
+		this.join = this.join.bind(this);
+		this.reject = this.reject.bind(this);
 
-		this.state = {type,
+		this.alertOptions = {
+      offset: 14,
+      position: 'top right',
+      theme: 'dark',
+      time: 10000,
+      transition: 'scale'
+    };
+
+
+		this.state = {
+				type,
 				userId: cookie.load('userId'),
 				name: cookie.load('name'),
 				picture_url: cookie.load('picture_url'),
 				data,
 				index: 1
-			}
 		}
-
+	}
 
 	componentDidMount() {
 		const app = this;
@@ -114,10 +127,17 @@ class App extends Component {
 		});
 
 		socket.on('OMGmessage', function(data){
-			app.setState({
-				type: 'userProfile',
-				data: data
-			});
+			if(app.state.type === 'userProfile'){
+				app.setState({
+				 	type: 'userProfile',
+				 	data: data
+				 });
+			} else {
+				app.showAlert(data.first_name);
+				app.setState({
+				 	alert: data
+				 });
+			}
 		});
 
 		socket.on('elasticsearch', function(message) {
@@ -132,7 +152,28 @@ class App extends Component {
 	componentWillUnmount () {
     this.loadInterval && clearInterval(this.loadInterval);
     this.loadInterval = false;
-}
+	}
+
+	showAlert(name){
+    msg.show(`${name} wants to chat with you`, {
+	      time: 10000,
+	      type: 'success',
+	      icon: <main><button className="btn btn-primary" onClick={this.join}>Join</button><button className="btn btn-primary" onClick={this.reject}>Reject</button></main>
+	    });
+	}
+
+	join(){
+		msg.removeAll();
+		this.setState({
+		 	type: 'userProfile',
+		 	data: this.state.alert
+		});
+	}
+
+	reject(){
+		msg.removeAll();
+		socket.emit('reject', this.state.alert)
+	}
 
 	callbackFunction() {
 		let app = this;
@@ -352,6 +393,7 @@ class App extends Component {
 								)}
 							</ReactCSSTransitionGroup>
 						</section>
+						<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 						<Footer />
 				</div>
 			)
@@ -363,6 +405,7 @@ class App extends Component {
 					<section className="top-section row">
 						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
+					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 					<Footer />
 				</div>
 			)
@@ -374,6 +417,7 @@ class App extends Component {
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
 					</section>
+					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 					<Footer />
 				</div>
 			)
@@ -385,6 +429,7 @@ class App extends Component {
 					<section className="top-section row">
 						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 					</section>
+					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 					<Footer />
 				</div>
 			)
