@@ -16,9 +16,9 @@ class EventProfile extends Component {
     let dateEnd = new Date(this.props.data.event.end_time)
     let length = this.props.data.users.length
     let image = (this.props.data.event.picture_url ? this.props.data.event.picture_url : 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQS5rDTpmXThNw027QY1tvoGIs_RNxF2i1HQvvTmNuoJPumnhY3')
-    let style = {
-      backgroundImage: `url(${image})`,
-    }
+    // let style = {
+    //   backgroundImage: `url(${image})`,
+    // }
     return (
       <div className="event-profile-container">
         <header>
