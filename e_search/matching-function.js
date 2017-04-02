@@ -49,13 +49,13 @@ const insertNewPair = (updateResults, matchResults, userId) => {
 const updateUserPoints = (matchResults, userId) => {
   let allPromises = [];
   console.log("User id --->", userId);
-  let user_id1 =  userId;
-  let user_id2 = hit._source.id;
-  if(userId > hit._source.id){
-    user_id2 = userId;
-    user_id1 = hit._source.id;
-  }
   matchResults.hits.hits.forEach((hit, index) => {
+    let user_id1 =  userId;
+    let user_id2 = hit._source.id;
+    if(userId > hit._source.id){
+      user_id2 = userId;
+      user_id1 = hit._source.id;
+    }
     console.log("User id", hit._source.id);
     console.log(`\t ${++index} - ${hit._source.first_name} - ${hit._source.linkedin_id} \n Summary: ${hit._source.summary} \n Industry: ${hit._source.industry} \n Score: ${hit._score} \n`);
     allPromises.push(
