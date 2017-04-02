@@ -29,13 +29,15 @@ const insertNewPair = (updateResults, matchResults, userId) => {
         user_id2 = userId;
         user_id1 = matchResults[matchResultsIndex].user_id2;
       }
-      allPromises.push(
-        knex('points').insert({
-          user_id1,
-          user_id2,
-          points: matchResults[matchResultsIndex].score
-        })
-      );
+      if (user_id1 != user_id2) {
+        allPromises.push(
+          knex('points').insert({
+            user_id1,
+            user_id2,
+            points: matchResults[matchResultsIndex].score
+          })
+        );
+      }
     }
     matchResultsIndex++;
   })
@@ -58,9 +60,11 @@ const updateUserPoints = (matchResults, userId) => {
     }
     console.log("User id", hit._source.id);
     console.log(`\t ${++index} - ${hit._source.first_name} - ${hit._source.linkedin_id} \n Summary: ${hit._source.summary} \n Industry: ${hit._source.industry} \n Score: ${hit._score} \n`);
-    allPromises.push(
-      knex.raw('UPDATE points SET points = points + ? WHERE user_id1=? AND user_id2=?', [hit._score, user_id1, user_id2])
-    );
+    if (user_id1 != user_id2) {
+      allPromises.push(
+        knex.raw('UPDATE points SET points = points + ? WHERE user_id1=? AND user_id2=?', [hit._score, user_id1, user_id2])
+      );
+    }
   });
   return Promise.all(allPromises);
 };
