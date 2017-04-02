@@ -2,12 +2,13 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css);
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 @import 'welcome';
 @import 'navbar';
 @import 'allevents';
 @import 'alleventsloggedin';
-@import 'events';
+@import 'event';
 @import 'eventscreation';
 @import 'eventsprofile';
 @import 'userprofile';
@@ -26,12 +27,12 @@ html, body {
 
 /*Tabs*/
 .tabs {
-	padding-top: 81px;
+	padding-top: 64px;
 }
 /*Tabs*/
 
 footer {
-		margin: 50px 0;
+	margin: 50px 0;
 }
 
 .welcome-span {
@@ -53,19 +54,4 @@ footer {
 .example-enter.example-enter-active {
 	opacity: 1;
 	transition: opacity 3s ease-in;
-}
-
-.hack {
-	display:none;
-}
-
-.dropzone{
-	margin: auto;
-	padding: 20px;
-	width: 200px;
-		height: 200px;
-		border-width: 2px;
-		border-color: rgb(102, 102, 102);
-		border-style: dashed;
-		border-radius: 5px;
 }

@@ -366,7 +366,7 @@ class App extends Component {
 							<h4 className="featurette-heading whatIsIt">Get a list of matches, based on skills, professions, and more</h4>
 							<SeedPeople callbackFunction={this.callbackFunction} />
 						</section>
-						<Footer />
+						<Footer scrollUp={this.scrollUp} />
 				</div>
 		)}
 

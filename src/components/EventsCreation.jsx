@@ -65,18 +65,18 @@ class EventsCreation extends Component {
 		return (
 			<section className="eventsCreationContainer">
 				<Dropzone className='dropzone' ref={(node) => { this.dropzone = node; }} onDrop={this.onDrop}>
-            <div>{ this.state.image ? 'Upload image file here (square size)!' : 'Image uploaded'}</div>
+            <div>{ this.state.image ? 'Upload or drag event image (Square size)' : 'Image uploaded'}</div>
         </Dropzone>
 				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' value={this.state.name} required />
-				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} required />
+				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} multiline required />
 				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" value={this.state.venue} required />
         <DatePicker inputClassName='datePicker' label='Start Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'startDateTemp')} value={this.state.startDateTemp} />
         <TimePicker inputClassName='timePicker' label='Start Time' onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
         <DatePicker inputClassName='datePicker' label='End Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'endDateTemp')} value={this.state.endDateTemp} />
         <TimePicker inputClassName='timePicker' label='End Time' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
+				<Button className="backButton" icon="arrow_back" label="Back" onClick={this.props.backToMain} />
 				{(this.state.name !== '') && (this.state.description !== '') && (this.state.venue !== '') &&
-					<Button icon="event_available" label="Create Event" onClick={this.handleSubmit} primary raised />}
-				<Button icon="arrow_back" label="Back" onClick={this.props.backToMain} raised />
+					<Button className="createButton" icon="event_available" label="Create Event" onClick={this.handleSubmit} primary raised />}
 				<iframe name="votar" className='hack'></iframe>
 			</section>
 		)

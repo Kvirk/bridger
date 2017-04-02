@@ -8,18 +8,18 @@ exports.seed = function(knex, Promise) {
         knex('events').insert({
           name: 'Lighthouse Labs Demo Day',
           description: 'Come enjoy the final projects! Everybody welcome, employers and families.',
-          venue: 'Lighthouse Labs',
+          venue: 'Lighthouse Labs, 300-128 W. Hastings, Vancouver BC V6B 1G8',
           picture_url: 'http://www.lighthouselabs.ca/static-assets/lighthouse-labs.png',
           creator_name: 'David VanDusen',
-          creator_picture_url: 'https://pbs.twimg.com/profile_images/552173019125145600/o7e-oT5m.jpeg',
+          creator_picture_url: 'https://lighthouselabs.ca/uploads/team_member/avatar/3/medium_davidvandusen_2x.jpg',
           start_time: new Date("April 7, 2017 01:30:00"),
           end_time: new Date("April 7, 2017 04:00:00")
         }),
         knex('events').insert({
           name: 'Techvibes Techfest',
           description: 'A unique recruiting event. Techfest attracts up to 1,000 attendees, more than 300 career opportunities, and up to 15 hiring companies. Hiring company executives pitch a crowd of potential employees on why they’re the best employer in the room.',
-          venue: 'Vancouver Convention Centre',
-          picture_url: 'https://pbs.twimg.com/profile_images/743220658381824000/nC_-mGjU.jpg',
+          venue: 'Vancouver Convention Centre West, Vancouver, BC',
+          picture_url: 'https://s3-us-west-2.amazonaws.com/techvibes/wp-content/uploads/2016/09/21190821/techfest.png',
           creator_name: 'Joel Shinness',
           creator_picture_url: 'http://www.joelshinness.com/assets/img/avatars/avatar_square_sm.jpg',
           start_time: new Date("April 14, 2017 01:30:00"),
