@@ -73,7 +73,6 @@ io.on('connection', function(client) {
     .then(() => {client.emit('indexingData', "Indexing is done")}, (err) => {console.log(err)})
   });
 
-  // TODO - Matching should happen when entering an event, BUT now is every login
   client.on('elasticsearch', (userId) => {
     let userNormalId;
     let matchResultsUserIdTemp = [];
@@ -85,7 +84,7 @@ io.on('connection', function(client) {
     }, (err) => {console.log(err)})
     .then(matchingFunction.runMatching, (err) => {console.log(err)})
     .then((matchResults) => {
-      // console.log("Match results -->", matchResults.hits.hits)
+      console.log("Match results -->", matchResults.hits.hits)
       matchResultsUserIdTemp = [];
       // console.log("Temporary match results should be empty first", matchResultsUserIdTemp);
       matchResults.hits.hits.forEach((hit) => {
