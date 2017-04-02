@@ -23,24 +23,23 @@
   // all calls should be initiated through the module
   const test = function test() {
     let body = {
-      // size: 20,
-      // from: 0,
       query: {
-        // bool: {
-          // must: {
+        bool: {
+          must: {
             match: {
-              "_all": "software engineer"
-              // query: 'software',
-              // fields: ['summary', 'industry', 'headline', 'location', 'current_share'],
-              // fuzziness: 'auto'
+              "_all": "Assistant Sales Manager at Tropical Link Canada Ltd"
+              "_all": "Montreal, Canada",
+              "_all": "Software engineering",
+              "_all": "Junior full stack web developer with background in marketing."
             }
-          // }
-          // should: {
-          //   match_phrase:{
-          //     "_all":"software engineer"
-          //   }
-          // }
-        // }
+          }
+          should: {
+            match_phrase:{
+              "_all": "Software engineering",
+              "_all": "Montreal, Canada"
+            }
+          }
+        }
       }
     };
 
