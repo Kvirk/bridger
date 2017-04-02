@@ -14,7 +14,7 @@ class AllEvents extends Component {
 			// autoplaySpeed: 5000,
 			// pauseOnHover: true,
 		};
-		window.innerWidth < 900 ? settings.slidesToShow = 1 : settings.slidesToShow = 3;
+		window.innerWidth < 600 ? settings.slidesToShow = 1 : settings.slidesToShow = 3;
 
 		return (
 			<div className="carousel">

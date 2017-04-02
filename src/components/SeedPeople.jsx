@@ -24,7 +24,7 @@ class SeedPeople extends Component {
 			// autoplaySpeed: 5000,
 			// pauseOnHover: true,
 		};
-		window.innerWidth < 900 ? settings.slidesToShow = 2 : settings.slidesToShow = 4;
+		window.innerWidth < 600 ? settings.slidesToShow = 2 : settings.slidesToShow = 4;
 
 		return (
 			<div className="carousel">
