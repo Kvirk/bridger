@@ -161,7 +161,8 @@ io.on('connection', function(client) {
         .orderBy('points', 'desc').limit(5)
         .then(function(result){
           if (result.length < 5) {
-            knex.select('users.id',
+            knex.select('event_users.event_id',
+                        'users.id',
                         'users.linkedin_id',
                         'users.first_name',
                         'users.email_address',
