@@ -19,6 +19,7 @@ import Footer from './Footer.jsx';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import {Tab, Tabs} from 'react-toolbox';
 import AlertContainer from 'react-alert';
+import { Button } from 'react-toolbox/lib/button';
 
 let socket = io.connect();
 
@@ -158,7 +159,10 @@ class App extends Component {
     msg.show(`${name} wants to chat with you`, {
 	      time: 10000,
 	      type: 'success',
-	      icon: <main><button className="btn btn-primary" onClick={this.join}>Join</button><button className="btn btn-primary" onClick={this.reject}>Reject</button></main>
+	      icon: <main>
+	      				<Button onClick={this.join}>Join</Button>
+	      				<Button onClick={this.reject}>Reject</Button>
+	      			</main>
 	    });
 	}
 
