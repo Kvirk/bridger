@@ -76,6 +76,7 @@ class UserProfile extends Component {
 					</List>
 					<Input onKeyPress={this.submit} type='text' label='Message' name='message' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} />
 				</Card>
+        <Button onClick={this.props.backToEP.bind(null, this.props.data.event_id)} label='Back' raised />
 			</div>
 		)
   }
