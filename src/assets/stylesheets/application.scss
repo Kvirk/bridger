@@ -57,12 +57,19 @@ footer {
 }
 
 .icon {
-	display: flex;
-	justify-content: space-between;
+	position: relative;
 	.accept{
+		position: absolute;
 		background: green !important;
+		height: 10px;
+		bottom: 10px;
+		left: 2px;
 	}
 	.reject{
+		position: absolute;
 		background: tomato !important;
+		height: 10px;
+		bottom: 2px;
+		left: 2px;
 	}
 }
