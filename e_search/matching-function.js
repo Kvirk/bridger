@@ -31,10 +31,16 @@ const insertNewPair = (updateResults, matchResults, userId) => {
       }
       if (user_id1 != user_id2) {
         allPromises.push(
-          knex('points').insert({
-            user_id1,
-            user_id2,
-            points: matchResults[matchResultsIndex].score
+          knex.from('points').where('user_id1', user_id1)
+          .andWhere('user_id2', user_id1)
+          .then(function(result2){
+            if(!result2[0]){
+              knex('points').insert({
+                user_id1,
+                user_id2,
+                points: matchResults[matchResultsIndex].score
+              })
+            }
           })
         );
       }
