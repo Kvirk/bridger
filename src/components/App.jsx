@@ -157,7 +157,7 @@ class App extends Component {
 
 	showAlert(name){
     msg.show(`${name} sends you a message`, {
-	      time: 1000000000000,
+	      time: 0,
 	      type: 'success',
 	      icon: <main>
 	      				<div className='button'>
