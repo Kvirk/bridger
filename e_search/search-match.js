@@ -46,6 +46,19 @@ const invokeSearch = function invokeSearch(value, fieldValues) {
           }
         },
         should: {
+          // match: {
+          //   "_all": value.headline,
+          //   "_all": value.location,
+          //   "_all": value.summary,
+          //   "_all": value.industry,
+          //   "_all": value.current_share,
+          //   "_all": value.position_company_name,
+          //   "_all": value.position_company_industry,
+          //   "_all": value.position_company_type,
+          //   "_all": value.position_company_location,
+          //   "_all": value.position_company_summary,
+          //   "_all": value.position_company_title
+          // }
           dis_max: {
             tie_breaker: 0.7,
             boost: 1.2,
@@ -66,15 +79,45 @@ const invokeSearch = function invokeSearch(value, fieldValues) {
                 },
               },
               {
+                match: {
+                  "_all": value.industry
+                }
+              },
+              {
                 query_string: {
-                  query: value.industry
-                },
+                  query: value.current_share
+                }
+              },
+              {
+                query_string: {
+                  query: value.position_company_name
+                }
+              },
+              {
+                query_string: {
+                  query: value.position_company_industry
+                }
+              },
+              {
+                query_string: {
+                  query: value.position_company_type
+                }
+              },
+              {
+                query_string: {
+                  query: value.position_company_location
+                }
+              },
+              {
+                query_string: {
+                  query: value.position_company_summary
+                }
+              },
+              {
+                query_string: {
+                  query: value.position_company_title
+                }
               }
-              // {
-              //   query_string: {
-              //     query: value.industry
-              //   }
-              // }
             ]
           }
         }

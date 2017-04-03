@@ -340,12 +340,18 @@ io.on('connection', function(client) {
       })
     }
 
-    let headline = !data.headline ? '' : data.headline;
-    let location = !data.location ? '' : data.location.name;
-    let industry = !data.industry ? '' : data.industry;
-    let current_share = !data.currentShare ? '' : data.currentShare.content.description;
-    let summary = !data.summary ? '' : data.summary;
+    let headline = !data.headline ? 'NULL' : data.headline;
+    let location = !data.location ? 'NULL' : data.location.name;
+    let industry = !data.industry ? 'NULL' : data.industry;
+    let current_share = !data.currentShare ? 'NULL' : data.currentShare.content.description;
+    let summary = !data.summary ? 'NULL' : data.summary;
     let picture_url = !data.pictureUrls.values ? '' : data.pictureUrls.values[0];
+    position_company_name = position_company_name.length === 0  ? 'NULL' : position_company_name;
+    position_company_industry = position_company_industry.length === 0  ? 'NULL' : position_company_industry;
+    position_company_type = position_company_type.length === 0  ? 'NULL' : position_company_type;
+    position_company_location = position_company_location.length === 0  ? 'NULL' : position_company_location;
+    position_company_summary = position_company_summary.length === 0  ? 'NULL' : position_company_summary;
+    position_company_title = position_company_title.length === 0  ? 'NULL' : position_company_title;
 
     let insertData = {
         linkedin_id: data.id,
