@@ -31,11 +31,6 @@ class SeedPeople extends Component {
 				<Slider {...settings}>
 					<div>
 						<Card className="carouselCardSeed">
-							{/*<CardTitle
-								avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
-								title={dat.creator_name}
-								// subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
-							/>*/}
 							<CardMedia className="cardImage"
 								aspectRatio="square"
 								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAsjAAAAJDhmYzBmNDU0LTNlZTAtNGZmNi1iMmE4LTIzYzZjNTRiOWRlZQ.jpg"
@@ -51,11 +46,6 @@ class SeedPeople extends Component {
 					</div>
 					<div>
 						<Card className="carouselCardSeed">
-							{/*<CardTitle
-								avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
-								title={dat.creator_name}
-								// subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
-							/>*/}
 							<CardMedia className="cardImage"
 								aspectRatio="square"
 								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAmcAAAAJDU4MmI4Mzk2LTM5MzAtNGIxYi04ZjI0LTc3MzE5OWIwMjk3Mg.jpg"
@@ -71,11 +61,6 @@ class SeedPeople extends Component {
 					</div>
 					<div>
 						<Card className="carouselCardSeed">
-							{/*<CardTitle
-								avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
-								title={dat.creator_name}
-								// subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
-							/>*/}
 							<CardMedia className="cardImage"
 								aspectRatio="square"
 								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAA0CAAAAJDg3YzIwODI0LWFlZjAtNDQwYy05YmYxLTUwYzU2N2YxOGFhMg.jpg"
@@ -91,11 +76,6 @@ class SeedPeople extends Component {
 					</div>
 					<div>
 						<Card className="carouselCardSeed">
-							{/*<CardTitle
-								avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
-								title={dat.creator_name}
-								// subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
-							/>*/}
 							<CardMedia className="cardImage"
 								aspectRatio="square"
 								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/7/005/066/276/0772b04.jpg"

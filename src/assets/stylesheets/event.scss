@@ -1,17 +1,48 @@
-/*Event.jsx AND AllEventsLoggedIn.jsx*/
+/*Event.jsx AND AllEventsLoggedIn.jsx AND EventProfile.jsx*/
+
+.eventProfileContainer {
+	width: 100%;
+	padding-top: 48px;
+}
 
 .eventsContainer {
 	padding-top: 60px;
 
 	.eventCard {
+		position: relative;
+		height: 352px;
 		margin: auto;
 		margin-bottom: 60px;
-		width: 80%;
+		width: 85%;
 	  -webkit-transition: all 0.2s ease;
 	  -moz-transition: all 0.2s ease;
 	  -o-transition: all 0.2s ease;
 	  transition: all 0.2s ease;
 	  z-index:0;
+
+	  @media (max-width: 1150px) {
+	  	height: 420px;
+	  }
+
+	  @media (max-width: 900px) {
+	  	height: 530px;;
+	  }
+
+	  @media (max-width: 650px) {
+	  	height: 590px;;
+	  }
+
+	  @media (max-width: 530px) {
+	  	height: 650px;;
+	  }
+
+	  @media (max-width: 400px) {
+	  	height: 720px;;
+	  }
+
+	  @media (max-width: 350px) {
+	  	height: 770px;;
+	  }
 
 		&:hover{
 			z-index:1000;
@@ -20,18 +51,78 @@
 		  -moz-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
 		}
 
-		.cardTitle {
-			width: 80%;
+		.centerDiv {
+			position: absolute;
+			width: 50%;
+			right: 464px;
 
-			@media (max-width: 600px) {
-				width: 100%;
+			@media (max-width: 1780px) {
+				right: 365px;
 			}
 
-			h5 {
-				font-size: 41px;
+			@media (max-width: 1550px) {
+				right: 308px;
+			}
 
-				@media (max-width: 600px) {
-					font-size: 35px;
+			@media (max-width: 1350px) {
+				right: 262px;
+			}
+
+			@media (max-width: 1150px) {
+				right: 215px;
+			}
+
+			@media (max-width: 900px) {
+				width: 81%;
+				right: 18%;
+				top: 55px;
+			}
+
+		  @media (max-width: 580px) {
+		  	width: 78%;
+		  	right: 20%;
+		  	height: 610px;
+		  }
+
+			.cardTitle {
+
+/*				@media (max-width: 900px) {
+					width: 100%;
+				}*/
+
+				h5 {
+					font-size: 51px;
+					font-weight: bolder;
+
+					@media (max-width: 900px) {
+						font-size: 35px;
+					}
+					@media (max-width: 600px) {
+						font-size: 28px;
+					}
+				}
+			}
+
+			.cardDescription {
+
+/*				@media (max-width: 900px) {
+					width: 100%;
+				}*/
+
+				p {
+					font-size: 18px;
+
+					@media (max-width: 900px) {
+						font-size: 15px;
+					}
+
+					@media (max-width: 900px) {
+						padding-top: 220px;
+					}
+
+					@media (max-width: 400px) {
+						padding-top: 250px;
+					}
 				}
 			}
 		}
@@ -39,74 +130,124 @@
 		.imageDiv {
 			/*background-color: red;*/
 
-			@media (min-width: 600px) {
+			/*@media (min-width: 900px) {*/
 				.cardImage {
-					width: 12%;
+					width: 19%;
 					position: absolute;
-					right: 13%;
+					right: 30px;
+					top: 30px;
+
+					@media (max-width: 900px) {
+						right: 15px;
+						top: 15px;
+					}
+				}
+			/*}*/
+		}
+
+		.leftDiv {
+			position: absolute;
+			width: 17%;
+	    margin-left: 6px;
+	    margin-top: 6px;
+
+			@media (max-width: 1780px) {
+				width: 22%;
+			}
+
+			@media (max-width: 900px) {
+				width: 100%;
+			}
+
+			.cardHost {
+				font-size: 14px;
+				font-weight: bolder;
+
+				@media (max-width: 900px) {
+					font-size: 12px;
+				}
+
+				div {
+					font-weight: initial;;
+					font-size: initial;
+				}
+			}
+
+			.cardVenue {
+				font-size: 14px;
+				font-weight: bolder;
+
+				@media (max-width: 900px) {
+					font-size: 12px;
+				}
+
+				div {
+					font-weight: initial;;
+					font-size: initial;
+				}
+			}
+
+			.cardTime {
+				font-size: 14px;
+				font-weight: bolder;
+
+				@media (max-width: 900px) {
+					font-size: 12px;
+				}
+
+				.month {
+					font-size: 12.5px;
+					font-weight: bolder;
+			    padding-left: 4px;
+			    margin-bottom: -7px;
+				}
+
+				.date {
+					font-size: 30px;
+					padding-bottom: 30px;
+
+					@media (max-width: 900px) {
+						padding-bottom: 100px;
+					}
+
+					@media (max-width: 400px) {
+						padding-bottom: 140px;
+					}
+				}
+
+				div {
+					font-weight: initial;
+					font-size: initial;
 				}
 			}
 		}
 
-		.cardVenue {
-			width: 80%;
-			font-size: 17px;
-			font-weight: bolder;
+		.buttonsDiv {
+			position: absolute;
+			bottom: 0px;
 
-			@media (max-width: 600px) {
-				width: 100%;
+			.enterButton {
+				font-weight: 600;
+				color: #007FFF;
 			}
 
-			span {
-				font-weight: initial;;
-			}
-		}
-
-		.cardTime {
-			width: 80%;
-			font-size: 17px;
-			font-weight: bolder;
-
-			@media (max-width: 600px) {
-				width: 100%;
+			.leaveButton {
+				font-weight: 600;
+				color: #007FFF;
 			}
 
-			span {
-				font-weight: initial;;
+			button:focus {
+				outline: 0;
 			}
-		}
-
-		.cardDescription {
-			width: 80%;
-			padding-top: 20px;
-
-			@media (max-width: 600px) {
-				width: 100%;
-			}
-
-			p {
-				font-size: 21px;
-
-				@media (max-width: 600px) {
-					font-size: 17px;
-				}
-			}
-		}
-
-		.enterButton {
-			font-weight: 600;
-			color: #007FFF;
-		}
-
-		.leaveButton {
-			font-weight: 600;
-			color: #007FFF;
-		}
-
-		button:focus {
-			outline: 0;
 		}
 	}
+}
+
+.noEvents {
+  margin-top: 20% !important;
+  text-align: center;
+  margin-bottom: 10.5%;
+  background: none;
 }
 
 /*Event.jsx AND AllEventsLoggedIn.jsx*/

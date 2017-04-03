@@ -419,7 +419,7 @@ class App extends Component {
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
+						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
 					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 					<Footer />

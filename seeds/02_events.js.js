@@ -7,13 +7,13 @@ exports.seed = function(knex, Promise) {
         knex.raw('ALTER SEQUENCE events_id_seq RESTART'),
         knex('events').insert({
           name: 'Lighthouse Labs Demo Day',
-          description: 'Come enjoy the final projects! Everybody welcome, employers and families.',
+          description: 'Come enjoy the final projects! Everybody welcome, employers and families. Our latest graduates are showing off their final project for Demo Day! Watch what you can create after just 8 weeks with Lighthouse Labs Web or iOS Development Bootcamps.',
           venue: 'Lighthouse Labs, 300-128 W. Hastings, Vancouver BC V6B 1G8',
           picture_url: 'http://www.lighthouselabs.ca/static-assets/lighthouse-labs.png',
           creator_name: 'David VanDusen',
           creator_picture_url: 'https://lighthouselabs.ca/uploads/team_member/avatar/3/medium_davidvandusen_2x.jpg',
-          start_time: new Date("April 7, 2017 01:30:00"),
-          end_time: new Date("April 7, 2017 04:00:00")
+          start_time: new Date(2017, 3, 7, 1, 30),
+          end_time: new Date(2017, 3, 7, 3, 30)
         }),
         knex('events').insert({
           name: 'Techvibes Techfest',
@@ -22,8 +22,8 @@ exports.seed = function(knex, Promise) {
           picture_url: 'https://s3-us-west-2.amazonaws.com/techvibes/wp-content/uploads/2016/09/21190821/techfest.png',
           creator_name: 'Joel Shinness',
           creator_picture_url: 'http://www.joelshinness.com/assets/img/avatars/avatar_square_sm.jpg',
-          start_time: new Date("April 14, 2017 01:30:00"),
-          end_time: new Date("April 14, 2017 04:30:00")
+          start_time: new Date(2017, 4, 11, 1, 30),
+          end_time: new Date(2017, 4, 11, 5, 00)
         }),
         knex('events').insert({
           name: 'The HTML500',
@@ -32,8 +32,8 @@ exports.seed = function(knex, Promise) {
           picture_url: 'https://pbs.twimg.com/profile_images/808817858247622656/o4zLDGHB.jpg',
           creator_name: 'Don Burks',
           creator_picture_url: 'https://www.ntrust.com/wp-content/uploads/2015/07/Don-Burks-02.jpg',
-          start_time: new Date("June 21, 2017 16:00:00"),
-          end_time: new Date("June 22, 2017 05:00:00")
+          start_time: new Date(2017, 5, 21, 17, 00),
+          end_time: new Date(2017, 5, 22, 5, 30)
         })
       ]);
     });
