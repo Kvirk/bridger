@@ -157,9 +157,9 @@ class App extends Component {
 
 	showAlert(name){
     msg.show(`${name} sent you a message`, {
-	      time: 0,
+	      time: 10000,
 	      type: 'success',
-	      icon: <main>
+	      icon: <main className='note'>
 	      				<div className='button'>
 	      					<Button className='accept' onClick={this.join}>Join</Button>
 	      				</div>
