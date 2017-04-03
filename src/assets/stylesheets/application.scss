@@ -57,12 +57,12 @@ footer {
 }
 
 .icon {
+	display: flex;
+	justify-content: space-between;
 	.accept{
-		display: inline-block !important;
 		background: green !important;
 	}
-	.accept{
-		display: inline-block !important;
+	.reject{
 		background: tomato !important;
 	}
 }
