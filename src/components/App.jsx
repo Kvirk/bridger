@@ -63,7 +63,7 @@ class App extends Component {
 		this.alertOptions = {
       offset: 14,
       position: 'top right',
-      theme: 'dark',
+      theme: 'light',
       time: 10000,
       transition: 'scale'
     };
@@ -156,7 +156,7 @@ class App extends Component {
 	}
 
 	showAlert(name){
-    msg.show(`${name} sends you a message`, {
+    msg.show(`${name} sent you a message`, {
 	      time: 0,
 	      type: 'success',
 	      icon: <main>
