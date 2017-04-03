@@ -84,7 +84,7 @@ io.on('connection', function(client) {
     }, (err) => {console.log(err)})
     .then(matchingFunction.runMatching, (err) => {console.log(err)})
     .then((matchResults) => {
-      console.log("Match results -->", matchResults.hits.hits)
+      console.log("Match results -->", matchResults)
       matchResultsUserIdTemp = [];
       // console.log("Temporary match results should be empty first", matchResultsUserIdTemp);
       matchResults.hits.hits.forEach((hit) => {

@@ -24,21 +24,32 @@
   const test = function test() {
     let body = {
       query: {
-        bool: {
-          must: {
-            match: {
-              "_all": "Assistant Sales Manager at Tropical Link Canada Ltd"
-              "_all": "Montreal, Canada",
-              "_all": "Software engineering",
-              "_all": "Junior full stack web developer with background in marketing."
+        filtered: {
+          filter: {
+            exists: {
+              field: "industry"
             }
           }
-          should: {
-            match_phrase:{
-              "_all": "Software engineering",
-              "_all": "Montreal, Canada"
+        },
+        dis_max: {
+          // tie_breaker: 0.7,
+          // boost: 1.2,
+          queries: [
+            {
+              query_string: {
+                query: value.headline
+              },
+              query_string: {
+                query: value.location
+              },
+              query_string: {
+                query: value.summary
+              },
+              query_string: {
+                query: value.industry
+              }
             }
-          }
+          ]
         }
       }
     };
@@ -48,7 +59,7 @@
     .then(results => {
       console.log(`found ${results.hits.total} items in ${results.took}ms`);
       if (results.hits.total > 0) console.log(`returned article summary:`);
-      results.hits.hits.forEach((hit, index) => console.log(`\t ${hit._source.first_name} - ${hit._source.headline} - ${hit._source.summary}  (score: ${hit._score})`));
+      // results.hits.hits.forEach((hit, index) => console.log(`\t ${hit._source.first_name} - ${hit._source.headline} - ${hit._source.summary}  (score: ${hit._score})`));
     })
     .catch(console.error);
   };
