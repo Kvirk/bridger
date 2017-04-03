@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import NavBar from './NavBar.jsx';
 import LinkedinLogin from './LinkedInLogIn.jsx';
 import cookie from 'react-cookie';
@@ -59,6 +60,7 @@ class App extends Component {
 		this.showAlert = this.showAlert.bind(this);
 		this.join = this.join.bind(this);
 		this.reject = this.reject.bind(this);
+		this.scrollToBottom = this.scrollToBottom.bind(this);
 
 		this.alertOptions = {
       offset: 14,
@@ -122,12 +124,14 @@ class App extends Component {
 		});
 
 		socket.on('responseMessage', function(data){
+			app.scrollToBottom();
 			app.setState({
 				data
 			})
 		});
 
 		socket.on('OMGmessage', function(data){
+			app.scrollToBottom();
 			if(app.state.type === 'userProfile'){
 				app.setState({
 				 	type: 'userProfile',
@@ -309,6 +313,11 @@ class App extends Component {
 		});
 	}
 
+	scrollToBottom() {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({behavior: "smooth"});
+	}
+
 	onLogout() {
 		let data = {allEvent: [{ id: 2,
 			name: "Techvibes Techfest",
@@ -452,7 +461,7 @@ class App extends Component {
 						</ReactCSSTransitionGroup>
 					</section>
 					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
-					<Footer />
+					<Footer ref={(el) => { this.messagesEnd = el; }} />
 				</div>
 			)
 		}
