@@ -27,6 +27,7 @@ class UserProfile extends Component {
 	}
 
 	render() {
+		console.log(this.props.data);
 		return (
 			<div className='userProfile' >
 				<div className="jumbotron">
@@ -35,7 +36,7 @@ class UserProfile extends Component {
 					<p className="lead">{this.props.data.headline}</p>
 					<p>{this.props.data.company} {this.props.data.industry}</p>
 					<p className="lead">
-						<a className="btn btn-primary btn-lg" href={this.props.data.public_profile_url} role="button">Learn more</a>
+						<Button className='learnMoreButton' href={this.props.data.public_profile_url} label='Learn More' icon='person' raised primary />
 					</p>
 				</div>
 				<Button onClick={this.props.backToEP.bind(null, this.props.data.event_id)} label='Back' raised />

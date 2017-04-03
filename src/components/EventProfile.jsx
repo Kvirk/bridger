@@ -98,7 +98,7 @@ class EventProfile extends Component {
 												{dat.headline}
 											</CardText>
 											<CardActions>
-												<Button label="Connect" className="createButton" onClick={this.props.seeProfile.bind(null, dat)} raised />
+												<Button label="Connect" className="connectButton" onClick={this.props.seeProfile.bind(null, dat)} primary raised />
 											</CardActions>
 										</Card>
 									</div>
