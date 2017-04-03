@@ -160,8 +160,8 @@ class App extends Component {
 	      time: 10000,
 	      type: 'success',
 	      icon: <main>
-	      				<Button onClick={this.join}>Join</Button>
-	      				<Button onClick={this.reject}>Reject</Button>
+	      				<Button className='accept' onClick={this.join}>Join</Button>
+	      				<Button className='reject' onClick={this.reject}>Reject</Button>
 	      			</main>
 	    });
 	}
