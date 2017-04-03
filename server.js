@@ -164,18 +164,11 @@ io.on('connection', function(client) {
             let ids = [];
             for(let i = 0; i < result.length; i++){
               if(result[i].user_id1 === id[0].id) {
-                console.log('A')
                 ids.push(result[i].user_id2);
-                console.log(result[i].user_id1);
-                console.log(result[i].user_id2);
               }
               else {
-                console.log('B')
                 ids.push(result[i].user_id1);
-                console.log(result[i].user_id1);
-                console.log(result[i].user_id2);
               }
-              console.log(ids);
             }
             ids.push(id[0].id);
             console.log(ids);
