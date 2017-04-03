@@ -58,17 +58,18 @@ footer {
 
 .icon {
 	position: relative;
-	.accept{
+	.button {
 		position: absolute;
+	}
+	.accept{
 		background: green !important;
-		height: 10px;
-		bottom: 10px;
+		height: 20px;
+		bottom: 20px;
 		left: 2px;
 	}
 	.reject{
-		position: absolute;
 		background: tomato !important;
-		height: 10px;
+		height: 20px;
 		bottom: 2px;
 		left: 2px;
 	}
