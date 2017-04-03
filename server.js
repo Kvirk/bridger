@@ -125,6 +125,10 @@ io.on('connection', function(client) {
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
+                      'users.summary',
+                      'users.positions',
+                      'users.position_company_name',
+                      'users.position_company_title'
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id2','users.id')
@@ -148,6 +152,10 @@ io.on('connection', function(client) {
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
+                      'users.summary',
+                      'users.positions',
+                      'users.position_company_name',
+                      'users.position_company_title',
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id1','users.id')
@@ -182,7 +190,11 @@ io.on('connection', function(client) {
                         'users.picture_url',
                         'users.industry',
                         'users.location',
-                        'users.public_profile_url')
+                        'users.public_profile_url',
+                        'users.summary',
+                        'users.positions',
+                        'users.position_company_name',
+                        'users.position_company_title')
                         .table('event_users')
             .join('users', function(){
               this.on('user_id', 'users.id')
@@ -257,6 +269,10 @@ io.on('connection', function(client) {
                     'users.industry',
                     'users.location',
                     'users.public_profile_url',
+                    'users.summary',
+                    'users.positions',
+                    'users.position_company_name',
+                    'users.position_company_title',
                     'points.points').from('points')
       .join('users', function(){
         this.on('points.user_id2','users.id')
@@ -281,7 +297,11 @@ io.on('connection', function(client) {
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
-                      'points.points').from('points')
+                      'users.summary',
+                      'users.positions',
+                      'users.position_company_name',
+                      'users.position_company_title',
+                      'points.points',).from('points')
         .join('users', function(){
           this.on('points.user_id1','users.id')
         })
@@ -304,7 +324,11 @@ io.on('connection', function(client) {
                     'users.picture_url',
                     'users.industry',
                     'users.location',
-                    'users.public_profile_url')
+                    'users.public_profile_url',
+                    'users.summary',
+                    'users.positions',
+                    'users.position_company_name',
+                    'users.position_company_title',)
           .from('users').where('users.id', id)
           .then(function(result){
             dataSend = result[0]

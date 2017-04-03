@@ -157,11 +157,15 @@ class App extends Component {
 
 	showAlert(name){
     msg.show(`${name} sends you a message`, {
-	      time: 10000,
+	      time: 0,
 	      type: 'success',
 	      icon: <main>
-	      				<Button onClick={this.join}>Join</Button>
-	      				<Button onClick={this.reject}>Reject</Button>
+	      				<div className='button'>
+	      					<Button className='accept' onClick={this.join}>Join</Button>
+	      				</div>
+	      				<div className='button'>
+	      					<Button className='reject' onClick={this.reject}>Reject</Button>
+	      				</div>
 	      			</main>
 	    });
 	}
