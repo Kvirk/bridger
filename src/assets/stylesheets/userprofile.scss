@@ -5,35 +5,98 @@
 
   .userProfileContainer {
     padding-top: 108px;
+    position: relative;
 
     .profileCard {
       position: relative;
-      width: 33%;
+      width: 27%;
       float: left;
-      left: 48px;
+      left: 22%;
       -webkit-transition: all 0.2s ease;
       -moz-transition: all 0.2s ease;
       -o-transition: all 0.2s ease;
       transition: all 0.2s ease;
       z-index: 0;
 
-      &:hover{
+      &:hover {
         z-index:1000;
         box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
         -webkit-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
         -moz-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
       }
 
-      .avatar {
+      @media (max-width: 1024px) {
+        width: 30%;
+        left: 9%;
+      }
+
+      @media (max-width: 900px) {
+        width: 32%;
+        left: 6%
+      }
+
+      @media (max-width: 700px) {
+        width: 85%;
+        padding-bottom: 20px;
+        left: initial;
+        margin: auto;
+        float: none;
+        margin-bottom: 30px;
+      }
+
+      @media (max-width: 500px) {
+        width: 90%;
+      }
+
+      .profileCardTitle {
         /*background: red;*/
+
+        h5 {
+          /*background: red;*/
+          font-size: 30px;
+          font-weight: bolder;
+        }
+
+        p {
+          /*background: red;*/
+          font-size: 16px;
+        }
+      }
+
+      .profileCardText {
+        font-weight: bolder;
+        font-size: 16px;
+        padding-bottom: 16px;
+
+        div {
+          font-weight: initial;
+        }
+      }
+
+      .numConnections {
+        position: absolute;
+        top: 579px;
+        right: 0;
+
+        @media (max-width: 1919px) {
+          top: initial;
+          bottom: 35px;
+          right: -5px;
+        }
       }
 
       .learnMoreButton {
         position: absolute;
         font-weight: 600;
         background: #007FFF !important;
-        bottom: 201px;
+        top: 534px;
         right: 10px;
+
+        @media (max-width: 1919px) {
+          top: initial;
+          bottom: 10px;
+          right: 5px;
+        }
       }
 
       .backButton {
@@ -43,12 +106,36 @@
     }
 
     .chatCard {
-      width: 33%;
+      width: 38%;
       float: right;
+      margin-right: 11%;
+
+      @media (max-width: 1024px) {
+        width: 50%;
+        margin-right: 9%
+      }
+
+      @media (max-width: 900px) {
+        width: 54%;
+        margin-right: 6%
+      }
+
+      @media (max-width: 700px) {
+        width: 85%;
+        float: none;
+        margin: auto;
+      }
+
+      @media (max-width: 500px) {
+        width: 90%;
+      }
+
+      .chatCardHeader {
+        font-size: 16px;
+      }
 
       .chatInput {
         width: 80%;
-        padding-left: 16px;
 
         label {
           padding-left: 16px;

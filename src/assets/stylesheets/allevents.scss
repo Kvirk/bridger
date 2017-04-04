@@ -57,7 +57,7 @@
 	.slick-prev:before {
 		color: #484848;
 
-		@media (max-width: 600px) {
+		@media (max-width: 900px) {
 			display: none;
 		}
 	}
@@ -65,7 +65,7 @@
 	.slick-next:before {
 		color: #484848;
 
-		@media (max-width: 600px) {
+		@media (max-width: 900px) {
 			display: none;
 		}
 	}

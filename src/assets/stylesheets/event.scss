@@ -20,6 +20,10 @@
 	  transition: all 0.2s ease;
 	  z-index: 0;
 
+	  @media(min-width: 2000px) {
+	  	height: 470px;
+	  }
+
 	  @media (max-width: 1150px) {
 	  	height: 450px;
 	  }

@@ -36,6 +36,7 @@ class UserProfile extends Component {
 	}
 
 	render() {
+		console.log(this.props.data);
 		let image = this.props.data.picture_url ? this.props.data.picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"
 
 		return (
@@ -45,38 +46,41 @@ class UserProfile extends Component {
 						aspectRatio="square"
 						image={image}
 					/>
-					<CardTitle
+					<CardTitle className="profileCardTitle"
 						title={this.props.data.first_name + ' ' + this.props.data.last_name}
 						subtitle={this.props.data.location}
 					/>
+					<CardText className="numConnections">
+						{this.props.data.num_connections} Connections
+					</CardText>
 					{this.props.data.headline && (
-						<CardText>
-							Headline: {this.props.data.headline}
+						<CardText className="profileCardText">
+							HEADLINE <div>{this.props.data.headline}</div>
 						</CardText>
 					)}
 					{this.props.data.headline && (
-						<CardText>
-							Industry: {this.props.data.industry}
+						<CardText className="profileCardText">
+							INDUSTRY <div>{this.props.data.industry}</div>
 						</CardText>
 					)}
 					{this.props.data.headline && (
-						<CardText>
-							Summary: {this.props.data.summary}
+						<CardText className="profileCardText">
+							SUMMARY <div>{this.props.data.summary}</div>
 						</CardText>
 					)}
 					{this.props.data.positions !== 0 && (
-						<CardText>
-							Currently: {this.props.data.position_company_name[0]}
+						<CardText className="profileCardText">
+							CURRENTLY <div>{this.props.data.position_company_name[0]} - {this.props.data.position_company_title}</div>
 						</CardText>
 					)}
 					<CardActions>
-						<Button className='learnMoreButton' href={this.props.data.public_profile_url} label='LinkedIn' icon='person' raised primary />
-		        <Button className="backButton" onClick={this.props.backToEP.bind(null, this.props.data.event_id)} label='Back' />
+						<Button className='learnMoreButton' href={this.props.data.public_profile_url} label='LinkedIn' icon='account_circle' raised primary />
+		        <Button className="backButton" onClick={this.props.backToEP.bind(null, this.props.data.event_id)} label='Back' icon='arrow_back' />
 					</CardActions>
 				</Card>
 				<Card className="chatCard">
 					<List selectable ripple>
-						<ListSubHeader caption='Chat Below!' />
+						<ListSubHeader className="chatCardHeader" caption={'Send a message to ' + this.props.data.first_name} />
 							{this.props.data.message.map((dat, i) => {
 								let nameMatch = dat.match(/^(.*?):/i)
 								let crop = 0;
@@ -95,7 +99,7 @@ class UserProfile extends Component {
 							 return <ListItem key = {i} avatar={picture} caption={name} legend={dat.slice(crop)} />
 							})}
 					</List>
-					<Input ref={(el) => { this.messagesEnd = el; }}  className="chatInput" onKeyPress={this.submit} type='text' label='Message' name='message' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} />
+					<Input ref={(el) => { this.messagesEnd = el; }}  className="chatInput" onKeyPress={this.submit} type='text' hint="Let's meet up!" icon='send' name='message' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} />
 				</Card>
 			</div>
 		)
