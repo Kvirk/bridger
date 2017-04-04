@@ -4,6 +4,8 @@
 	padding-top: 81px;
 	margin: auto;
 	width: 50%;
+	height: 970px;
+	position: relative;
 
 	@media (max-width: 600px) {
 		width: 85%;
@@ -26,12 +28,16 @@
 	.backButton {
 		font-weight: 600;
 		color: #007FFF !important;
+		position: absolute;
+		bottom: 0px;
 	}
 
 	.createButton {
 		font-weight: 600;
 		background: #007FFF !important;
-		float: right;
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
 	}
 
 	button:focus {

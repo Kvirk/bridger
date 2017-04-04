@@ -67,13 +67,13 @@ class EventsCreation extends Component {
 				<Dropzone className='dropzone' ref={(node) => { this.dropzone = node; }} onDrop={this.onDrop}>
             <div>{ this.state.image ? 'Upload or drag event image (Square size)' : 'Image uploaded'}</div>
         </Dropzone>
-				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' name='name' value={this.state.name} required />
-				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' name="description" value={this.state.description} multiline required />
-				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' name="venue" value={this.state.venue} required />
+				<Input type='text' onChange={this.handleChange.bind(this, 'name')} label='Event' icon='event' name='name' value={this.state.name} />
+				<Input type="text" onChange={this.handleChange.bind(this, 'description')} label='Description' icon='subject' name="description" value={this.state.description} multiline />
+				<Input type="text" onChange={this.handleChange.bind(this, 'venue')} label='Venue' icon='room' name="venue" value={this.state.venue} />
         <DatePicker inputClassName='datePicker' label='Start Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'startDateTemp')} value={this.state.startDateTemp} />
-        <TimePicker inputClassName='timePicker' label='Start Time' onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} />
+        <TimePicker inputClassName='timePicker' label='Start Time' onChange={this.handleChange.bind(this, 'startTimeTemp')} value={this.state.startTimeTemp} format='ampm' />
         <DatePicker inputClassName='datePicker' label='End Date' autoOk sundayFirstDayOfWeek onChange={this.handleChange.bind(this, 'endDateTemp')} value={this.state.endDateTemp} />
-        <TimePicker inputClassName='timePicker' label='End Time' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} />
+        <TimePicker inputClassName='timePicker' label='End Time' onChange={this.handleChange.bind(this, 'endTimeTemp')} value={this.state.endTimeTemp} format='ampm' />
 				<Button className="backButton" icon="arrow_back" label="Back" onClick={this.props.backToMain} />
 				{(this.state.name !== '') && (this.state.description !== '') && (this.state.venue !== '') &&
 					<Button className="createButton" icon="event_available" label="Create Event" onClick={this.handleSubmit} primary raised />}

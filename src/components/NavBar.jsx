@@ -58,11 +58,11 @@ class NavBar extends Component {
 						<Drawer className="drawer" type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
 						  <List selectable ripple>
 								<ListItem caption='Host Event' leftIcon='add' onClick={this.handleCreateEvent} />
-						    <ListItem caption='Events' leftIcon='today' onClick={this.handleBackToMain} />
-						    <ListItem caption='Log Out' leftIcon='power_settings_new' onClick={this.handleLogOut} />
-						  </List>
-						</Drawer>
-					</div>
+							    <ListItem caption='Events' leftIcon='today' onClick={this.handleBackToMain} />
+							    <ListItem caption='Log Out' leftIcon='power_settings_new' onClick={this.handleLogOut} />
+							  </List>
+							</Drawer>
+						</div>
 			break;
 			// Logged in everywhere else
 			default:
@@ -84,12 +84,17 @@ class NavBar extends Component {
 					<div className="navbar-brand">
 						<img alt="Brand" src="http://i.imgur.com/X9cGCcR.png" onClick={this.props.backToMain} />
 					</div>
+					{window.innerWidth > 600 && (
+						<p className="navbar-text pull-left text-muted" onClick={this.props.backToMain}>
+							Bridger
+						</p>
+					)}
 				{navItemsPartial}
-					{this.props.name !== undefined &&
+					{this.props.name !== undefined && (
 						<p className="navbar-text pull-right text-muted" onClick={this.handleToggle}>
 							{this.props.name}
 						</p>
-					}
+					)}
 				</div>
 			</nav>
 		)

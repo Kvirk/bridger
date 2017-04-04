@@ -19,7 +19,7 @@ html, body {
 	font-family: 'Nunito', sans-serif;
 	background-color: #fafafa;
 	overflow-x: hidden;
-	height: 100%;
+	/*height: 100%;*/
 }
 
 .row {
@@ -65,17 +65,22 @@ footer {
 	margin-left: 50px;
 }
 
+/*Notification*/
+
 .icon {
 	position: relative;
+
 	.button {
 		position: absolute;
 	}
+
 	.accept{
 		background: green !important;
 		height: 30px;
 		bottom: 40px;
 		left: -5px;
 	}
+
 	.reject{
 		background: tomato !important;
 		height: 30px;
@@ -83,3 +88,5 @@ footer {
 		left: -5px;
 	}
 }
+
+/*Notification*/
