@@ -1,20 +1,20 @@
 const elasticsearch = require('elasticsearch');
-// const esClient = new elasticsearch.Client({
-//   host: [
-//     {
-//       host: process.env.ELASTIC_URL,
-//       auth: `${process.env.ELASTIC_USER}:${process.env.ELASTIC_PASSWORD}`,
-//       port: process.env.ELASTIC_PORT,
-//       protocol: process.env.ELASTIC_PROTOCOL,
-//       log: 'error'
-//     }
-//   ]
-// });
-
 const esClient = new elasticsearch.Client({
-  host: '127.0.0.1:9200',
-  log: 'error'
+  host: [
+    {
+      host: process.env.ELASTIC_URL,
+      auth: `${process.env.ELASTIC_USER}:${process.env.ELASTIC_PASSWORD}`,
+      port: process.env.ELASTIC_PORT,
+      protocol: process.env.ELASTIC_PROTOCOL,
+      log: 'error'
+    }
+  ]
 });
+
+// const esClient = new elasticsearch.Client({
+//   host: '127.0.0.1:9200',
+//   log: 'error'
+// });
 
 const search = function search(index, body) {
   return esClient.search({index: index, body: body});
