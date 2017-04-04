@@ -11,7 +11,7 @@
 @import 'event';
 @import 'eventscreation';
 @import 'eventsprofile';
-@import 'userProfile';
+@import 'userprofile';
 @import 'loading';
 @import 'footer';
 
@@ -56,9 +56,29 @@ footer {
 	transition: opacity 3s ease-in;
 }
 
+.note{
+	margin: 17px 0px 0px 0px;
+}
+
+.message{
+	margin-left: 50px;
+}
+
 .icon {
-	.theme__neutral___2CPs4.theme__toggle___hC5Z2{
-		display: inline-block;
-		color: white;
+	position: relative;
+	.button {
+		position: absolute;
+	}
+	.accept{
+		background: green !important;
+		height: 20px;
+		bottom: 20px;
+		left: 2px;
+	}
+	.reject{
+		background: tomato !important;
+		height: 20px;
+		bottom: 2px;
+		left: 2px;
 	}
 }
