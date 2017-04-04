@@ -19,6 +19,7 @@ html, body {
 	font-family: 'Nunito', sans-serif;
 	background-color: #fafafa;
 	overflow-x: hidden;
+	height: 100%;
 }
 
 .row {
@@ -81,8 +82,4 @@ footer {
 		bottom: 2px;
 		left: -5px;
 	}
-}
-
-html, body {
-    height: 100%;
 }
