@@ -49,7 +49,6 @@ app.get('/', function(req, res) {
 
 app.post('/upload', function(req, res, next) {
    // let tempPath = req.file.path;
-  console.log(req.files)
   for (file in req.files){
     fs.writeFile(__dirname + `/src/assets/images/${file}`, req.files[file].data, {flag: "w"}, (err) => {
       if (err) throw err;
@@ -79,15 +78,12 @@ io.on('connection', function(client) {
     let matchResultsUserIdTemp = [];
     matchingFunction.findUserById(userId)
     .then((user) => {
-      console.log("User -->",user);
       userNormalId = user[0].id;
       return user;
     }, (err) => {console.log(err)})
     .then(matchingFunction.runMatching, (err) => {console.log(err)})
     .then((matchResults) => {
-      console.log("Match results -->", matchResults.hits.hits)
       matchResultsUserIdTemp = [];
-      console.log("Temporary match results should be empty first", matchResultsUserIdTemp);
       matchResults.hits.hits.forEach((hit) => {
         let arrInput = {
           user_id2: hit._source.id,
@@ -95,11 +91,9 @@ io.on('connection', function(client) {
         };
         matchResultsUserIdTemp.push(arrInput);
       });
-      console.log("Temporary match results after", matchResultsUserIdTemp);
       return matchingFunction.updateUserPoints(matchResults, userNormalId)
     }, (err) => {console.log(err)})
     .then((updateResults) => {
-      console.log("Update results -->", updateResults);
       return matchingFunction.insertNewPair(updateResults, matchResultsUserIdTemp, userNormalId)
     }, (err) => {console.log(err)})
     .then(() => {
@@ -357,7 +351,6 @@ io.on('connection', function(client) {
     let sendData;
     knex.column('id').table('users').where('linkedin_id', data.userId)
       .then(function(id){
-        console.log('this is id ========>', id)
       knex.select().table(knex.raw(`(SELECT * FROM "event_users" WHERE "user_id" = ${id[0].id}) AS "eventUsers"`))
       .rightOuterJoin('events', function(){
         this.on('eventUsers.event_id', 'events.id')
@@ -367,7 +360,6 @@ io.on('connection', function(client) {
         .then(function(id){
           knex.table('event_users').join('events', 'event_id', '=', 'events.id').where('user_id', id[0].id)
           .then(function(userEvent){
-            console.log(userEvent);
             sendData = {allEvent: dat, userEvent: userEvent}
             client.emit("responseUserLogin", sendData);
           })
@@ -468,7 +460,6 @@ io.on('connection', function(client) {
   });
 
   client.on('createEvent', function(data) {
-    console.log(data.filename);
     let insertData = {
       name: data.formInput.name,
       description: data.formInput.description,
@@ -483,16 +474,11 @@ io.on('connection', function(client) {
     knex.raw(insert).catch((err) => {
       console.error(err);
     });
-    console.log('Create event comes here')
-    console.log('This is data', data.formInput)
 
   })
 
   client.on('destroy', function(data){
-    console.log(data)
-    console.log(currentUsers)
     delete currentUsers[data];
-    console.log(currentUsers)
   })
 
   client.on('disconnect', function() {
@@ -502,7 +488,6 @@ io.on('connection', function(client) {
         delete currentUsers[remove];
       }
     }
-    console.log(client.id)
   });
 });
 
