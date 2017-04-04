@@ -450,7 +450,7 @@ class App extends Component {
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<ReactCSSTransitionGroup
+						<ReactCSSTransitionGroup className="reactSpan"
 								transitionName="example"
 								transitionEnterTimeout={1000}
 								transitionLeaveTimeout={1000}
