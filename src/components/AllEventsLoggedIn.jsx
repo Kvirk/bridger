@@ -51,7 +51,7 @@ class AllEvents extends Component {
                   </div>
                   <div className="buttonsDiv">
                     <CardActions>
-                      <Button className="enterButton" onClick={this.props.addEvent.bind(null, dat.id)} label="Join Event" />
+                      <Button className="enterButton" onClick={this.props.addEvent.bind(null, dat.id)} label="Join Event" icon="add" />
                     </CardActions>
                   </div>
                 </Card>
