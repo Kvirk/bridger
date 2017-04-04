@@ -86,7 +86,6 @@ class App extends Component {
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
 			window.scrollTo(0, 0);
-			console.log("Matching up people...");
 			socket.emit('indexingData');
 			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
@@ -151,11 +150,9 @@ class App extends Component {
 		});
 
 		socket.on('elasticsearch', function(message) {
-			console.log(message);
 		});
 
 		socket.on('indexingData', function (message) {
-			console.log(message);
 		});
 	}
 
@@ -199,7 +196,6 @@ class App extends Component {
 			let data2 = {
 				userId: data.id,
 			}
-			console.log('inside the login')
 			socket.emit('user', data)
 			socket.emit('userLogin', data2)
 			cookie.save('userId', data.id, { path: '/' });
@@ -283,7 +279,6 @@ class App extends Component {
 		}
 		socket.emit('createEvent', contentToServer)
 		socket.emit('userLogin', data2)
-		console.log("This is the content", formInput)
 	}
 
 
@@ -345,7 +340,6 @@ class App extends Component {
 
 
 	goToEventProfile() {
-		console.log("State is about to change to testEvent");
 		this.setState({
 			type: 'event'
 		})
@@ -361,7 +355,7 @@ class App extends Component {
 		if (this.state.type === "login") {
 			return (
 				<div className="container-non-responsive">
-					<NavBar ref={(el) => { this.messagesTop = el; }} urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<ReactCSSTransitionGroup
 							className="welcome-span"
