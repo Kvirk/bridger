@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 import { List, ListSubHeader, ListItem } from 'react-toolbox/lib/list';
 import Input from 'react-toolbox/lib/input';
@@ -11,9 +12,15 @@ class UserProfile extends Component {
 		this.submit = this.submit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.state = { message: '' };
+		this.scrollToBottom = this.scrollToBottom.bind(this);
 	}
 
 	componentDidMount() {
+	}
+
+	scrollToBottom() {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({behavior: "smooth"});
 	}
 
 	handleChange(name, message){
@@ -22,6 +29,7 @@ class UserProfile extends Component {
 
 	submit(key) {
 		if (key.charCode === 13) {
+			this.scrollToBottom();
 			this.setState({message: ''})
 			return this.props.sendMessage(`${this.props.name}: ${this.state.message}`, this.props.data.linkedin_id);
 		}
@@ -87,7 +95,7 @@ class UserProfile extends Component {
 							 return <ListItem key = {i} avatar={picture} caption={name} legend={dat.slice(crop)} />
 							})}
 					</List>
-					<Input className="chatInput" onKeyPress={this.submit} type='text' label='Message' name='message' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} />
+					<Input ref={(el) => { this.messagesEnd = el; }}  className="chatInput" onKeyPress={this.submit} type='text' label='Message' name='message' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} />
 				</Card>
 			</div>
 		)
