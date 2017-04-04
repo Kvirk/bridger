@@ -10,7 +10,6 @@ import AllEvents from './AllEvents.jsx';
 import SeedPeople from './SeedPeople.jsx';
 import AllEventsLoggedIn from './AllEventsLoggedIn.jsx';
 import MyEvents from './MyEvents.jsx';
-import AllPeople from './AllPeople.jsx';
 import PersonProfile from './PersonProfile.jsx';
 import Schedule from './Schedule.jsx';
 import UserProfile from './UserProfile.jsx';

@@ -199,7 +199,6 @@ io.on('connection', function(client) {
             })
             .whereNotIn('users.id', ids)
             .andWhere('event_users.event_id', data.event)
-            .limit(5 - result.length)
             .then(function(result2){
               let resultUser = result2;
               for(let i = 0; i < resultUser.length; i++){
@@ -211,8 +210,10 @@ io.on('connection', function(client) {
               .then(function(eventResult){
                 let send = {
                   event: eventResult[0],
-                  users: resultUser.concat(result)
+                  users: resultUser.slice(0, 5 - result.length).concat(result),
+                  allUsers: resultUser.slice(0, 5 - result.length).concat(result) //resultUser.slice(5 - result.length)
                 }
+              console.log(result.length)
               client.emit('responseGetEvent', send);
               })
             })
