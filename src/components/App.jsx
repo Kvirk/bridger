@@ -60,7 +60,6 @@ class App extends Component {
 		this.showAlert = this.showAlert.bind(this);
 		this.join = this.join.bind(this);
 		this.reject = this.reject.bind(this);
-		this.scrollToBottom = this.scrollToBottom.bind(this);
 
 		this.alertOptions = {
       offset: 14,
@@ -85,7 +84,7 @@ class App extends Component {
 		const app = this;
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
 			socket.emit('indexingData');
 			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
@@ -97,7 +96,8 @@ class App extends Component {
 		});
 
 		socket.on('eventAdded', function(data) {
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
+			document.body.scrollTop = 0;
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -105,7 +105,7 @@ class App extends Component {
 		});
 
 		socket.on('eventLeft', function(data) {
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -113,7 +113,7 @@ class App extends Component {
 		});
 
 		socket.on('responseGetEvent', function(data){
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
 			app.setState({
 			type: 'event',
 			data: data
@@ -121,21 +121,19 @@ class App extends Component {
 		});
 
 		socket.on('responseGetData', function(data){
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
 			app.setState({
 			data: data
 			})
 		});
 
 		socket.on('responseMessage', function(data){
-			app.scrollToBottom();
 			app.setState({
 				data
 			})
 		});
 
 		socket.on('OMGmessage', function(data){
-			app.scrollToBottom();
 			if(app.state.type === 'userProfile'){
 				app.setState({
 				 	type: 'userProfile',
@@ -310,12 +308,7 @@ class App extends Component {
 			type: 'userProfile',
 			data: data2
 		});
-		window.scrollTo(0, 0);
-	}
-
-	scrollToBottom() {
-    const node = ReactDOM.findDOMNode(this.messagesEnd);
-    node.scrollIntoView({behavior: "smooth"});
+		document.body.scrollTop = 0;
 	}
 
 	onLogout() {
@@ -460,7 +453,7 @@ class App extends Component {
 						</ReactCSSTransitionGroup>
 					</section>
 					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
-					<Footer ref={(el) => { this.messagesEnd = el; }} />
+					<Footer/>
 				</div>
 			)
 		}
