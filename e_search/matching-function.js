@@ -24,7 +24,9 @@ callback = function(index, user_id1, user_id2, matchResults, result2){
       user_id1,
       user_id2,
       points: matchResults[index].score
-    })
+    }).then(function(){
+      console.log('pushed')
+    });
   }
 }
 
