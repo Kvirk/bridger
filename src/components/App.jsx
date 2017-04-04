@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import NavBar from './NavBar.jsx';
 import LinkedinLogin from './LinkedInLogIn.jsx';
 import cookie from 'react-cookie';
@@ -59,11 +60,12 @@ class App extends Component {
 		this.showAlert = this.showAlert.bind(this);
 		this.join = this.join.bind(this);
 		this.reject = this.reject.bind(this);
+		this.scrollToBottom = this.scrollToBottom.bind(this);
 
 		this.alertOptions = {
       offset: 14,
       position: 'top right',
-      theme: 'dark',
+      theme: 'light',
       time: 10000,
       transition: 'scale'
     };
@@ -83,6 +85,7 @@ class App extends Component {
 		const app = this;
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
+			window.scrollTo(0, 0);
 			console.log("Matching up people...");
 			socket.emit('indexingData');
 			socket.emit('elasticsearch', cookie.load('userId'));
@@ -95,6 +98,7 @@ class App extends Component {
 		});
 
 		socket.on('eventAdded', function(data) {
+			window.scrollTo(0, 0);
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -102,6 +106,7 @@ class App extends Component {
 		});
 
 		socket.on('eventLeft', function(data) {
+			window.scrollTo(0, 0);
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -109,6 +114,7 @@ class App extends Component {
 		});
 
 		socket.on('responseGetEvent', function(data){
+			window.scrollTo(0, 0);
 			app.setState({
 			type: 'event',
 			data: data
@@ -116,18 +122,21 @@ class App extends Component {
 		});
 
 		socket.on('responseGetData', function(data){
+			window.scrollTo(0, 0);
 			app.setState({
 			data: data
 			})
 		});
 
 		socket.on('responseMessage', function(data){
+			app.scrollToBottom();
 			app.setState({
 				data
 			})
 		});
 
 		socket.on('OMGmessage', function(data){
+			app.scrollToBottom();
 			if(app.state.type === 'userProfile'){
 				app.setState({
 				 	type: 'userProfile',
@@ -156,10 +165,10 @@ class App extends Component {
 	}
 
 	showAlert(name){
-    msg.show(`${name} sends you a message`, {
-	      time: 0,
+    msg.show(`${name} sent you a message`, {
+	      time: 10000,
 	      type: 'success',
-	      icon: <main>
+	      icon: <main className='note'>
 	      				<div className='button'>
 	      					<Button className='accept' onClick={this.join}>Join</Button>
 	      				</div>
@@ -301,12 +310,17 @@ class App extends Component {
 
 	seeProfile(data) {
 		let data2 = data;
-		console.log(data)
 		data2['message'] = [];
 		this.setState({
 			type: 'userProfile',
 			data: data2
 		});
+		window.scrollTo(0, 0);
+	}
+
+	scrollToBottom() {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({behavior: "smooth"});
 	}
 
 	onLogout() {
@@ -347,7 +361,7 @@ class App extends Component {
 		if (this.state.type === "login") {
 			return (
 				<div className="container-non-responsive">
-					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+					<NavBar ref={(el) => { this.messagesTop = el; }} urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<ReactCSSTransitionGroup
 							className="welcome-span"
@@ -452,7 +466,7 @@ class App extends Component {
 						</ReactCSSTransitionGroup>
 					</section>
 					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
-					<Footer />
+					<Footer ref={(el) => { this.messagesEnd = el; }} />
 				</div>
 			)
 		}
