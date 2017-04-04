@@ -23,6 +23,7 @@ class Footer extends Component {
 		<div className='footer'>
 			<hr/>
 			<img className="footer-image" src="http://i.imgur.com/X9cGCcR.png" onClick={this.scrollUp} />
+      <div className="toTheTop">TOP OF PAGE</div>
 		</div>
 		)
 	}
