@@ -85,6 +85,7 @@ class App extends Component {
 		const app = this;
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
+			window.scrollTo(0, 0);
 			console.log("Matching up people...");
 			socket.emit('indexingData');
 			socket.emit('elasticsearch', cookie.load('userId'));
@@ -97,6 +98,7 @@ class App extends Component {
 		});
 
 		socket.on('eventAdded', function(data) {
+			window.scrollTo(0, 0);
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -104,6 +106,7 @@ class App extends Component {
 		});
 
 		socket.on('eventLeft', function(data) {
+			window.scrollTo(0, 0);
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -111,6 +114,7 @@ class App extends Component {
 		});
 
 		socket.on('responseGetEvent', function(data){
+			window.scrollTo(0, 0);
 			app.setState({
 			type: 'event',
 			data: data
@@ -118,6 +122,7 @@ class App extends Component {
 		});
 
 		socket.on('responseGetData', function(data){
+			window.scrollTo(0, 0);
 			app.setState({
 			data: data
 			})
@@ -305,12 +310,12 @@ class App extends Component {
 
 	seeProfile(data) {
 		let data2 = data;
-		console.log(data)
 		data2['message'] = [];
 		this.setState({
 			type: 'userProfile',
 			data: data2
 		});
+		window.scrollTo(0, 0);
 	}
 
 	scrollToBottom() {
@@ -356,7 +361,7 @@ class App extends Component {
 		if (this.state.type === "login") {
 			return (
 				<div className="container-non-responsive">
-					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+					<NavBar ref={(el) => { this.messagesTop = el; }} urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<ReactCSSTransitionGroup
 							className="welcome-span"
@@ -451,7 +456,7 @@ class App extends Component {
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
-						<ReactCSSTransitionGroup
+						<ReactCSSTransitionGroup className="reactSpan"
 								transitionName="example"
 								transitionEnterTimeout={1000}
 								transitionLeaveTimeout={1000}
