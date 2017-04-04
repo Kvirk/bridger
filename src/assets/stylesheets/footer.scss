@@ -1,16 +1,23 @@
 /*Footer.jsx*/
 
 .footer {
-  padding-top: 90px;
+	padding-top: 90px;
 
-  .footer-image{
-  		display: block;
-   margin: auto;
-   width: 42px;
-   height: 42px;
-   margin-bottom: 10px;
-   cursor: pointer;
-  }
+	.footer-image {
+	display: block;
+	margin: auto;
+	width: 42px;
+	height: 42px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	}
+
+	.toTheTop {
+    text-align: center;
+    font-size: 10px;
+    margin-top: -13px;
+    padding-bottom: 5px;
+	}
 }
 
 /*Footer.jsx*/

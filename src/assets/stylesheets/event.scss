@@ -10,7 +10,7 @@
 
 	.eventCard {
 		position: relative;
-		height: 352px;
+		height: 375px;
 		margin: auto;
 		margin-bottom: 60px;
 		width: 85%;
@@ -21,7 +21,7 @@
 	  z-index: 0;
 
 	  @media (max-width: 1150px) {
-	  	height: 420px;
+	  	height: 450px;
 	  }
 
 	  @media (max-width: 900px) {
@@ -200,11 +200,20 @@
 					font-weight: bolder;
 			    padding-left: 4px;
 			    margin-bottom: -7px;
+
+			    @media (min-width: 900px) {
+			    	font-size: 13px;
+			    	padding-left: 6px;
+			    }
 				}
 
 				.date {
 					font-size: 30px;
 					padding-bottom: 30px;
+
+					@media (min-width: 900px) {
+						font-size: 35px;
+					}
 
 					@media (max-width: 900px) {
 						padding-bottom: 100px;
