@@ -1,57 +1,58 @@
 /*EventsCreation.jsx*/
 
 .eventsCreationContainer {
-  padding-top: 81px;
-  margin: auto;
-  width: 50%;
+	padding-top: 81px;
+	margin: auto;
+	width: 50%;
 
-  @media (max-width: 600px) {
-    width: 85%;
-  }
+	@media (max-width: 600px) {
+		width: 85%;
+	}
 
-  .datePicker {
+	.datePicker {
 
-    input:focus {
-      transform: scale(0);
-    }
-  }
+		input:focus {
+			transform: scale(0);
+		}
+	}
 
-  .timePicker {
+	.timePicker {
 
-    input:focus {
-      /*transform: scale(0);*/
-    }
-  }
+		input:focus {
+			/*transform: scale(0);*/
+		}
+	}
 
-  .backButton {
-    /*background: red;*/
-  }
+	.backButton {
+		font-weight: 600;
+		color: #007FFF !important;
+	}
 
-  .createButton {
-    font-weight: 600;
-    background: #007FFF !important;
-    float: right;
-  }
+	.createButton {
+		font-weight: 600;
+		background: #007FFF !important;
+		float: right;
+	}
 
-  button:focus {
-    outline: 0;
-  }
+	button:focus {
+		outline: 0;
+	}
 
-  .hack {
-    display:none;
-  }
+	.hack {
+		display:none;
+	}
 
-  .dropzone{
-    margin: auto;
-    margin-bottom: 36px;
-    padding: 20px;
-    width: 200px;
-    height: 200px;
-    border-width: 2px;
-    border-color: rgb(102, 102, 102);
-    border-style: dashed;
-    border-radius: 5px;
-  }
+	.dropzone{
+		margin: auto;
+		margin-bottom: 36px;
+		padding: 20px;
+		width: 200px;
+		height: 200px;
+		border-width: 2px;
+		border-color: rgb(102, 102, 102);
+		border-style: dashed;
+		border-radius: 5px;
+	}
 }
 
 /*EventsCreation.jsx*/
