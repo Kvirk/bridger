@@ -355,7 +355,7 @@ class App extends Component {
 		if (this.state.type === "login") {
 			return (
 				<div className="container-non-responsive">
-					<NavBar ref={(el) => { this.messagesTop = el; }} urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<ReactCSSTransitionGroup
 							className="welcome-span"
