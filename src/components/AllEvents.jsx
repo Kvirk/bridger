@@ -3,6 +3,8 @@ import Slider from 'react-slick';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 import { Button } from 'react-toolbox/lib/button';
 import Dotdotdot from 'react-dotdotdot'
+import moment from 'moment';
+moment().format();
 
 class AllEvents extends Component {
 
@@ -14,7 +16,7 @@ class AllEvents extends Component {
 			// autoplaySpeed: 5000,
 			// pauseOnHover: true,
 		};
-		window.innerWidth < 900 ? settings.slidesToShow = 1 : settings.slidesToShow = 3;
+		window.innerWidth < 600 ? settings.slidesToShow = 1 : settings.slidesToShow = 3;
 
 		return (
 			<div className="carousel">
@@ -27,7 +29,6 @@ class AllEvents extends Component {
 									<CardTitle
 										avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
 										title={dat.creator_name}
-										// subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
 									/>
 									<CardMedia className="cardImage"
 										aspectRatio="square"
@@ -35,7 +36,7 @@ class AllEvents extends Component {
 									/>
 									<CardTitle
 										title={dat.name}
-										subtitle={new Date(dat.start_time).toString().split(' ').slice(0, 5).join(' ')}
+										subtitle={moment(dat.start_time).format('MMMM Do, h:mm a')}
 									/>
 									<CardText>
 										<Dotdotdot clamp={2}>{dat.venue}</Dotdotdot>

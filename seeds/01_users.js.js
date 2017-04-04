@@ -395,7 +395,7 @@ exports.seed = function(knex, Promise) {
           last_name: 'Wozniak',
           email_address: 's.wozniak@sandisk.com',
           headline: 'Fellow at Apple',
-          location: 'San Francisco, Bay Arearr',
+          location: 'San Francisco, Bay Area',
           industry: 'Computer Software',
           current_share: '',
           num_connections: 500,

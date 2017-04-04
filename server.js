@@ -123,6 +123,10 @@ io.on('connection', function(client) {
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
+                      'users.summary',
+                      'users.positions',
+                      'users.position_company_name',
+                      'users.position_company_title',
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id2','users.id')
@@ -146,6 +150,10 @@ io.on('connection', function(client) {
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
+                      'users.summary',
+                      'users.positions',
+                      'users.position_company_name',
+                      'users.position_company_title',
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id1','users.id')
@@ -159,27 +167,60 @@ io.on('connection', function(client) {
         .orderBy('points', 'desc').limit(5)
         .then(function(result){
           if (result.length < 5) {
-            knex.select().table('event_users')
+            let ids = [];
+            for(let i = 0; i < result.length; i++){
+              if(result[i].user_id1 === id[0].id) {
+                ids.push(result[i].user_id2);
+              }
+              else {
+                ids.push(result[i].user_id1);
+              }
+            }
+            ids.push(id[0].id);
+            console.log(ids);
+            knex.select('event_users.event_id',
+                        'users.id',
+                        'users.linkedin_id',
+                        'users.first_name',
+                        'users.email_address',
+                        'users.last_name',
+                        'users.headline',
+                        'users.picture_url',
+                        'users.industry',
+                        'users.location',
+                        'users.public_profile_url',
+                        'users.summary',
+                        'users.positions',
+                        'users.position_company_name',
+                        'users.position_company_title')
+                        .table('event_users')
             .join('users', function(){
               this.on('user_id', 'users.id')
             })
             .join('events', function(){
               this.on('events.id', data.event)
             })
-            .where('event_users.event_id', data.event)
-            .andWhere('users.id', '<>', id[0].id)
+            .whereNotIn('users.id', ids)
+            .andWhere('event_users.event_id', data.event)
             .limit(5 - result.length)
-            .then(function(result){
+            .then(function(result2){
+              let resultUser = result2;
+              for(let i = 0; i < resultUser.length; i++){
+                resultUser[i].user_id1 = id[0].id;
+                resultUser[i].user_id2 = resultUser[i].id;
+              }
+              console.log(resultUser)
               knex.select().table('events').where('id', data.event)
               .then(function(eventResult){
                 let send = {
                   event: eventResult[0],
-                  users: result
+                  users: resultUser.concat(result)
                 }
               client.emit('responseGetEvent', send);
               })
             })
           } else {
+            console.log(result)
             knex.select().table('events').where('id', data.event)
             .then(function(event){
               let send = {
@@ -193,6 +234,13 @@ io.on('connection', function(client) {
       })
   });
 
+  client.on('reject', function(data) {
+    let response = data;
+    response.message.push("User doesn't want to talk to you!");
+    let receiverID = currentUsers[data.linkedin_id];
+    io.sockets.connected[receiverID].emit('responseMessage', response);
+  });
+
   client.on('message', function(data) {
     let response = data;
     let id;
@@ -200,6 +248,7 @@ io.on('connection', function(client) {
     if(data.id === data.user_id1){
       id = data.user_id2;
     }
+    console.log(data)
     let receiverID = currentUsers[data.linkedin_id];
     if(!receiverID){
       response.message.push("User isn't online. Get a life!")
@@ -218,6 +267,10 @@ io.on('connection', function(client) {
                     'users.industry',
                     'users.location',
                     'users.public_profile_url',
+                    'users.summary',
+                    'users.positions',
+                    'users.position_company_name',
+                    'users.position_company_title',
                     'points.points').from('points')
       .join('users', function(){
         this.on('points.user_id2','users.id')
@@ -242,6 +295,10 @@ io.on('connection', function(client) {
                       'users.industry',
                       'users.location',
                       'users.public_profile_url',
+                      'users.summary',
+                      'users.positions',
+                      'users.position_company_name',
+                      'users.position_company_title',
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id1','users.id')
@@ -255,9 +312,38 @@ io.on('connection', function(client) {
       })
       .then(function(result){
         let dataSend = result[0];
-        dataSend['message'] = data.message;
-        io.sockets.connected[receiverID].emit('OMGmessage', dataSend);
-        client.emit('responseMessage', response)
+        if (!dataSend){
+          knex.select('users.id',
+                    'users.linkedin_id',
+                    'users.first_name',
+                    'users.email_address',
+                    'users.last_name',
+                    'users.headline',
+                    'users.picture_url',
+                    'users.industry',
+                    'users.location',
+                    'users.public_profile_url',
+                    'users.summary',
+                    'users.positions',
+                    'users.position_company_name',
+                    'users.position_company_title')
+          .from('users').where('users.id', id)
+          .then(function(result){
+            dataSend = result[0]
+            dataSend.event_id = data.event_id;
+            dataSend.user_id1 = data.user_id1;
+            dataSend.user_id2 = data.user_id2;
+
+            dataSend['message'] = data.message;
+            io.sockets.connected[receiverID].emit('OMGmessage', dataSend);
+            client.emit('responseMessage', response)
+          });
+
+        } else {
+          dataSend['message'] = data.message;
+          io.sockets.connected[receiverID].emit('OMGmessage', dataSend);
+          client.emit('responseMessage', response)
+        }
       })
 
 

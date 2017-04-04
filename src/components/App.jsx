@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import NavBar from './NavBar.jsx';
 import LinkedinLogin from './LinkedInLogIn.jsx';
 import cookie from 'react-cookie';
@@ -18,6 +19,8 @@ import Event from './Event.jsx';
 import Footer from './Footer.jsx';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import {Tab, Tabs} from 'react-toolbox';
+import AlertContainer from 'react-alert';
+import { Button } from 'react-toolbox/lib/button';
 
 let socket = io.connect();
 
@@ -54,16 +57,29 @@ class App extends Component {
 		this.eventsCreation = this.eventsCreation.bind(this);
 		this.handleForm = this.handleForm.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
+		this.showAlert = this.showAlert.bind(this);
+		this.join = this.join.bind(this);
+		this.reject = this.reject.bind(this);
+		this.scrollToBottom = this.scrollToBottom.bind(this);
 
-		this.state = {type,
+		this.alertOptions = {
+      offset: 14,
+      position: 'top right',
+      theme: 'light',
+      time: 10000,
+      transition: 'scale'
+    };
+
+
+		this.state = {
+				type,
 				userId: cookie.load('userId'),
 				name: cookie.load('name'),
 				picture_url: cookie.load('picture_url'),
 				data,
 				index: 1
-			}
 		}
-
+	}
 
 	componentDidMount() {
 		const app = this;
@@ -108,16 +124,25 @@ class App extends Component {
 		});
 
 		socket.on('responseMessage', function(data){
+			app.scrollToBottom();
 			app.setState({
 				data
 			})
 		});
 
 		socket.on('OMGmessage', function(data){
-			app.setState({
-				type: 'userProfile',
-				data: data
-			});
+			app.scrollToBottom();
+			if(app.state.type === 'userProfile'){
+				app.setState({
+				 	type: 'userProfile',
+				 	data: data
+				 });
+			} else {
+				app.showAlert(data.first_name);
+				app.setState({
+				 	alert: data
+				 });
+			}
 		});
 
 		socket.on('elasticsearch', function(message) {
@@ -132,7 +157,35 @@ class App extends Component {
 	componentWillUnmount () {
     this.loadInterval && clearInterval(this.loadInterval);
     this.loadInterval = false;
-}
+	}
+
+	showAlert(name){
+    msg.show(`${name} sent you a message`, {
+	      time: 10000,
+	      type: 'success',
+	      icon: <main className='note'>
+	      				<div className='button'>
+	      					<Button className='accept' onClick={this.join}>Join</Button>
+	      				</div>
+	      				<div className='button'>
+	      					<Button className='reject' onClick={this.reject}>Reject</Button>
+	      				</div>
+	      			</main>
+	    });
+	}
+
+	join(){
+		msg.removeAll();
+		this.setState({
+		 	type: 'userProfile',
+		 	data: this.state.alert
+		});
+	}
+
+	reject(){
+		msg.removeAll();
+		socket.emit('reject', this.state.alert)
+	}
 
 	callbackFunction() {
 		let app = this;
@@ -260,6 +313,11 @@ class App extends Component {
 		});
 	}
 
+	scrollToBottom() {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({behavior: "smooth"});
+	}
+
 	onLogout() {
 		let data = {allEvent: [{ id: 2,
 			name: "Techvibes Techfest",
@@ -325,7 +383,7 @@ class App extends Component {
 							<h4 className="featurette-heading whatIsIt">Get a list of matches, based on skills, professions, and more</h4>
 							<SeedPeople callbackFunction={this.callbackFunction} />
 						</section>
-						<Footer />
+						<Footer scrollUp={this.scrollUp} />
 				</div>
 		)}
 
@@ -352,6 +410,7 @@ class App extends Component {
 								)}
 							</ReactCSSTransitionGroup>
 						</section>
+						<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 						<Footer />
 				</div>
 			)
@@ -363,6 +422,7 @@ class App extends Component {
 					<section className="top-section row">
 						<EventsCreation  handleForm={this.handleForm} backToMain={this.backToMain} />
 					</section>
+					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 					<Footer />
 				</div>
 			)
@@ -371,9 +431,17 @@ class App extends Component {
 			return (
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
+					<ReactCSSTransitionGroup
+								transitionName="example"
+								transitionEnterTimeout={1000}
+								transitionLeaveTimeout={1000}
+								transitionAppearTimeout={1000}
+								transitionAppear={true}>
 					<section className="top-section row">
-						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} data={this.state.data} onLogout={this.onLogout} />
+						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
+					</ReactCSSTransitionGroup>
+					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
 					<Footer />
 				</div>
 			)
@@ -383,9 +451,17 @@ class App extends Component {
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<section className="top-section row">
+						<ReactCSSTransitionGroup
+								transitionName="example"
+								transitionEnterTimeout={1000}
+								transitionLeaveTimeout={1000}
+								transitionAppearTimeout={1000}
+								transitionAppear={true}>
 						<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
+						</ReactCSSTransitionGroup>
 					</section>
-					<Footer />
+					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
+					<Footer ref={(el) => { this.messagesEnd = el; }} />
 				</div>
 			)
 		}

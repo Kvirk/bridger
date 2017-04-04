@@ -2,15 +2,16 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css);
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
 @import 'welcome';
 @import 'navbar';
 @import 'allevents';
 @import 'alleventsloggedin';
-@import 'events';
+@import 'event';
 @import 'eventscreation';
 @import 'eventsprofile';
-@import 'userprofile';
+@import 'userProfile';
 @import 'loading';
 @import 'footer';
 
@@ -26,12 +27,12 @@ html, body {
 
 /*Tabs*/
 .tabs {
-	padding-top: 81px;
+	padding-top: 64px;
 }
 /*Tabs*/
 
 footer {
-		margin: 50px 0;
+	margin: 50px 0;
 }
 
 .welcome-span {
@@ -55,17 +56,29 @@ footer {
 	transition: opacity 3s ease-in;
 }
 
-.hack {
-	display:none;
+.note{
+	margin: 17px 0px 0px 0px;
 }
 
-.dropzone{
-	margin: auto;
-	padding: 20px;
-	width: 200px;
-		height: 200px;
-		border-width: 2px;
-		border-color: rgb(102, 102, 102);
-		border-style: dashed;
-		border-radius: 5px;
+.message{
+	margin-left: 50px;
+}
+
+.icon {
+	position: relative;
+	.button {
+		position: absolute;
+	}
+	.accept{
+		background: green !important;
+		height: 30px;
+		bottom: 40px;
+		left: -5px;
+	}
+	.reject{
+		background: tomato !important;
+		height: 30px;
+		bottom: 2px;
+		left: -5px;
+	}
 }
