@@ -121,6 +121,7 @@ io.on('connection', function(client) {
                       'users.positions',
                       'users.position_company_name',
                       'users.position_company_title',
+                      'users.num_connections',
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id2','users.id')
@@ -148,6 +149,7 @@ io.on('connection', function(client) {
                       'users.positions',
                       'users.position_company_name',
                       'users.position_company_title',
+                      'users.num_connections',
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id1','users.id')
@@ -186,7 +188,8 @@ io.on('connection', function(client) {
                         'users.summary',
                         'users.positions',
                         'users.position_company_name',
-                        'users.position_company_title')
+                        'users.position_company_title',
+                        'users.num_connections')
                         .table('event_users')
             .join('users', function(){
               this.on('user_id', 'users.id')
@@ -265,6 +268,7 @@ io.on('connection', function(client) {
                     'users.positions',
                     'users.position_company_name',
                     'users.position_company_title',
+                    'users.num_connections',
                     'points.points').from('points')
       .join('users', function(){
         this.on('points.user_id2','users.id')
@@ -293,6 +297,7 @@ io.on('connection', function(client) {
                       'users.positions',
                       'users.position_company_name',
                       'users.position_company_title',
+                      'users.num_connections',
                       'points.points').from('points')
         .join('users', function(){
           this.on('points.user_id1','users.id')
@@ -320,7 +325,8 @@ io.on('connection', function(client) {
                     'users.summary',
                     'users.positions',
                     'users.position_company_name',
-                    'users.position_company_title')
+                    'users.position_company_title',
+                    'users.num_connections')
           .from('users').where('users.id', id)
           .then(function(result){
             dataSend = result[0]

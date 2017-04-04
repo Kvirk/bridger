@@ -22,7 +22,9 @@ class EventProfile extends Component {
 			// pauseOnHover: true,
 		};
 
-		if (window.innerWidth < 600) {
+		if (window.innerWidth < 500) {
+			settings.slidesToShow = 1;
+		} else if (window.innerWidth < 600) {
 			settings.slidesToShow = 2;
 		} else if (window.innerWidth > 600 && window.innerWidth < 900) {
 			settings.slidesToShow = 3;
@@ -74,31 +76,31 @@ class EventProfile extends Component {
 		        </div>
 						<div className="buttonsDiv">
 	            <CardActions>
-								<Button className="leaveButton" label='back' onClick={this.props.backToMain} />
+								<Button className="leaveButton" label='back' icon='arrow_back' onClick={this.props.backToMain} />
 								<Button className="leaveButton" onClick={this.props.leaveEvent.bind(null, this.props.data.event.id)} label="Leave Event" />
 	            </CardActions>
 	          </div>
 					</Card>
 					<h4 className="featurette-heading whatIsIt">Top 5 Matches:</h4>
-					<div className="carousel">
+					<div className="carouselProfile">
 						<Slider {...settings}>
 							{this.props.data.users.map((dat, i) => {
 								return (
 									<div key={i}>
-										<Card className="carouselCardSeed">
+										<Card className="carouselCardProfile">
 											<CardMedia className="cardImage"
 												aspectRatio="square"
 												image= { dat.picture_url ? dat.picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759" }
 											/>
-											<CardTitle
+											<CardTitle className="cardUserTitle"
 												title={dat.first_name + " " + dat.last_name}
 												subtitle={dat.location}
 											/>
-											<CardText>
+											<CardText className="cardHeadline">
 												{dat.headline}
 											</CardText>
 											<CardActions>
-												<Button label="Connect" className="connectButton" onClick={this.props.seeProfile.bind(null, dat)} primary raised />
+												<Button label="More Info" icon="person" className="connectButton" onClick={this.props.seeProfile.bind(null, dat)} primary raised />
 											</CardActions>
 										</Card>
 									</div>
