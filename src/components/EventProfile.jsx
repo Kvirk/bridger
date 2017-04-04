@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
+import AllPeople from './AllPeople.jsx';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 import { Button } from 'react-toolbox/lib/button';
 import Dotdotdot from 'react-dotdotdot'
@@ -108,6 +109,7 @@ class EventProfile extends Component {
 							})}
 						</Slider>
 					</div>
+          <AllPeople data={this.props.data} seeProfile={this.props.seeProfile}/>
 				</div>
 			</div>
 		)
