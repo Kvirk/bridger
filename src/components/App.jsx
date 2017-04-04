@@ -60,7 +60,6 @@ class App extends Component {
 		this.showAlert = this.showAlert.bind(this);
 		this.join = this.join.bind(this);
 		this.reject = this.reject.bind(this);
-		this.scrollToBottom = this.scrollToBottom.bind(this);
 
 		this.alertOptions = {
       offset: 14,
@@ -85,8 +84,7 @@ class App extends Component {
 		const app = this;
 		socket.on('connect', function(data) {});
 		socket.on('responseUserLogin', function(data) {
-			window.scrollTo(0, 0);
-			console.log("Matching up people...");
+			document.body.scrollTop = 0;
 			socket.emit('indexingData');
 			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
@@ -98,7 +96,8 @@ class App extends Component {
 		});
 
 		socket.on('eventAdded', function(data) {
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
+			document.body.scrollTop = 0;
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -106,7 +105,7 @@ class App extends Component {
 		});
 
 		socket.on('eventLeft', function(data) {
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
 			let data2 = {
 				userId: cookie.load('userId')
 			}
@@ -114,7 +113,7 @@ class App extends Component {
 		});
 
 		socket.on('responseGetEvent', function(data){
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
 			app.setState({
 			type: 'event',
 			data: data
@@ -122,21 +121,19 @@ class App extends Component {
 		});
 
 		socket.on('responseGetData', function(data){
-			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
 			app.setState({
 			data: data
 			})
 		});
 
 		socket.on('responseMessage', function(data){
-			app.scrollToBottom();
 			app.setState({
 				data
 			})
 		});
 
 		socket.on('OMGmessage', function(data){
-			app.scrollToBottom();
 			if(app.state.type === 'userProfile'){
 				app.setState({
 				 	type: 'userProfile',
@@ -151,11 +148,9 @@ class App extends Component {
 		});
 
 		socket.on('elasticsearch', function(message) {
-			console.log(message);
 		});
 
 		socket.on('indexingData', function (message) {
-			console.log(message);
 		});
 	}
 
@@ -199,7 +194,6 @@ class App extends Component {
 			let data2 = {
 				userId: data.id,
 			}
-			console.log('inside the login')
 			socket.emit('user', data)
 			socket.emit('userLogin', data2)
 			cookie.save('userId', data.id, { path: '/' });
@@ -283,7 +277,6 @@ class App extends Component {
 		}
 		socket.emit('createEvent', contentToServer)
 		socket.emit('userLogin', data2)
-		console.log("This is the content", formInput)
 	}
 
 
@@ -315,12 +308,7 @@ class App extends Component {
 			type: 'userProfile',
 			data: data2
 		});
-		window.scrollTo(0, 0);
-	}
-
-	scrollToBottom() {
-    const node = ReactDOM.findDOMNode(this.messagesEnd);
-    node.scrollIntoView({behavior: "smooth"});
+		document.body.scrollTop = 0;
 	}
 
 	onLogout() {
@@ -345,7 +333,6 @@ class App extends Component {
 
 
 	goToEventProfile() {
-		console.log("State is about to change to testEvent");
 		this.setState({
 			type: 'event'
 		})
@@ -361,7 +348,7 @@ class App extends Component {
 		if (this.state.type === "login") {
 			return (
 				<div className="container-non-responsive">
-					<NavBar ref={(el) => { this.messagesTop = el; }} urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
+					<NavBar urlPath={this.state.type} callbackFunctionCreateEvent={this.callbackFunctionCreateEvent} callbackFunction={this.callbackFunction} />
 					<section className="top-section row">
 						<ReactCSSTransitionGroup
 							className="welcome-span"
@@ -466,7 +453,7 @@ class App extends Component {
 						</ReactCSSTransitionGroup>
 					</section>
 					<AlertContainer ref={(a) => global.msg = a} {...this.alertOptions} />
-					<Footer ref={(el) => { this.messagesEnd = el; }} />
+					<Footer/>
 				</div>
 			)
 		}

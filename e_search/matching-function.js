@@ -18,10 +18,19 @@ let handleError = (err) => {
   console.log(err);
 }
 
+callback = function(index, user_id1, user_id2, matchResults, result2){
+  if(!result2[0]){
+    knex('points').insert({
+      user_id1,
+      user_id2,
+      points: matchResults[index].score
+    })
+  }
+}
+
 const insertNewPair = (updateResults, matchResults, userId) => {
   let allPromises = [];
-  let matchResultsIndex = 0;
-  updateResults.forEach((result) => {
+  updateResults.forEach((result, matchResultsIndex) => {
     if(result.rowCount === 0) {
       let user_id1 = userId;
       let user_id2 = matchResults[matchResultsIndex].user_id2;
@@ -30,22 +39,14 @@ const insertNewPair = (updateResults, matchResults, userId) => {
         user_id1 = matchResults[matchResultsIndex].user_id2;
       }
       if (user_id1 != user_id2) {
+        let funInsert = callback.bind(null, matchResultsIndex, user_id1, user_id2, matchResults)
         allPromises.push(
           knex.from('points').where('user_id1', user_id1)
           .andWhere('user_id2', user_id1)
-          .then(function(result2){
-            if(!result2[0]){
-              knex('points').insert({
-                user_id1,
-                user_id2,
-                points: matchResults[matchResultsIndex].score
-              })
-            }
-          })
+          .then(funInsert)
         );
       }
     }
-    matchResultsIndex++;
   })
   if (allPromises.length >= 0) {
     return Promise.all(allPromises);
@@ -96,8 +97,8 @@ const findUserById = (userLinkedInId) => {
 
 const runMatching = (user) => {
   console.log("User is -->", user[0]);
-  let queryValue = user[0].headline;
-  return elasticSearch.invokeSearch(queryValue, ['summary', 'industry'])
+  let queryValue = user[0];
+  return elasticSearch.invokeSearch(queryValue)
 };
 
 // runMatching();

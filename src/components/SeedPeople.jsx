@@ -91,7 +91,7 @@ class SeedPeople extends Component {
 					</div>
 				</Slider>
 				<div className="signUpButton">
-	        <Button onClick={this.handleClick} label="Join Now" accent raised />
+	        <Button onClick={this.handleClick} label="Join Now" icon="person" accent raised />
 	      </div>
 			</div>
 		)
