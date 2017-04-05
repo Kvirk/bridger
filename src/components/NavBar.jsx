@@ -58,7 +58,7 @@ class NavBar extends Component {
 						<Drawer className="drawer" type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
 						  <List selectable ripple>
 								<ListItem caption='Host Event' leftIcon='add' onClick={this.handleCreateEvent} />
-							    <ListItem caption='Events' leftIcon='today' onClick={this.handleBackToMain} />
+							    <ListItem caption='See Events' leftIcon='today' onClick={this.handleBackToMain} />
 							    <ListItem caption='Log Out' leftIcon='power_settings_new' onClick={this.handleLogOut} />
 							  </List>
 							</Drawer>
@@ -72,7 +72,7 @@ class NavBar extends Component {
 						<div className="avatarDrawer"><Avatar onClick={this.handleToggle}><img src={this.props.picture}/></Avatar></div>
 						<Drawer className="drawer" type='right' active={this.state.active} onOverlayClick={this.handleToggle}>
 						  <List selectable ripple>
-						    <ListItem caption='Events' leftIcon='today' onClick={this.handleBackToMain} />
+						    <ListItem caption='See Events' leftIcon='today' onClick={this.handleBackToMain} />
 						    <ListItem caption='Log Out' leftIcon='power_settings_new' onClick={this.handleLogOut} />
 						  </List>
 						</Drawer>

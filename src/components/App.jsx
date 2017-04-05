@@ -75,7 +75,7 @@ class App extends Component {
 				name: cookie.load('name'),
 				picture_url: cookie.load('picture_url'),
 				data,
-				index: 1
+				index: 0
 		}
 	}
 
@@ -85,7 +85,7 @@ class App extends Component {
 		socket.on('responseUserLogin', function(data) {
 			document.body.scrollTop = 0;
 			socket.emit('indexingData');
-			socket.emit('elasticsearch', cookie.load('userId'));
+			// socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
 				type: 'events',
 				data: {
@@ -391,13 +391,13 @@ class App extends Component {
 								transitionAppear={true}>
 
 								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
-									<Tab label='All Events'></Tab>
 									<Tab label='Your Events'></Tab>
+									<Tab label='All Events'></Tab>
 								</Tabs>
 								{(this.state.index === 0) ? (
-									<AllEventsLoggedIn data={this.state.data} addEvent={this.addEvent} />
-								) : (
 									<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
+								) : (
+									<AllEventsLoggedIn data={this.state.data} addEvent={this.addEvent} />
 								)}
 							</ReactCSSTransitionGroup>
 						</section>
