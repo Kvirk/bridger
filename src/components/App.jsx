@@ -164,10 +164,10 @@ class App extends Component {
 	      type: 'success',
 	      icon: <main className='note'>
 	      				<div className='button'>
-	      					<Button className='accept' onClick={this.join}>Join</Button>
+	      					<Button className='accept' onClick={this.join}>Reply</Button>
 	      				</div>
 	      				<div className='button'>
-	      					<Button className='reject' onClick={this.reject}>Reject</Button>
+	      					<Button className='reject' onClick={this.reject}>Block</Button>
 	      				</div>
 	      			</main>
 	    });

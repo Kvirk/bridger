@@ -35,8 +35,7 @@ class AllPeople extends Component {
       settings.slidesToShow = 2;
     } else if (window.innerWidth > 600 && window.innerWidth < 900) {
       settings.slidesToShow = 3;
-    }
-    else {
+    } else {
       settings.slidesToShow = 5;
     }
 
