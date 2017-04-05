@@ -172,7 +172,6 @@ io.on('connection', function(client) {
               }
             }
             ids.push(id[0].id);
-            console.log(ids);
             knex.select('event_users.event_id',
                         'users.id',
                         'users.linkedin_id',
@@ -204,24 +203,24 @@ io.on('connection', function(client) {
                 resultUser[i].user_id1 = id[0].id;
                 resultUser[i].user_id2 = resultUser[i].id;
               }
-              console.log(resultUser)
               knex.select().table('events').where('id', data.event)
               .then(function(eventResult){
-                let send
+                let send;
                 if (result.length < 5) {
-                  let send = {
+                  send = {
                     event: eventResult[0],
                     users: resultUser.slice(0, 5 - result.length).concat(result),
                     allUsers: resultUser.slice(5 - result.length)
                   }
                 } else {
-                  let send = {
-                    event: event[0],
+                  send = {
+                    event: eventResult[0],
                     users: result,
                     allUsers: resultUser
                   }
                 }
               console.log(result.length)
+              console
               client.emit('responseGetEvent', send);
               })
             })
