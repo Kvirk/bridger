@@ -26,7 +26,7 @@ class AllEvents extends Component {
 						return (
 							<div key={i}>
 								<Card className="carouselCard">
-									<CardTitle
+									<CardTitle className="homeEventsCreator"
 										avatar={dat.creator_picture_url ? dat.creator_picture_url : "http://vignette2.wikia.nocookie.net/filthy-frank/images/c/ce/Question-mark-face.jpg/revision/latest?cb=20160909100759"}
 										title={dat.creator_name}
 									/>
@@ -34,7 +34,7 @@ class AllEvents extends Component {
 										aspectRatio="square"
 										image={dat.picture_url ? dat.picture_url: "https://placeimg.com/80/80/nature"}
 									/>
-									<CardTitle
+									<CardTitle className="homeEventsTitle"
 										title={dat.name}
 										subtitle={moment(dat.start_time).format('MMMM Do, h:mm a')}
 									/>

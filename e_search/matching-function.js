@@ -71,7 +71,7 @@ const updateUserPoints = (matchResults, userId) => {
     console.log(`\t ${++index} - ${hit._source.first_name} - ${hit._source.linkedin_id} \n Summary: ${hit._source.summary} \n Industry: ${hit._source.industry} \n Score: ${hit._score} \n`);
     if (user_id1 != user_id2) {
       allPromises.push(
-        knex.raw('UPDATE points SET points = points + ? WHERE user_id1=? AND user_id2=?', [hit._score, user_id1, user_id2])
+        knex.raw('UPDATE points SET points = ? WHERE user_id1=? AND user_id2=?', [hit._score, user_id1, user_id2])
       );
     }
   });

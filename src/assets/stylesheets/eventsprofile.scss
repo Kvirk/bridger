@@ -1,102 +1,135 @@
 /*EventsProfile.jsx*/
 
-.carouselProfile {
-	margin: 0 auto;
-	/*padding-top: 81px;*/
-	color: #484848;
-	padding-bottom: 10px;
-	max-width: 85%;
+.eventProfileContainer {
+	width: 100%;
+	padding-top: 64px;
 
-	@media (max-width: 900px) {
-		max-width: 100%;
-	}
+	.titleDiv {
+		display: flex;
+		justify-content: center;
+		height: 315px;
+		background: #007FFF;
+		color: white;
+    font-size: 51px;
+    font-weight: 200;
 
-	.slick-dots {
-		bottom: -65px;
-	}
+    .calendarIcon {
+    	padding-right: 22px;
+    	font-size: 36px;
+    }
 
-	.carouselCardProfile {
-		position: relative;
-		box-shadow: none;
-		border: 1px solid #e6e6e6;
-		height: 565px;
+		div {
+			margin: auto;
+			text-align: center;
 
-		@media (min-width: 2100px) {
-			height: 620px;
-		}
-
-		@media (max-width: 900px) {
-			height: 600px;
-		}
-
-		@media (max-width: 800px) {
-			height: 560px;
-		}
-
-		@media (max-width: 500px) {
-			height: 730px;
-		}
-
-		@media (max-width: 410px) {
-			height: 700px;
-		}
-
-		@media (max-width: 380px) {
-			height: 650px;
-		}
-
-		@media (max-width: 345px) {
-			height: 575px;
-		}
-
-		.cardUserTitle {
-
-			h5 {
-				font-size: 26px !important;
-				font-weight: bolder !important;
+			span {
+				font-weight: 300;
 			}
-
-			p {
-				font-size: 16px !important;
-			}
-		}
-
-		.connectButton {
-			position: absolute;
-			font-weight: 600;
-			background: #007FFF !important;
-			bottom: 10px;
-			right: 10px;
-		}
-
-		.cardHeadline {
-
-			p {
-				font-size: 18px;
-			}
-		}
-
-		button:focus {
-			outline: 0;
 		}
 	}
 
-	.slick-prev:before {
+	.eventTabs {
+		padding-bottom: 60px;
+	}
+
+	.buttonsDiv {
+		padding-top: 60px;
+
+		.leaveButton {
+			color: #007FFF !important;
+		}
+	}
+
+	.carouselProfile {
+		margin: 0 auto;
+		/*padding-top: 81px;*/
 		color: #484848;
+		padding-bottom: 10px;
+		max-width: 85%;
 
-		@media (max-width: 900px) {
+		@media (max-width: 1024px) {
+			max-width: 100%;
+		}
+
+		.slick-dots {
+			bottom: -65px;
+		}
+
+		.carouselCardProfile {
+			position: relative;
+			box-shadow: none;
+			border: 1px solid #e6e6e6;
+			height: 565px;
+
+			@media (min-width: 2100px) {
+				height: 620px;
+			}
+
+			@media (max-width: 900px) {
+				height: 600px;
+			}
+
+			@media (max-width: 800px) {
+				height: 560px;
+			}
+
+			@media (max-width: 500px) {
+				height: 730px;
+			}
+
+			@media (max-width: 410px) {
+				height: 700px;
+			}
+
+			@media (max-width: 380px) {
+				height: 650px;
+			}
+
+			@media (max-width: 345px) {
+				height: 575px;
+			}
+
+			.cardUserTitle {
+
+				h5 {
+					font-size: 26px !important;
+					font-weight: 400 !important;
+				}
+
+				p {
+					font-size: 16px !important;
+				}
+			}
+
+			.connectButton {
+				position: absolute;
+				background: #007FFF !important;
+				bottom: 10px;
+			}
+
+			.cardHeadline {
+
+				p {
+					font-size: 18px;
+				}
+			}
+
+			button:focus {
+				outline: 0;
+			}
+		}
+
+		.slick-prev:before {
+			color: #484848;
 			display: none;
 		}
-	}
 
-	.slick-next:before {
-		color: #484848;
-
-		@media (max-width: 900px) {
+		.slick-next:before {
+			color: #484848;
 			display: none;
 		}
 	}
 }
 
 
-/*EventsProfile.jsx*/
+	/*EventsProfile.jsx*/

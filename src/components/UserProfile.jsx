@@ -58,12 +58,12 @@ class UserProfile extends Component {
 							HEADLINE <div>{this.props.data.headline}</div>
 						</CardText>
 					)}
-					{this.props.data.headline && (
+					{this.props.data.industry && (
 						<CardText className="profileCardText">
 							INDUSTRY <div>{this.props.data.industry}</div>
 						</CardText>
 					)}
-					{this.props.data.headline && (
+					{this.props.data.summary && (
 						<CardText className="profileCardText">
 							SUMMARY <div>{this.props.data.summary}</div>
 						</CardText>

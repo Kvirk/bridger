@@ -75,7 +75,7 @@ class App extends Component {
 				name: cookie.load('name'),
 				picture_url: cookie.load('picture_url'),
 				data,
-				index: 1
+				index: 0
 		}
 	}
 
@@ -164,10 +164,10 @@ class App extends Component {
 	      type: 'success',
 	      icon: <main className='note'>
 	      				<div className='button'>
-	      					<Button className='accept' onClick={this.join}>Join</Button>
+	      					<Button className='accept' onClick={this.join}>Reply</Button>
 	      				</div>
 	      				<div className='button'>
-	      					<Button className='reject' onClick={this.reject}>Reject</Button>
+	      					<Button className='reject' onClick={this.reject}>Block</Button>
 	      				</div>
 	      			</main>
 	    });
@@ -391,13 +391,13 @@ class App extends Component {
 								transitionAppear={true}>
 
 								<Tabs className="tabs" index={this.state.index} onChange={this.handleTabChange} fixed>
-									<Tab label='All Events'></Tab>
 									<Tab label='Your Events'></Tab>
+									<Tab label='All Events'></Tab>
 								</Tabs>
 								{(this.state.index === 0) ? (
-									<AllEventsLoggedIn data={this.state.data} addEvent={this.addEvent} />
-								) : (
 									<Event name={this.state.name} eventsCreation={this.eventsCreation} eventPage={this.eventPage} addEvent={this.addEvent} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
+								) : (
+									<AllEventsLoggedIn data={this.state.data} addEvent={this.addEvent} />
 								)}
 							</ReactCSSTransitionGroup>
 						</section>
@@ -423,11 +423,11 @@ class App extends Component {
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<ReactCSSTransitionGroup
-								transitionName="example"
-								transitionEnterTimeout={1000}
-								transitionLeaveTimeout={1000}
-								transitionAppearTimeout={1000}
-								transitionAppear={true}>
+						transitionName="example"
+						transitionEnterTimeout={1000}
+						transitionLeaveTimeout={1000}
+						transitionAppearTimeout={1000}
+						transitionAppear={true}>
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
@@ -443,11 +443,11 @@ class App extends Component {
 						<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 						<section className="top-section row">
 							<ReactCSSTransitionGroup className="reactSpan"
-									transitionName="example"
-									transitionEnterTimeout={1000}
-									transitionLeaveTimeout={1000}
-									transitionAppearTimeout={1000}
-									transitionAppear={true}>
+								transitionName="example"
+								transitionEnterTimeout={1000}
+								transitionLeaveTimeout={1000}
+								transitionAppearTimeout={1000}
+								transitionAppear={true}>
 							<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 							</ReactCSSTransitionGroup>
 						</section>

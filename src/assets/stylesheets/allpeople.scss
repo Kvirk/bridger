@@ -1,0 +1,69 @@
+/*AllPeople.jsx*/
+
+.allPeopleContainer {
+  width: 85%;
+  margin: auto;
+
+  .searchContainer {
+    margin-top: -35px;
+
+    .searchInput {
+      margin: auto !important;
+      width: 25%;
+      padding-bottom: 3%;
+
+      @media (max-width: 1024px) {
+        width: 50%;
+      }
+
+      @media (max-width: 400px) {
+        width: 75%;
+      }
+
+      label {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .allPeopleCardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    .allPeopleCard {
+      position: relative;
+      width: 300px;
+      height: 97%;
+      margin: 0 10px;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      z-index: 0;
+
+      &:hover {
+        z-index:1000;
+        box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+        -webkit-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+        -moz-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+      }
+
+      .connectButton {
+        position: absolute;
+        color: #007FFF !important;
+        bottom: 0;
+        right: 0;
+        padding: 0;
+
+        &:hover {
+          background: none;
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+/*AllPeople.jsx*/

@@ -39,13 +39,21 @@
 			height: 900px;
 		}
 
-		.cardImage {
-/*      width: 800px;
-			height: 600px;*/
+		.homeEventsCreator {
+
+			h5 {
+				font-weight: 400 !important;
+			}
+		}
+
+		.homeEventsTitle {
+
+				h5 {
+				font-weight: 500 !important;
+			}
 		}
 
 		.joinButton {
-			font-weight: 600;
 			color: #007FFF;
 		}
 
@@ -102,7 +110,6 @@
 	}
 
 	.joinButton {
-		font-weight: 600;
 		color: #007FFF;
 	}
 
