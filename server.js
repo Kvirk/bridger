@@ -162,7 +162,6 @@ io.on('connection', function(client) {
         })
         .orderBy('points', 'desc').limit(5)
         .then(function(result){
-          if (result.length < 5) {
             let ids = [];
             for(let i = 0; i < result.length; i++){
               if(result[i].user_id1 === id[0].id) {
@@ -208,26 +207,24 @@ io.on('connection', function(client) {
               console.log(resultUser)
               knex.select().table('events').where('id', data.event)
               .then(function(eventResult){
-                let send = {
-                  event: eventResult[0],
-                  users: resultUser.slice(0, 5 - result.length).concat(result),
-                  allUsers: resultUser.slice(5 - result.length)
+                let send
+                if (result.length < 5) {
+                  let send = {
+                    event: eventResult[0],
+                    users: resultUser.slice(0, 5 - result.length).concat(result),
+                    allUsers: resultUser.slice(5 - result.length)
+                  }
+                } else {
+                  let send = {
+                    event: event[0],
+                    users: result,
+                    allUsers: resultUser
+                  }
                 }
               console.log(result.length)
               client.emit('responseGetEvent', send);
               })
             })
-          } else {
-            console.log(result)
-            knex.select().table('events').where('id', data.event)
-            .then(function(event){
-              let send = {
-                event: event[0],
-                users: result
-              }
-              client.emit('responseGetEvent', send);
-            })
-          }
         })
       })
   });
