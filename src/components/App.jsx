@@ -85,7 +85,7 @@ class App extends Component {
 		socket.on('responseUserLogin', function(data) {
 			document.body.scrollTop = 0;
 			socket.emit('indexingData');
-			// socket.emit('elasticsearch', cookie.load('userId'));
+			socket.emit('elasticsearch', cookie.load('userId'));
 			app.setState({
 				type: 'events',
 				data: {
