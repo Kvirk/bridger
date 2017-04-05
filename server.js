@@ -211,7 +211,7 @@ io.on('connection', function(client) {
                 let send = {
                   event: eventResult[0],
                   users: resultUser.slice(0, 5 - result.length).concat(result),
-                  allUsers: resultUser.slice(0, 5 - result.length).concat(result) //resultUser.slice(5 - result.length)
+                  allUsers: resultUser.slice(5 - result.length)
                 }
               console.log(result.length)
               client.emit('responseGetEvent', send);
