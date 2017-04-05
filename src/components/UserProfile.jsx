@@ -58,6 +58,11 @@ class UserProfile extends Component {
 							HEADLINE <div>{this.props.data.headline}</div>
 						</CardText>
 					)}
+					{this.props.data.positions !== 0 && (
+						<CardText className="profileCardText">
+							CURRENTLY <div>{this.props.data.position_company_name[0]} - {this.props.data.position_company_title}</div>
+						</CardText>
+					)}
 					{this.props.data.industry && (
 						<CardText className="profileCardText">
 							INDUSTRY <div>{this.props.data.industry}</div>
@@ -66,11 +71,6 @@ class UserProfile extends Component {
 					{this.props.data.summary && (
 						<CardText className="profileCardText">
 							SUMMARY <div>{this.props.data.summary}</div>
-						</CardText>
-					)}
-					{this.props.data.positions !== 0 && (
-						<CardText className="profileCardText">
-							CURRENTLY <div>{this.props.data.position_company_name[0]} - {this.props.data.position_company_title}</div>
 						</CardText>
 					)}
 					<CardActions>
