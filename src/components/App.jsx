@@ -423,11 +423,11 @@ class App extends Component {
 				<div className="container-non-responsive">
 					<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 					<ReactCSSTransitionGroup
-								transitionName="example"
-								transitionEnterTimeout={1000}
-								transitionLeaveTimeout={1000}
-								transitionAppearTimeout={1000}
-								transitionAppear={true}>
+						transitionName="example"
+						transitionEnterTimeout={1000}
+						transitionLeaveTimeout={1000}
+						transitionAppearTimeout={1000}
+						transitionAppear={true}>
 					<section className="top-section row">
 						<EventProfile name={this.state.name} seeProfile={this.seeProfile} backToMain={this.backToMain} leaveEvent={this.leaveEvent} data={this.state.data} onLogout={this.onLogout} />
 					</section>
@@ -443,11 +443,11 @@ class App extends Component {
 						<NavBar urlPath={this.state.type} name={this.state.name} picture={this.state.picture_url} backToMain={this.backToMain} onLogout={this.onLogout} />
 						<section className="top-section row">
 							<ReactCSSTransitionGroup className="reactSpan"
-									transitionName="example"
-									transitionEnterTimeout={1000}
-									transitionLeaveTimeout={1000}
-									transitionAppearTimeout={1000}
-									transitionAppear={true}>
+								transitionName="example"
+								transitionEnterTimeout={1000}
+								transitionLeaveTimeout={1000}
+								transitionAppearTimeout={1000}
+								transitionAppear={true}>
 							<UserProfile name={this.state.name} picture={this.state.picture_url} sendMessage={this.sendMessage} backToEP={this.eventPage} data={this.state.data} onLogout={this.onLogout}/>
 							</ReactCSSTransitionGroup>
 						</section>
