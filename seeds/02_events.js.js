@@ -16,6 +16,16 @@ exports.seed = function(knex, Promise) {
           end_time: new Date(2017, 4, 11, 5, 00)
         }),
         knex('events').insert({
+          name: 'Lighthouse Labs Demo Day',
+          description: 'Come enjoy the final projects! Everybody welcome, employers and families. Our latest graduates are showing off their final project for Demo Day! Watch what you can create after just 8 weeks with Lighthouse Labs Web or iOS Development Bootcamps.',
+          venue: 'Lighthouse Labs, 300-128 W. Hastings, Vancouver BC V6B 1G8',
+          picture_url: 'http://www.lighthouselabs.ca/static-assets/lighthouse-labs.png',
+          creator_name: 'David VanDusen',
+          creator_picture_url: 'https://lighthouselabs.ca/uploads/team_member/avatar/3/medium_davidvandusen_2x.jpg',
+          start_time: new Date(2017, 3, 7, 1, 30),
+          end_time: new Date(2017, 3, 7, 4, 00)
+        }),
+        knex('events').insert({
           name: 'The HTML500',
           description: 'The HTML500 is a one-day event where 50 of Canada\'s top tech companies come together to teach you and 499 other people how to code - for free! By the end of the day, you will have connected with over 100 developers and created your very own landing page using popular programming languages.',
           venue: 'Rocky Mountaineer Station, 1755 Cottrell St, Vancouver, BC V6A 2L8',
@@ -64,16 +74,6 @@ exports.seed = function(knex, Promise) {
           creator_picture_url: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F22841046%2F9825048257%2F5%2Flogo.png?h=160&w=160&s=91141160541baa8c8ad23dfdf1954312',
           start_time: new Date(2017, 7, 05, 00, 30),
           end_time: new Date(2017, 7, 05, 4, 30)
-        }),
-        knex('events').insert({
-          name: 'BCIT Real Estate Association: Annual Industry Night',
-          description: 'The BCIT Real Estate Association is pleased to invite you to our much anticipated Annual Industry Night! A night that allows past and present BCIT Real Estate students to meet and connect with professionals in the industry.',
-          venue: 'Marriott Pinnacle Downtown Hotel, 1128 West Hastings Street, Vancouver, BC V6E 4J6',
-          picture_url: 'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29963089%2F205875445345%2F1%2Foriginal.jpg?w=800&rect=0%2C68%2C1056%2C528&s=d81a7cfc8274ea44eb9110ec9fefe153',
-          creator_name: 'BCIT Real Estate Association',
-          creator_picture_url: 'https://pbs.twimg.com/profile_images/1116132883/Twitter4_400x400.jpg',
-          start_time: new Date(2017, 3, 27, 1, 00),
-          end_time: new Date(2017, 3, 27, 4, 00)
         })
       ]);
     });
