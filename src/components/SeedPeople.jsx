@@ -20,9 +20,9 @@ class SeedPeople extends Component {
 		console.log('Rendering <SeedPeople />');
 		var settings = {
 			dots: true,
-			// autoplay: true,
-			// autoplaySpeed: 5000,
-			// pauseOnHover: true,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			pauseOnHover: true,
 		};
 		window.innerWidth < 600 ? settings.slidesToShow = 2 : settings.slidesToShow = 4;
 
@@ -86,6 +86,66 @@ class SeedPeople extends Component {
 							/>
 							<CardText>
 								Full Stack Web Developer seeking opportunities
+							</CardText>
+						</Card>
+					</div>
+					<div>
+						<Card className="carouselCardSeed">
+							<CardMedia className="cardImage"
+								aspectRatio="square"
+								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAA3JAAAAJGNkMDFkNTliLWM1ZDgtNGY3MS05ODRlLTZmYTJkMzM3MTk1Ng.jpg"
+							/>
+							<CardTitle
+								title="Ziyu Steven Huang"
+								subtitle="San Francisco, California"
+							/>
+							<CardText>
+								Assistant Store Manager at AT&T
+							</CardText>
+						</Card>
+					</div>
+					<div>
+						<Card className="carouselCardSeed">
+							<CardMedia className="cardImage"
+								aspectRatio="square"
+								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/094/161/10b63b9.jpg"
+							/>
+							<CardTitle
+								title="Boris Chea"
+								subtitle="Vancouver, Canada Area"
+							/>
+							<CardText>
+								Store Manager at Structube
+							</CardText>
+						</Card>
+					</div>
+					<div>
+						<Card className="carouselCardSeed">
+							<CardMedia className="cardImage"
+								aspectRatio="square"
+								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAATwAAAAJDVkNjBlODY5LTA3OTMtNDBlYi04ZTQ4LWQ4MzU3ODIzN2UzNw.jpg"
+							/>
+							<CardTitle
+								title="Rachel C. Lo"
+								subtitle="Hong Kong"
+							/>
+							<CardText>
+								Client Service Executive at Lily Jet (Hong Kong)
+							</CardText>
+						</Card>
+					</div>
+					<div>
+						<Card className="carouselCardSeed">
+							<CardMedia className="cardImage"
+								aspectRatio="square"
+								image="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAkTAAAAJDgxZTJjYzI0LWM5ZWYtNGM3NC05MTY5LTY4MDg1MDcxZWRiMw.jpg"
+							/>
+							<CardTitle
+								title="Hank He"
+								subtitle="Canada"
+							/>
+							<CardText>
+								Financial Analyst
 							</CardText>
 						</Card>
 					</div>

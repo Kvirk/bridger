@@ -12,9 +12,9 @@ class AllEvents extends Component {
 		console.log('Rendering <AllEvent />');
 		var settings = {
 			dots: true,
-			// autoplay: true,
-			// autoplaySpeed: 5000,
-			// pauseOnHover: true,
+			autoplay: true,
+			autoplaySpeed: 4000,
+			pauseOnHover: true,
 		};
 		window.innerWidth < 600 ? settings.slidesToShow = 1 : settings.slidesToShow = 3;
 
