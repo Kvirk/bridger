@@ -63,7 +63,7 @@ class UserProfile extends Component {
 							CURRENTLY <div>{this.props.data.position_company_name[0]} - {this.props.data.position_company_title}</div>
 						</CardText>
 					)}
-					{this.props.data.industry && (
+					{this.props.data.industry !== 'NULL' && (
 						<CardText className="profileCardText">
 							INDUSTRY <div>{this.props.data.industry}</div>
 						</CardText>
