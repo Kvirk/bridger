@@ -19,7 +19,7 @@ class AllPeople extends Component {
 
 		let check = new RegExp(this.state.search, 'i');
 		let result = this.props.data.allUsers.map((dat, i) => {
-				if (check.test(dat.first_name + dat.last_name)
+				if (check.test(dat.first_name + ' ' + dat.last_name)
 				|| check.test(dat.headline) || check.test(dat.location) || check.test(dat.industry)
 				|| check.test(dat.position_company_name) || check.test(dat.position_company_title)
 				|| check.test(dat.summary)) {
