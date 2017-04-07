@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+require('dotenv').config()
+
 
 class LinkedinLogin extends Component {
 	constructor(props) {
@@ -20,7 +22,7 @@ class LinkedinLogin extends Component {
 			js = d.createElement(s);
 			js.id = id;
 			js.src = '//platform.linkedin.com/in.js';
-			js.text = 'api_key: 86ihm2bra9vjg3';
+			js.text = `api_key: ${process.env.LINKEDIN_API}`;
 			ljs.parentNode.insertBefore(js, ljs);
 		}(document, 'script', 'linkedin-sdk'));
 	}
