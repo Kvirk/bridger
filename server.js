@@ -426,7 +426,7 @@ io.on('connection', function(client) {
     let industry = !data.industry ? 'NULL' : data.industry;
     let current_share = !data.currentShare ? 'NULL' : data.currentShare.content.description;
     let summary = !data.summary ? 'NULL' : data.summary;
-    let picture_url = !data.pictureUrls.values ? '' : data.pictureUrls.values[0];
+    let picture_url = `https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png`;
     position_company_name = position_company_name.length === 0  ? 'NULL' : position_company_name;
     position_company_industry = position_company_industry.length === 0  ? 'NULL' : position_company_industry;
     position_company_type = position_company_type.length === 0  ? 'NULL' : position_company_type;
