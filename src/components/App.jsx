@@ -189,7 +189,7 @@ class App extends Component {
 	callbackFunction() {
 		let app = this;
 		function onSuccess(data) {
-			let picture_url = !data.pictureUrls.values ? `https://pbs.twimg.com/profile_images/594731918647816193/dxinx-l6.png` : data.pictureUrls.values[0];
+			let picture_url = `https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png`;
 			let data2 = {
 				userId: data.id,
 			}
